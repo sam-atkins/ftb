@@ -21,7 +21,12 @@ type Client struct {
 }
 
 // TODO(sam) rename to APILeagueResponse, how to reuse?
-type APIResponse struct {
+// type APIResponse struct {
+// 	StatusCode int
+// 	Body       LeagueResponse
+// }
+
+type APILeagueResponse struct {
 	StatusCode int
 	Body       LeagueResponse
 }
@@ -33,8 +38,34 @@ func (c *Client) BaseURL() string {
 	return c.baseURL
 }
 
-// DoRequest makes a request to the API and returns an APIResponse
-func (c *Client) DoRequest(endpoint string) (*APIResponse, error) {
+// GetTable returns the league table, decoded against the LeagueResponse struct
+func (c *Client) GetTable(endpoint string) (*APILeagueResponse, error) {
+	response, responseErr := c.doRequest(endpoint)
+	if responseErr != nil {
+		return nil, responseErr
+	}
+	defer response.Body.Close()
+	var decodedResponse LeagueResponse
+	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
+	if decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	if response.StatusCode != 200 {
+		fmt.Printf("API request status: %v", response.StatusCode)
+		os.Exit(1)
+	}
+
+	clientResponse := &APILeagueResponse{
+		StatusCode: response.StatusCode,
+		Body:       decodedResponse,
+	}
+
+	return clientResponse, nil
+}
+
+// doRequest makes a request to the API and returns an HTTP response
+func (c *Client) doRequest(endpoint string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, c.BaseURL()+endpoint, nil)
 	if err != nil {
 		return nil, err
@@ -54,22 +85,5 @@ func (c *Client) DoRequest(endpoint string) (*APIResponse, error) {
 	if respErr != nil {
 		return nil, respErr
 	}
-	defer response.Body.Close()
-	var decodedResponse LeagueResponse
-	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
-	if decodeErr != nil {
-		return nil, decodeErr
-	}
-
-	if response.StatusCode != 200 {
-		fmt.Printf("API request status: %v", response.StatusCode)
-		os.Exit(1)
-	}
-
-	clientResponse := &APIResponse{
-		StatusCode: response.StatusCode,
-		Body:       decodedResponse,
-	}
-
-	return clientResponse, nil
+	return response, nil
 }

@@ -1,3 +1,7 @@
+/*
+Copyright © 2021 Sam Atkins <samatkins@hey.com>
+MIT License
+*/
 package writer
 
 import (

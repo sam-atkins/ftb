@@ -35,7 +35,7 @@ For example:
 		endpoint := fmt.Sprintf("competitions/%s/standings", league)
 
 		client := api.Client{}
-		response, responseErr := client.DoRequest(endpoint)
+		response, responseErr := client.GetTable(endpoint)
 		if responseErr != nil {
 			fmt.Printf("Something went wrong with the request %s", responseErr)
 		}
@@ -64,5 +64,4 @@ For example:
 
 func init() {
 	rootCmd.AddCommand(standingsCmd)
-	standingsCmd.Flags().StringP("league", "l", "", "The league to show e.g. PL, BL1")
 }

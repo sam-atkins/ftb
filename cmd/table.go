@@ -12,18 +12,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// standingsCmd represents the league command
-var standingsCmd = &cobra.Command{
-	Use:   "standings",
+// tableCmd represents the league command
+var tableCmd = &cobra.Command{
+	Use:   "table",
 	Short: "Prints the league table",
 	Long: `Prints the league table per the user input
 For example:
 
 	// print the English Premier League table
-	ftb standings --league PL
+	ftb table --league PL
 
 	// print the German Bundesliga
-	ftb standings -l BL1
+	ftb table -l BL1
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		league, _ := cmd.Flags().GetString("league")
@@ -40,7 +40,7 @@ For example:
 			fmt.Printf("Something went wrong with the request %s", responseErr)
 		}
 
-		fmt.Printf("League standings: %v\n", response.Body.Competition.Name)
+		fmt.Printf("League table: %v\n", response.Body.Competition.Name)
 
 		var rows [][]string
 		for _, v := range response.Body.Standings[0].Table {
@@ -63,5 +63,6 @@ For example:
 }
 
 func init() {
-	rootCmd.AddCommand(standingsCmd)
+	rootCmd.AddCommand(tableCmd)
+	tableCmd.Flags().StringP("league", "l", "", "The league to show e.g. PL, BL1")
 }

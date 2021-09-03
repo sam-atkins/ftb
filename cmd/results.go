@@ -32,7 +32,7 @@ to quickly create a Cobra application.`,
 		client := api.Client{}
 		endpoint := fmt.Sprintf("competitions/%s/matches", league)
 
-		response, responseErr := client.GetResults(endpoint)
+		response, responseErr := client.GetMatches(endpoint)
 		if responseErr != nil {
 			fmt.Printf("Something went wrong with the request %s", responseErr)
 		}

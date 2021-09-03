@@ -42,9 +42,9 @@ func (c *Client) BaseURL() string {
 	return c.baseURL
 }
 
-// GetResults returns the competition matches, decoded against the CompetitionResponse
+// GetMatches returns the competition matches, decoded against the CompetitionResponse
 //struct
-func (c *Client) GetResults(endpoint string) (*APIResultsResponse, error) {
+func (c *Client) GetMatches(endpoint string) (*APIResultsResponse, error) {
 	response, responseErr := c.doRequest(endpoint)
 	if responseErr != nil {
 		return nil, responseErr

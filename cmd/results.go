@@ -39,7 +39,7 @@ to quickly create a Cobra application.`,
 
 		fmt.Printf("Results from the %v\n", response.Body.Competition.Name)
 
-		header := []string{"Date", "Home", "Goals", "Away", "Goals"}
+		header := []string{"Date", "Home", "", "", "Away"}
 		var rows [][]string
 		for _, v := range response.Body.Matches {
 			if v.Season.CurrentMatchday-1 == v.Matchday {
@@ -47,8 +47,8 @@ to quickly create a Cobra application.`,
 					fmt.Sprint(v.UtcDate.Format("2006 January 02")),
 					v.HomeTeam.Name,
 					fmt.Sprint(v.Score.FullTime.HomeTeam),
-					v.AwayTeam.Name,
 					fmt.Sprint(v.Score.FullTime.AwayTeam),
+					v.AwayTeam.Name,
 				})
 			}
 		}

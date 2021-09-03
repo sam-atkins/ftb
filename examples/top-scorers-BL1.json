@@ -1,0 +1,181 @@
+{
+  "count": 10,
+  "filters": { "limit": 10 },
+  "competition": {
+    "id": 2002,
+    "area": { "id": 2088, "name": "Germany" },
+    "name": "Bundesliga",
+    "code": "BL1",
+    "plan": "TIER_ONE",
+    "lastUpdated": "2021-04-17T00:20:14Z"
+  },
+  "season": {
+    "id": 742,
+    "startDate": "2021-08-13",
+    "endDate": "2022-05-15",
+    "currentMatchday": 4,
+    "winner": null
+  },
+  "scorers": [
+    {
+      "player": {
+        "id": 371,
+        "name": "Robert Lewandowski",
+        "firstName": "Robert",
+        "lastName": null,
+        "dateOfBirth": "1988-08-21",
+        "countryOfBirth": "Poland",
+        "nationality": "Poland",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2021-03-05T13:51:30Z"
+      },
+      "team": { "id": 5, "name": "FC Bayern München" },
+      "numberOfGoals": 5
+    },
+    {
+      "player": {
+        "id": 9218,
+        "name": "Taiwo Awoniyi",
+        "firstName": "Taiwo Micheal",
+        "lastName": null,
+        "dateOfBirth": "1997-08-12",
+        "countryOfBirth": "Nigeria",
+        "nationality": "Nigeria",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2021-02-28T11:52:44Z"
+      },
+      "team": { "id": 28, "name": "1. FC Union Berlin" },
+      "numberOfGoals": 3
+    },
+    {
+      "player": {
+        "id": 38101,
+        "name": "Erling Haaland",
+        "firstName": "Erling Braut",
+        "lastName": null,
+        "dateOfBirth": "2000-07-21",
+        "countryOfBirth": "England",
+        "nationality": "Norway",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2020-09-07T18:47:42Z"
+      },
+      "team": { "id": 4, "name": "Borussia Dortmund" },
+      "numberOfGoals": 3
+    },
+    {
+      "player": {
+        "id": 2240,
+        "name": "Moussa Diaby",
+        "firstName": "Moussa",
+        "lastName": null,
+        "dateOfBirth": "1999-07-07",
+        "countryOfBirth": "France",
+        "nationality": "France",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2020-09-07T18:47:40Z"
+      },
+      "team": { "id": 3, "name": "Bayer 04 Leverkusen" },
+      "numberOfGoals": 2
+    },
+    {
+      "player": {
+        "id": 9471,
+        "name": "Marc-Oliver Kempf",
+        "firstName": "Marc-Oliver",
+        "lastName": null,
+        "dateOfBirth": "1995-01-28",
+        "countryOfBirth": "Germany",
+        "nationality": "Germany",
+        "position": "Defender",
+        "shirtNumber": null,
+        "lastUpdated": "2020-09-07T18:47:49Z"
+      },
+      "team": { "id": 10, "name": "VfB Stuttgart" },
+      "numberOfGoals": 2
+    },
+    {
+      "player": {
+        "id": 10044,
+        "name": "Hamadi Al Ghaddioui",
+        "firstName": "Hamadi",
+        "lastName": null,
+        "dateOfBirth": "1990-09-22",
+        "countryOfBirth": "Germany",
+        "nationality": "Morocco",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2021-09-01T08:12:11Z"
+      },
+      "team": { "id": 10, "name": "VfB Stuttgart" },
+      "numberOfGoals": 2
+    },
+    {
+      "player": {
+        "id": 9405,
+        "name": "Jacob Bruun Larsen",
+        "firstName": "Jacob",
+        "lastName": null,
+        "dateOfBirth": "1998-09-19",
+        "countryOfBirth": "Denmark",
+        "nationality": "Denmark",
+        "position": "Midfielder",
+        "shirtNumber": null,
+        "lastUpdated": "2020-09-07T18:47:39Z"
+      },
+      "team": { "id": 2, "name": "TSG 1899 Hoffenheim" },
+      "numberOfGoals": 2
+    },
+    {
+      "player": {
+        "id": 136733,
+        "name": "Gio Reyna",
+        "firstName": "Giovanni",
+        "lastName": null,
+        "dateOfBirth": "2002-11-13",
+        "countryOfBirth": "England",
+        "nationality": "United States",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2021-03-02T07:48:14Z"
+      },
+      "team": { "id": 4, "name": "Borussia Dortmund" },
+      "numberOfGoals": 2
+    },
+    {
+      "player": {
+        "id": 37916,
+        "name": "Jens Hauge",
+        "firstName": "Jens Petter",
+        "lastName": null,
+        "dateOfBirth": "1999-10-12",
+        "countryOfBirth": "Norway",
+        "nationality": "Norway",
+        "position": "Attacker",
+        "shirtNumber": 11,
+        "lastUpdated": "2021-02-25T13:33:55Z"
+      },
+      "team": { "id": 19, "name": "Eintracht Frankfurt" },
+      "numberOfGoals": 2
+    },
+    {
+      "player": {
+        "id": 21528,
+        "name": "Anthony Modeste",
+        "firstName": "Anthony",
+        "lastName": null,
+        "dateOfBirth": "1988-04-14",
+        "countryOfBirth": "France",
+        "nationality": "France",
+        "position": "Attacker",
+        "shirtNumber": null,
+        "lastUpdated": "2020-09-07T18:47:37Z"
+      },
+      "team": { "id": 1, "name": "1. FC Köln" },
+      "numberOfGoals": 2
+    }
+  ]
+}

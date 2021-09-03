@@ -15,13 +15,13 @@ import (
 // resultsCmd represents the results command
 var resultsCmd = &cobra.Command{
 	Use:   "results",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Shows the results for the previous match day",
+	Long: `Shows the results for the previous match day.
+For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+ftb results --league PL
+ftb results -l BL1
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		league, _ := cmd.Flags().GetString("league")
 		if league == "" {

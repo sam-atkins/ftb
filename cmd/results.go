@@ -44,7 +44,7 @@ to quickly create a Cobra application.`,
 		for _, v := range response.Body.Matches {
 			if v.Season.CurrentMatchday-1 == v.Matchday {
 				rows = append(rows, []string{
-					fmt.Sprint(v.UtcDate),
+					fmt.Sprint(v.UtcDate.Format("2006 January 02")),
 					v.HomeTeam.Name,
 					fmt.Sprint(v.Score.FullTime.HomeTeam),
 					v.AwayTeam.Name,

@@ -25,6 +25,11 @@ type APILeagueResponse struct {
 	Body       LeagueResponse
 }
 
+type APIResultsResponse struct {
+	StatusCode int
+	Body       CompetitionResponse
+}
+
 type APIScorersResponse struct {
 	StatusCode int
 	Body       ScorersResponse
@@ -37,14 +42,15 @@ func (c *Client) BaseURL() string {
 	return c.baseURL
 }
 
-// GetTable returns the league table, decoded against the LeagueResponse struct
-func (c *Client) GetTable(endpoint string) (*APILeagueResponse, error) {
+// GetResults returns the competition matches, decoded against the CompetitionResponse
+// struct
+func (c *Client) GetResults(endpoint string) (*APIResultsResponse, error) {
 	response, responseErr := c.doRequest(endpoint)
 	if responseErr != nil {
 		return nil, responseErr
 	}
 	defer response.Body.Close()
-	var decodedResponse LeagueResponse
+	var decodedResponse CompetitionResponse
 	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
 	if decodeErr != nil {
 		return nil, decodeErr
@@ -55,7 +61,7 @@ func (c *Client) GetTable(endpoint string) (*APILeagueResponse, error) {
 		os.Exit(1)
 	}
 
-	clientResponse := &APILeagueResponse{
+	clientResponse := &APIResultsResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
 	}
@@ -82,6 +88,32 @@ func (c *Client) GetScorers(endpoint string) (*APIScorersResponse, error) {
 	}
 
 	clientResponse := &APIScorersResponse{
+		StatusCode: response.StatusCode,
+		Body:       decodedResponse,
+	}
+
+	return clientResponse, nil
+}
+
+// GetTable returns the league table, decoded against the LeagueResponse struct
+func (c *Client) GetTable(endpoint string) (*APILeagueResponse, error) {
+	response, responseErr := c.doRequest(endpoint)
+	if responseErr != nil {
+		return nil, responseErr
+	}
+	defer response.Body.Close()
+	var decodedResponse LeagueResponse
+	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
+	if decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	if response.StatusCode != 200 {
+		fmt.Printf("API request status: %v", response.StatusCode)
+		os.Exit(1)
+	}
+
+	clientResponse := &APILeagueResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
 	}

@@ -32,9 +32,8 @@ For example:
 			league = "BL1"
 		}
 
-		endpoint := fmt.Sprintf("competitions/%s/standings", league)
-
 		client := api.Client{}
+		endpoint := fmt.Sprintf("competitions/%s/standings", league)
 		response, responseErr := client.GetTable(endpoint)
 		if responseErr != nil {
 			fmt.Printf("Something went wrong with the request %s", responseErr)
@@ -42,6 +41,7 @@ For example:
 
 		fmt.Printf("League table: %v\n", response.Body.Competition.Name)
 
+		header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "Goals +", "Goals -", "GD", "Points"}
 		var rows [][]string
 		for _, v := range response.Body.Standings[0].Table {
 			rows = append(rows, []string{
@@ -57,7 +57,6 @@ For example:
 				fmt.Sprint(v.Points),
 			})
 		}
-		header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "Goals +", "Goals -", "GD", "Points"}
 		writer.Table(header, rows)
 	},
 }

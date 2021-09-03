@@ -20,15 +20,14 @@ type Client struct {
 	baseURL string
 }
 
-// TODO(sam) rename to APILeagueResponse, how to reuse?
-// type APIResponse struct {
-// 	StatusCode int
-// 	Body       LeagueResponse
-// }
-
 type APILeagueResponse struct {
 	StatusCode int
 	Body       LeagueResponse
+}
+
+type APIScorersResponse struct {
+	StatusCode int
+	Body       ScorersResponse
 }
 
 func (c *Client) BaseURL() string {
@@ -57,6 +56,32 @@ func (c *Client) GetTable(endpoint string) (*APILeagueResponse, error) {
 	}
 
 	clientResponse := &APILeagueResponse{
+		StatusCode: response.StatusCode,
+		Body:       decodedResponse,
+	}
+
+	return clientResponse, nil
+}
+
+// GetScorers returns the tops scorers, decoded against the ScorersResponse struct
+func (c *Client) GetScorers(endpoint string) (*APIScorersResponse, error) {
+	response, responseErr := c.doRequest(endpoint)
+	if responseErr != nil {
+		return nil, responseErr
+	}
+	defer response.Body.Close()
+	var decodedResponse ScorersResponse
+	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
+	if decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	if response.StatusCode != 200 {
+		fmt.Printf("API request status: %v", response.StatusCode)
+		os.Exit(1)
+	}
+
+	clientResponse := &APIScorersResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
 	}

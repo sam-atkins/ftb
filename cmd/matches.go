@@ -37,7 +37,7 @@ ftb matches -l BL1
 			fmt.Printf("Something went wrong with the request %s", responseErr)
 		}
 
-		fmt.Printf("Results from the %v\n", response.Body.Competition.Name)
+		fmt.Printf("Next match day fixtures in the %v\n", response.Body.Competition.Name)
 
 		header := []string{"Date", "Home", "Away"}
 		var rows [][]string

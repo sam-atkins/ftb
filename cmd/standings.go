@@ -6,10 +6,9 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/olekukonko/tablewriter"
 	"github.com/sam-atkins/ftb/api"
+	"github.com/sam-atkins/ftb/writer"
 	"github.com/spf13/cobra"
 )
 
@@ -41,7 +40,7 @@ For example:
 			fmt.Printf("Something went wrong with the request %s", responseErr)
 		}
 
-		fmt.Printf("Table for League: %v\n", response.Body.Competition.Name)
+		fmt.Printf("League standings: %v\n", response.Body.Competition.Name)
 
 		var rows [][]string
 		for _, v := range response.Body.Standings[0].Table {
@@ -52,15 +51,14 @@ For example:
 				fmt.Sprint(v.Won),
 				fmt.Sprint(v.Draw),
 				fmt.Sprint(v.Lost),
+				fmt.Sprint(v.GoalsFor),
+				fmt.Sprint(v.GoalsAgainst),
 				fmt.Sprint(v.GoalDifference),
 				fmt.Sprint(v.Points),
 			})
 		}
-
-		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "GD", "Points"})
-		table.AppendBulk(rows)
-		table.Render()
+		header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "Goals +", "Goals -", "GD", "Points"}
+		writer.Table(header, rows)
 	},
 }
 

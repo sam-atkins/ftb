@@ -56,11 +56,6 @@ func (c *Client) GetMatches(endpoint string) (*APIResultsResponse, error) {
 		return nil, decodeErr
 	}
 
-	if response.StatusCode != 200 {
-		fmt.Printf("API request status: %v", response.StatusCode)
-		os.Exit(1)
-	}
-
 	clientResponse := &APIResultsResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
@@ -82,11 +77,6 @@ func (c *Client) GetScorers(endpoint string) (*APIScorersResponse, error) {
 		return nil, decodeErr
 	}
 
-	if response.StatusCode != 200 {
-		fmt.Printf("API request status: %v", response.StatusCode)
-		os.Exit(1)
-	}
-
 	clientResponse := &APIScorersResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
@@ -106,11 +96,6 @@ func (c *Client) GetTable(endpoint string) (*APILeagueResponse, error) {
 	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
 	if decodeErr != nil {
 		return nil, decodeErr
-	}
-
-	if response.StatusCode != 200 {
-		fmt.Printf("API request status: %v", response.StatusCode)
-		os.Exit(1)
 	}
 
 	clientResponse := &APILeagueResponse{
@@ -142,5 +127,11 @@ func (c *Client) doRequest(endpoint string) (*http.Response, error) {
 	if respErr != nil {
 		return nil, respErr
 	}
+
+	if response.StatusCode != 200 {
+		fmt.Printf("API request status: %v", response.StatusCode)
+		os.Exit(1)
+	}
+
 	return response, nil
 }

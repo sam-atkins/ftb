@@ -7,6 +7,19 @@ type teamData struct {
 	League string
 }
 
+// GetTeamCodes returns the teams and their codes which are in the TeamConfig struct
+func GetTeamCodes() [][]string {
+	var teamCodes [][]string
+	for _, v := range TeamConfig {
+		teamCodes = append(teamCodes, []string{
+			v.Name,
+			v.Code,
+		},
+		)
+	}
+	return teamCodes
+}
+
 // TeamConfig provides useful info for each team to help with commands and API requests
 var TeamConfig = []teamData{
 	{

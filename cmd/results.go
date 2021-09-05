@@ -91,9 +91,11 @@ func resultsByTeam(teamCode string) {
 		}
 	}
 
-	// TODO(sam) handover to fn or cmd that lists team config?
 	if teamId == "" {
-		fmt.Println("Did not recognise that team")
+		fmt.Println("Did not recognise that team. These are the available team codes:")
+		header := []string{"Team", "Code"}
+		teamCodes := config.GetTeamCodes()
+		writer.Table(header, teamCodes)
 		os.Exit(1)
 	}
 

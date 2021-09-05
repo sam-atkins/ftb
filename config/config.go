@@ -35,27 +35,9 @@ var TeamConfig = []teamData{
 		League: "1. Bundesliga",
 	},
 	{
-		Id:     "5",
-		Name:   "FC Bayern München",
-		Code:   "FCB",
-		League: "1. Bundesliga",
-	},
-	{
 		Id:     "61",
 		Name:   "Chelsea FC",
 		Code:   "CHE",
-		League: "Premier League",
-	},
-	{
-		Id:     "64",
-		Name:   "Liverpool FC",
-		Code:   "LIV",
-		League: "Premier League",
-	},
-	{
-		Id:     "73",
-		Name:   "Tottenham Hotspur FC",
-		Code:   "TOT",
 		League: "Premier League",
 	},
 	{
@@ -71,9 +53,27 @@ var TeamConfig = []teamData{
 		League: "La Liga",
 	},
 	{
+		Id:     "5",
+		Name:   "FC Bayern München",
+		Code:   "FCB",
+		League: "1. Bundesliga",
+	},
+	{
+		Id:     "64",
+		Name:   "Liverpool FC",
+		Code:   "LIV",
+		League: "Premier League",
+	},
+	{
 		Id:     "86",
 		Name:   "Real Madrid CF",
 		Code:   "RMA",
 		League: "La Liga",
+	},
+	{
+		Id:     "73",
+		Name:   "Tottenham Hotspur FC",
+		Code:   "TOT",
+		League: "Premier League",
 	},
 }

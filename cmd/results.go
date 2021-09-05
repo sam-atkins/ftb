@@ -7,8 +7,10 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/sam-atkins/ftb/api"
+	"github.com/sam-atkins/ftb/config"
 	"github.com/sam-atkins/ftb/writer"
 	"github.com/spf13/cobra"
 )
@@ -26,7 +28,9 @@ ftb results -l BL1
 For example, to show results for a club:
 
 ftb results --team FCB
+ftb results --team fcb
 ftb results -t LIV
+ftb results -t liv
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		league, _ := cmd.Flags().GetString("league")
@@ -77,23 +81,31 @@ func resultsByLeague(league string) {
 	writer.Table(header, rows)
 }
 
-func resultsByTeam(teamId string) {
-	// TODO(sam) get team id from team Abbrev e.g. 5 is FCB
-	// https://api.football-data.org/v2/teams/5/matches?status=FINISHED
-	// https://api.football-data.org/v2/teams/%s/matches?status=FINISHED
+func resultsByTeam(teamCode string) {
+	var teamId string
+	var teamName string
+	for _, v := range config.TeamConfig {
+		if v.Code == strings.ToUpper(teamCode) {
+			teamId = v.Id
+			teamName = v.Name
+		}
+	}
+
+	// TODO(sam) handover to fn or cmd that lists team config?
+	if teamId == "" {
+		fmt.Println("Did not recognise that team")
+		os.Exit(1)
+	}
 
 	client := api.Client{}
-	// endpoint := fmt.Sprintf("competitions/%s/matches", league)
-	endpoint := "teams/5/matches?status=FINISHED"
+	endpoint := fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)
 
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)
 	}
 
-	// TODO(sam) add var for club name
-	// fmt.Printf("Results for %v\n", )
-	fmt.Println("Results for club")
+	fmt.Printf("Results for %s\n", teamName)
 
 	header := []string{"Date", "Home", "", "", "Away"}
 	var rows [][]string

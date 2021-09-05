@@ -24,6 +24,9 @@ For example:
 
 	// print the German Bundesliga
 	ftb table -l BL1
+
+	// print the Spanish La Liga (Primera Division)
+	ftb table --league PD
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		league, _ := cmd.Flags().GetString("league")

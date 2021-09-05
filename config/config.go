@@ -45,4 +45,22 @@ var TeamConfig = []teamData{
 		Code:   "TOT",
 		League: "Premier League",
 	},
+	{
+		Id:     "78",
+		Name:   "Club Atlético de Madrid",
+		Code:   "ATM",
+		League: "La Liga",
+	},
+	{
+		Id:     "81",
+		Name:   "FC Barcelona",
+		Code:   "BAR",
+		League: "La Liga",
+	},
+	{
+		Id:     "86",
+		Name:   "Real Madrid CF",
+		Code:   "RMA",
+		League: "La Liga",
+	},
 }

@@ -25,12 +25,9 @@ For example, to show matches for a league:
 ftb matches --league PL
 ftb matches -l BL1
 
-
 For example, to show matches for a club:
 
 ftb results --team FCB
-ftb results --team fcb
-ftb results -t LIV
 ftb results -t liv
 `,
 	Run: func(cmd *cobra.Command, args []string) {

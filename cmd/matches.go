@@ -106,11 +106,12 @@ func matchesByTeam(teamCode string) {
 
 	fmt.Printf("Results for %s\n", teamName)
 
-	header := []string{"Date", "Home", "Away"}
+	header := []string{"Date", "Competition", "Home", "Away"}
 	var rows [][]string
 	for _, v := range response.Body.Matches {
 		rows = append(rows, []string{
 			fmt.Sprint(v.UtcDate.Format("2006 January 02")),
+			v.Competition.Name,
 			v.HomeTeam.Name,
 			v.AwayTeam.Name,
 		})

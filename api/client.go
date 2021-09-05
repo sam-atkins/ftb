@@ -25,9 +25,9 @@ type APILeagueResponse struct {
 	Body       LeagueResponse
 }
 
-type APIResultsResponse struct {
+type APIMatchesResponse struct {
 	StatusCode int
-	Body       CompetitionResponse
+	Body       MatchesResponse
 }
 
 type APIScorersResponse struct {
@@ -42,21 +42,21 @@ func (c *Client) BaseURL() string {
 	return c.baseURL
 }
 
-// GetMatches returns the competition matches, decoded against the CompetitionResponse
+// GetMatches returns the competition matches, decoded against the MatchesResponse
 //struct
-func (c *Client) GetMatches(endpoint string) (*APIResultsResponse, error) {
+func (c *Client) GetMatches(endpoint string) (*APIMatchesResponse, error) {
 	response, responseErr := c.doRequest(endpoint)
 	if responseErr != nil {
 		return nil, responseErr
 	}
 	defer response.Body.Close()
-	var decodedResponse CompetitionResponse
+	var decodedResponse MatchesResponse
 	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
 	if decodeErr != nil {
 		return nil, decodeErr
 	}
 
-	clientResponse := &APIResultsResponse{
+	clientResponse := &APIMatchesResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
 	}

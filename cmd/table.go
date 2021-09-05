@@ -41,7 +41,7 @@ For example:
 
 		fmt.Printf("League table: %v\n", response.Body.Competition.Name)
 
-		header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "Goals +", "Goals -", "GD", "Points"}
+		header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
 		var rows [][]string
 		for _, v := range response.Body.Standings[0].Table {
 			rows = append(rows, []string{

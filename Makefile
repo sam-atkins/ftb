@@ -1,7 +1,7 @@
-all: build
+all: install
 
-.PHONY: build
-build:
+.PHONY: install
+install:
 	go mod vendor -v
 	go install
 
@@ -9,7 +9,3 @@ build:
 tidy:
 	go mod tidy
 	go mod vendor
-
-.PHONY: install
-install:
-	go install

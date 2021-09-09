@@ -38,7 +38,7 @@ ftb results -t liv
 
 		team, _ := cmd.Flags().GetString("team")
 		if team != "" {
-			broker.ResultsByTeam(team)
+			broker.ResultsByTeam(team, false)
 			return
 		}
 

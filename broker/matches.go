@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/config"
@@ -40,8 +41,9 @@ func MatchesByLeague(league string) {
 	writer.Table(header, rows)
 }
 
-// MatchesByTeam fetches matches for a team and prints to stdout
-func MatchesByTeam(teamCode string) {
+// MatchesByTeam fetches matches for a team and prints to stdout. Arg matchLimit limits
+// the results to the next four weeks
+func MatchesByTeam(teamCode string, matchLimit bool) {
 	var teamId string
 	var teamName string
 	for _, v := range config.TeamConfig {
@@ -61,13 +63,19 @@ func MatchesByTeam(teamCode string) {
 
 	client := api.Client{}
 	endpoint := fmt.Sprintf("teams/%s/matches?status=SCHEDULED", teamId)
+	if matchLimit {
+		now := time.Now()
+		dateFrom := now.AddDate(0, -1, 0).Format("2006-01-02")
+		dateTo := now.AddDate(0, 1, 0).Format("2006-01-02")
+		endpoint = fmt.Sprintf("teams/%s/matches?status=SCHEDULED&dateFrom=%s&dateTo=%s", teamId, dateFrom, dateTo)
+	}
 
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)
 	}
 
-	fmt.Printf("Results for %s\n", teamName)
+	fmt.Printf("Matches for %s\n", teamName)
 
 	header := []string{"Date", "Competition", "Home", "Away"}
 	var rows [][]string

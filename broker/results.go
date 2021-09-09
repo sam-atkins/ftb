@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/config"
@@ -41,7 +42,9 @@ func ResultsByLeague(league string) {
 	writer.Table(header, rows)
 }
 
-func ResultsByTeam(teamCode string) {
+// ResultsByTeam fetches results for a team and prints to stdout. Arg matchLimit limits
+// the results to the previous four weeks
+func ResultsByTeam(teamCode string, matchLimit bool) {
 	var teamId string
 	var teamName string
 	for _, v := range config.TeamConfig {
@@ -61,6 +64,12 @@ func ResultsByTeam(teamCode string) {
 
 	client := api.Client{}
 	endpoint := fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)
+	if matchLimit {
+		now := time.Now()
+		dateFrom := now.AddDate(0, -1, 0).Format("2006-01-02")
+		dateTo := now.AddDate(0, 1, 0).Format("2006-01-02")
+		endpoint = fmt.Sprintf("teams/%s/matches?status=FINISHED&dateFrom=%s&dateTo=%s", teamId, dateFrom, dateTo)
+	}
 
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {

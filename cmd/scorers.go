@@ -5,10 +5,7 @@ MIT License
 package cmd
 
 import (
-	"fmt"
-
-	"github.com/sam-atkins/ftb/api"
-	"github.com/sam-atkins/ftb/writer"
+	"github.com/sam-atkins/ftb/broker"
 	"github.com/spf13/cobra"
 )
 
@@ -31,26 +28,7 @@ ftb scorers --league PL
 			// TODO(sam) add default league to config
 			league = "BL1"
 		}
-		client := api.Client{}
-		endpoint := fmt.Sprintf("competitions/%s/scorers", league)
-
-		response, responseErr := client.GetScorers(endpoint)
-		if responseErr != nil {
-			fmt.Printf("Something went wrong with the request %s", responseErr)
-		}
-
-		fmt.Printf("Top Scorers in the %v\n", response.Body.Competition.Name)
-
-		header := []string{"Name", "Team", "Goals"}
-		var rows [][]string
-		for _, v := range response.Body.Scorers {
-			rows = append(rows, []string{
-				v.Player.Name,
-				v.Team.Name,
-				fmt.Sprint(v.NumberOfGoals),
-			})
-		}
-		writer.Table(header, rows)
+		broker.GetScorers(league)
 	},
 }
 

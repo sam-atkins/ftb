@@ -13,7 +13,7 @@ import (
 	"github.com/sam-atkins/ftb/writer"
 )
 
-// GetTable fetches gets the league table and prints to stdout
+// GetTable gets a league table
 func GetTable(league string) {
 	client := api.Client{}
 	endpoint := fmt.Sprintf("competitions/%s/standings", league)
@@ -43,7 +43,7 @@ func GetTable(league string) {
 	writer.Table(header, rows)
 }
 
-// GetTable fetches the league table for the given team
+// GetTable gets the league table for the given team
 func GetTableForTeam(teamCode string) {
 	var leagueCode string
 	var teamName string

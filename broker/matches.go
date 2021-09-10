@@ -42,7 +42,7 @@ func MatchesByLeague(league string) {
 }
 
 // MatchesByTeam fetches matches for a team and prints to stdout. Arg matchLimit limits
-// the results to the next four weeks
+// the results to the next three weeks
 func MatchesByTeam(teamCode string, matchLimit bool) {
 	var teamId string
 	var teamName string
@@ -65,8 +65,8 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 	endpoint := fmt.Sprintf("teams/%s/matches?status=SCHEDULED", teamId)
 	if matchLimit {
 		now := time.Now()
-		dateFrom := now.AddDate(0, -1, 0).Format("2006-01-02")
-		dateTo := now.AddDate(0, 1, 0).Format("2006-01-02")
+		dateFrom := now.AddDate(0, 0, -21).Format("2006-01-02")
+		dateTo := now.AddDate(0, 0, 21).Format("2006-01-02")
 		endpoint = fmt.Sprintf("teams/%s/matches?status=SCHEDULED&dateFrom=%s&dateTo=%s", teamId, dateFrom, dateTo)
 	}
 

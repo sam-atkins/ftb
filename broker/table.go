@@ -6,10 +6,8 @@ package broker
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
-	"github.com/olekukonko/tablewriter"
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/config"
 	"github.com/sam-atkins/ftb/writer"
@@ -86,31 +84,6 @@ func GetTableForTeam(teamCode string) {
 			})
 	}
 
-	// TODO(sam) move to new function in writer
-	table := tablewriter.NewWriter(os.Stdout)
 	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
-	table.SetHeader(header)
-	table.SetColumnAlignment([]int{1, 1, 1, 1, 1, 1, 1, 1, 1, 1})
-
-	for i, row := range data {
-		if i == teamIndex {
-			table.Rich(row, []tablewriter.Colors{
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-				{tablewriter.Bold, tablewriter.FgWhiteColor},
-			})
-			// NOTE: important to continue here otherwise the highlighted team is
-			// appended twice
-			continue
-		}
-		table.Append(row)
-	}
-	table.Render()
+	writer.TableWithTeamHighlight(teamIndex, header, data)
 }

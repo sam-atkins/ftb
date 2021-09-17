@@ -31,7 +31,7 @@ func ResultsByLeague(league string) {
 	for _, v := range response.Body.Matches {
 		if v.Season.CurrentMatchday-1 == v.Matchday {
 			rows = append(rows, []string{
-				fmt.Sprint(v.UtcDate.Format("2006 January 02")),
+				fmt.Sprint(v.UtcDate.Local().Format(dateTimeFormat)),
 				v.HomeTeam.Name,
 				fmt.Sprint(v.Score.FullTime.HomeTeam),
 				fmt.Sprint(v.Score.FullTime.AwayTeam),
@@ -78,11 +78,12 @@ func ResultsByTeam(teamCode string, matchLimit bool) {
 
 	fmt.Printf("Results for %s\n", teamName)
 
-	header := []string{"Date", "Home", "", "", "Away"}
+	header := []string{"Date", "Competition", "Home", "", "", "Away"}
 	var rows [][]string
 	for _, v := range response.Body.Matches {
 		rows = append(rows, []string{
-			fmt.Sprint(v.UtcDate.Format("2006 January 02")),
+			fmt.Sprint(v.UtcDate.Local().Format(dateTimeFormat)),
+			v.Competition.Name,
 			v.HomeTeam.Name,
 			fmt.Sprint(v.Score.FullTime.HomeTeam),
 			fmt.Sprint(v.Score.FullTime.AwayTeam),

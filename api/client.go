@@ -15,7 +15,7 @@ import (
 
 const BASE_URL = "https://api.football-data.org/v2/"
 
-// Client for the Football-Data API, requires an API Token
+// Client for the Football-Data API
 type Client struct {
 	baseURL string
 }

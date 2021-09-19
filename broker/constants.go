@@ -4,4 +4,8 @@ MIT License
 */
 package broker
 
-const dateTimeFormat = "2006 Jan 02 Mon 15:04"
+const (
+	dateTimeFormat = "2006 Jan 02 Mon 15:04"
+	daysAgo        = -28
+	daysAhead      = 28
+)

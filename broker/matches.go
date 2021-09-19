@@ -65,8 +65,8 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 	endpoint := fmt.Sprintf("teams/%s/matches?status=SCHEDULED", teamId)
 	if matchLimit {
 		now := time.Now()
-		dateFrom := now.AddDate(0, 0, -21).Format("2006-01-02")
-		dateTo := now.AddDate(0, 0, 21).Format("2006-01-02")
+		dateFrom := now.AddDate(0, 0, daysAgo).Format("2006-01-02")
+		dateTo := now.AddDate(0, 0, daysAhead).Format("2006-01-02")
 		endpoint = fmt.Sprintf("teams/%s/matches?status=SCHEDULED&dateFrom=%s&dateTo=%s", teamId, dateFrom, dateTo)
 	}
 

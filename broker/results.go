@@ -15,10 +15,11 @@ import (
 	"github.com/sam-atkins/ftb/writer"
 )
 
+// ResultsByLeague gets the results for a football league and pretty prints
+// the league table to stdout
 func ResultsByLeague(league string) {
-	client := api.Client{}
 	endpoint := fmt.Sprintf("competitions/%s/matches", league)
-
+	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)
@@ -62,7 +63,6 @@ func ResultsByTeam(teamCode string, matchLimit bool) {
 		os.Exit(1)
 	}
 
-	client := api.Client{}
 	endpoint := fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)
 	if matchLimit {
 		now := time.Now()
@@ -70,7 +70,7 @@ func ResultsByTeam(teamCode string, matchLimit bool) {
 		dateTo := now.AddDate(0, 0, daysAhead).Format("2006-01-02")
 		endpoint = fmt.Sprintf("teams/%s/matches?status=FINISHED&dateFrom=%s&dateTo=%s", teamId, dateFrom, dateTo)
 	}
-
+	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)

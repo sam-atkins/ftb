@@ -17,10 +17,10 @@ import (
 
 // MatchesByLeague fetches matches for a league and prints to stdout
 func MatchesByLeague(league string) {
-	client := api.Client{}
 	endpoint := fmt.Sprintf("competitions/%s/matches", league)
+	c := api.NewClient()
+	response, responseErr := c.GetMatches(endpoint)
 
-	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)
 	}
@@ -61,8 +61,8 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 		os.Exit(1)
 	}
 
-	client := api.Client{}
 	endpoint := fmt.Sprintf("teams/%s/matches?status=SCHEDULED", teamId)
+	client := api.NewClient()
 	if matchLimit {
 		now := time.Now()
 		dateFrom := now.AddDate(0, 0, daysAgo).Format("2006-01-02")

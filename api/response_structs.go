@@ -2,7 +2,22 @@ package api
 
 import "time"
 
-type LeagueResponse struct {
+type apiLeagueResponse struct {
+	StatusCode int
+	Body       leagueResponse
+}
+
+type apiMatchesResponse struct {
+	StatusCode int
+	Body       matchesResponse
+}
+
+type apiScorersResponse struct {
+	StatusCode int
+	Body       scorersResponse
+}
+
+type leagueResponse struct {
 	Filters struct {
 	} `json:"filters"`
 	Competition struct {
@@ -47,7 +62,7 @@ type LeagueResponse struct {
 	} `json:"standings"`
 }
 
-type MatchesResponse struct {
+type matchesResponse struct {
 	Count   int `json:"count"`
 	Filters struct {
 		Permission string   `json:"permission"`
@@ -124,7 +139,7 @@ type MatchesResponse struct {
 	} `json:"matches"`
 }
 
-type ScorersResponse struct {
+type scorersResponse struct {
 	Count   int `json:"count"`
 	Filters struct {
 		Limit int `json:"limit"`

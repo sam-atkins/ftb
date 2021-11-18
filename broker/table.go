@@ -15,8 +15,8 @@ import (
 
 // GetTable gets a league table
 func GetTable(league string) {
-	client := api.Client{}
 	endpoint := fmt.Sprintf("competitions/%s/standings", league)
+	client := api.NewClient()
 	response, responseErr := client.GetTable(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)
@@ -54,8 +54,8 @@ func GetTableForTeam(teamCode string) {
 		}
 	}
 
-	client := api.Client{}
 	endpoint := fmt.Sprintf("competitions/%s/standings", leagueCode)
+	client := api.NewClient()
 	response, responseErr := client.GetTable(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)

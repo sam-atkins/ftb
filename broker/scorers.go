@@ -13,16 +13,14 @@ import (
 
 // GetScorers fetches top scorers for a league and prints to stdout
 func GetScorers(league string) {
-	client := api.Client{}
 	endpoint := fmt.Sprintf("competitions/%s/scorers", league)
-
+	client := api.NewClient()
 	response, responseErr := client.GetScorers(endpoint)
 	if responseErr != nil {
 		fmt.Printf("Something went wrong with the request %s", responseErr)
 	}
 
 	fmt.Printf("Top Scorers in the %v\n", response.Body.Competition.Name)
-
 	header := []string{"Name", "Team", "Goals"}
 	var rows [][]string
 	for _, v := range response.Body.Scorers {

@@ -1,5 +1,10 @@
 package config
 
+type leagueData struct {
+	LeagueCode string
+	LeagueName string
+}
+
 type teamData struct {
 	Id         string
 	Name       string
@@ -8,17 +13,19 @@ type teamData struct {
 	LeagueCode string
 }
 
-// GetTeamCodes returns the teams and their codes which are in the TeamConfig struct
-func GetTeamCodes() [][]string {
-	var teamCodes [][]string
-	for _, v := range TeamConfig {
-		teamCodes = append(teamCodes, []string{
-			v.Name,
-			v.Code,
-		},
-		)
-	}
-	return teamCodes
+var LeagueConfig = []leagueData{
+	{
+		LeagueCode: "BL1",
+		LeagueName: "1. Bundesliga",
+	},
+	{
+		LeagueCode: "PL",
+		LeagueName: "Premier League",
+	},
+	{
+		LeagueCode: "PD",
+		LeagueName: "La Liga",
+	},
 }
 
 // TeamConfig provides useful info for each team to help with commands and API requests

@@ -6,11 +6,9 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/sam-atkins/ftb/broker"
 	"github.com/sam-atkins/ftb/config"
-	"github.com/sam-atkins/ftb/writer"
 	"github.com/spf13/cobra"
 )
 
@@ -35,12 +33,7 @@ ftb status -t LIV
 			broker.GetTableForTeam(team)
 			return
 		}
-
-		fmt.Println("Did not recognise that team. These are the available team codes:")
-		header := []string{"Team", "Code"}
-		teamCodes := config.GetTeamCodes()
-		writer.Table(header, teamCodes)
-		os.Exit(1)
+		config.CodeNotFound()
 	},
 }
 

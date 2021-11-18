@@ -6,7 +6,6 @@ package broker
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"time"
 
@@ -56,11 +55,7 @@ func ResultsByTeam(teamCode string, matchLimit bool) {
 	}
 
 	if teamId == "" {
-		fmt.Println("Did not recognise that team. These are the available team codes:")
-		header := []string{"Team", "Code"}
-		teamCodes := config.GetTeamCodes()
-		writer.Table(header, teamCodes)
-		os.Exit(1)
+		config.CodeNotFound()
 	}
 
 	endpoint := fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)

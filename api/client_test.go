@@ -159,3 +159,67 @@ func Test_client_GetScorers_400(t *testing.T) {
 		return
 	}
 }
+
+func Test_client_GetTable_200(t *testing.T) {
+	client, mux, teardown := testClient(t)
+	defer teardown()
+
+	endpoint := "/competitions/BL1/standings"
+	mux.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, string(loadTestJson("../test_files/standings-BL1.json")))
+	})
+	wantRes := &apiLeagueResponse{
+		StatusCode: http.StatusOK,
+		Body: leagueResponse{
+			Standings: []standings{
+				{
+					Stage: "REGULAR_SEASON",
+					Table: []table{
+						{
+							Position: 1,
+							Team:     team{ID: 5, Name: "FC Bayern München"},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	got, _ := client.GetTable(endpoint)
+	if statusCode := got.StatusCode; statusCode != wantRes.StatusCode {
+		t.Errorf("client.GetTable() error = %v, wantErr %v", got.StatusCode, wantRes.StatusCode)
+		return
+	}
+
+	if stage := got.Body.Standings[0].Stage; stage != wantRes.Body.Standings[0].Stage {
+		t.Errorf("client.GetTable() stage = %v, want %v", got.Body.Standings[0].Stage, wantRes.Body.Standings[0].Stage)
+	}
+	if position := got.Body.Standings[0].Table[0].Position; position != wantRes.Body.Standings[0].Table[0].Position {
+		t.Errorf("client.GetTable() position = %v, want %v", got.Body.Standings[0].Table[0].Position, wantRes.Body.Standings[0].Table[0].Position)
+	}
+	if teamId := got.Body.Standings[0].Table[0].Team.ID; teamId != wantRes.Body.Standings[0].Table[0].Team.ID {
+		t.Errorf("client.GetTable() teamId = %v, want %v", got.Body.Standings[0].Table[0].Team.ID, wantRes.Body.Standings[0].Table[0].Team.ID)
+	}
+	if teamName := got.Body.Standings[0].Table[0].Team.Name; teamName != wantRes.Body.Standings[0].Table[0].Team.Name {
+		t.Errorf("client.GetTable() teamName = %v, want %v", got.Body.Standings[0].Table[0].Team.Name, wantRes.Body.Standings[0].Table[0].Team.Name)
+	}
+}
+
+func Test_client_GetTable_400(t *testing.T) {
+	client, mux, teardown := testClient(t)
+	defer teardown()
+
+	endpoint := "/competitions/PL/standings"
+	resBody := `{"message":"Your API token is invalid.","errorCode":400}`
+	mux.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(w, resBody)
+	})
+	wantErr := true
+	_, err := client.GetTable(endpoint)
+	if (err != nil) != wantErr {
+		t.Errorf("client.GetTable() error = %v, wantErr %v", err, resBody)
+		return
+	}
+}

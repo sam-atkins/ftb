@@ -38,28 +38,34 @@ type leagueResponse struct {
 		CurrentMatchday int         `json:"currentMatchday"`
 		Winner          interface{} `json:"winner"`
 	} `json:"season"`
-	Standings []struct {
-		Stage string      `json:"stage"`
-		Type  string      `json:"type"`
-		Group interface{} `json:"group"`
-		Table []struct {
-			Position int `json:"position"`
-			Team     struct {
-				ID       int    `json:"id"`
-				Name     string `json:"name"`
-				CrestURL string `json:"crestUrl"`
-			} `json:"team"`
-			PlayedGames    int         `json:"playedGames"`
-			Form           interface{} `json:"form"`
-			Won            int         `json:"won"`
-			Draw           int         `json:"draw"`
-			Lost           int         `json:"lost"`
-			Points         int         `json:"points"`
-			GoalsFor       int         `json:"goalsFor"`
-			GoalsAgainst   int         `json:"goalsAgainst"`
-			GoalDifference int         `json:"goalDifference"`
-		} `json:"table"`
-	} `json:"standings"`
+	Standings []standings `json:"standings"`
+}
+
+type standings struct {
+	Stage string      `json:"stage"`
+	Type  string      `json:"type"`
+	Group interface{} `json:"group"`
+	Table []table     `json:"table"`
+}
+
+type table struct {
+	Position       int         `json:"position"`
+	Team           team        `json:"team"`
+	PlayedGames    int         `json:"playedGames"`
+	Form           interface{} `json:"form"`
+	Won            int         `json:"won"`
+	Draw           int         `json:"draw"`
+	Lost           int         `json:"lost"`
+	Points         int         `json:"points"`
+	GoalsFor       int         `json:"goalsFor"`
+	GoalsAgainst   int         `json:"goalsAgainst"`
+	GoalDifference int         `json:"goalDifference"`
+}
+
+type team struct {
+	ID       int    `json:"id"`
+	Name     string `json:"name"`
+	CrestURL string `json:"crestUrl"`
 }
 
 type matchesResponse struct {

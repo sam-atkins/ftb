@@ -164,23 +164,27 @@ type scorersResponse struct {
 		CurrentMatchday int         `json:"currentMatchday"`
 		Winner          interface{} `json:"winner"`
 	} `json:"season"`
-	Scorers []struct {
-		Player struct {
-			ID             int         `json:"id"`
-			Name           string      `json:"name"`
-			FirstName      string      `json:"firstName"`
-			LastName       interface{} `json:"lastName"`
-			DateOfBirth    string      `json:"dateOfBirth"`
-			CountryOfBirth string      `json:"countryOfBirth"`
-			Nationality    string      `json:"nationality"`
-			Position       string      `json:"position"`
-			ShirtNumber    interface{} `json:"shirtNumber"`
-			LastUpdated    time.Time   `json:"lastUpdated"`
-		} `json:"player"`
-		Team struct {
-			ID   int    `json:"id"`
-			Name string `json:"name"`
-		} `json:"team"`
-		NumberOfGoals int `json:"numberOfGoals"`
-	} `json:"scorers"`
+	Scorers []scorers `json:"scorers"`
+}
+
+type scorers struct {
+	Player player `json:"player"`
+	Team   struct {
+		ID   int    `json:"id"`
+		Name string `json:"name"`
+	} `json:"team"`
+	NumberOfGoals int `json:"numberOfGoals"`
+}
+
+type player struct {
+	ID             int         `json:"id"`
+	Name           string      `json:"name"`
+	FirstName      string      `json:"firstName"`
+	LastName       interface{} `json:"lastName"`
+	DateOfBirth    string      `json:"dateOfBirth"`
+	CountryOfBirth string      `json:"countryOfBirth"`
+	Nationality    string      `json:"nationality"`
+	Position       string      `json:"position"`
+	ShirtNumber    interface{} `json:"shirtNumber"`
+	LastUpdated    time.Time   `json:"lastUpdated"`
 }

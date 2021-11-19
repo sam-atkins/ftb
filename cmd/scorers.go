@@ -5,6 +5,8 @@ MIT License
 package cmd
 
 import (
+	"strings"
+
 	"github.com/sam-atkins/ftb/broker"
 	"github.com/spf13/cobra"
 )
@@ -28,7 +30,7 @@ ftb scorers --league PL
 			// TODO(sam) add default league to config
 			league = "BL1"
 		}
-		broker.GetScorers(league)
+		broker.GetScorers(strings.ToUpper(league))
 	},
 }
 

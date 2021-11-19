@@ -7,7 +7,7 @@ package cmd
 import (
 	"strings"
 
-	"github.com/sam-atkins/ftb/broker"
+	"github.com/sam-atkins/ftb/reporter"
 	"github.com/spf13/cobra"
 )
 
@@ -30,7 +30,7 @@ ftb scorers --league PL
 			// TODO(sam) add default league to config
 			league = "BL1"
 		}
-		broker.GetScorers(strings.ToUpper(league))
+		reporter.GetScorers(strings.ToUpper(league))
 	},
 }
 

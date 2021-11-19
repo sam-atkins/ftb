@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sam-atkins/ftb/broker"
+	"github.com/sam-atkins/ftb/reporter"
 	"github.com/spf13/cobra"
 )
 
@@ -32,13 +32,13 @@ ftb results -t liv
 	Run: func(cmd *cobra.Command, args []string) {
 		league, _ := cmd.Flags().GetString("league")
 		if league != "" {
-			broker.ResultsByLeague(league)
+			reporter.ResultsByLeague(league)
 			return
 		}
 
 		team, _ := cmd.Flags().GetString("team")
 		if team != "" {
-			broker.ResultsByTeam(team, false)
+			reporter.ResultsByTeam(team, false)
 			return
 		}
 

@@ -2,7 +2,7 @@
 Copyright © 2021 Sam Atkins <samatkins@hey.com>
 MIT License
 */
-package broker
+package reporter
 
 import (
 	"fmt"

@@ -1,3 +1,5 @@
+[![build](https://github.com/sam-atkins/ftb/actions/workflows/ci.yml/badge.svg)](https://github.com/sam-atkins/ftb/actions/workflows/ci.yml)
+
 # ftb - a football CLI
 
 ## Install

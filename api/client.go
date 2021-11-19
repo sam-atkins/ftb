@@ -2,7 +2,10 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"log"
 	"net/http"
 	"os"
 
@@ -45,6 +48,7 @@ func (c client) GetMatches(endpoint string) (*apiMatchesResponse, error) {
 	if responseErr != nil {
 		return nil, responseErr
 	}
+
 	defer response.Body.Close()
 	var decodedResponse matchesResponse
 	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
@@ -100,7 +104,7 @@ func (c client) GetTable(endpoint string) (*apiLeagueResponse, error) {
 	return clientResponse, nil
 }
 
-// // doRequest makes a request to the API and returns an HTTP response
+// doRequest is a helper function which makes a HTTP request
 func (c client) doRequest(endpoint string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, c.baseURL+endpoint, nil)
 	if err != nil {
@@ -116,9 +120,12 @@ func (c client) doRequest(endpoint string) (*http.Response, error) {
 		return nil, respErr
 	}
 
-	if response.StatusCode != 200 {
-		fmt.Printf("API request status: %v", response.StatusCode)
-		os.Exit(1)
+	if response.StatusCode != http.StatusOK {
+		resBody, err := io.ReadAll(response.Body)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		return nil, errors.New(string(resBody))
 	}
 
 	return response, nil

@@ -7,8 +7,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/sam-atkins/ftb/broker"
 	"github.com/sam-atkins/ftb/config"
+	"github.com/sam-atkins/ftb/reporter"
 	"github.com/spf13/cobra"
 )
 
@@ -26,11 +26,11 @@ ftb status -t LIV
 	Run: func(cmd *cobra.Command, args []string) {
 		team, _ := cmd.Flags().GetString("team")
 		if team != "" {
-			broker.ResultsByTeam(team, true)
+			reporter.ResultsByTeam(team, true)
 			fmt.Println("")
-			broker.MatchesByTeam(team, true)
+			reporter.MatchesByTeam(team, true)
 			fmt.Println("")
-			broker.GetTableForTeam(team)
+			reporter.GetTableForTeam(team)
 			return
 		}
 		config.CodeNotFound()

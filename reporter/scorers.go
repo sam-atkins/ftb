@@ -2,10 +2,11 @@
 Copyright © 2021 Sam Atkins <samatkins@hey.com>
 MIT License
 */
-package broker
+package reporter
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/writer"
@@ -17,7 +18,8 @@ func GetScorers(league string) {
 	client := api.NewClient()
 	response, responseErr := client.GetScorers(endpoint)
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr)
+		return
 	}
 
 	fmt.Printf("Top Scorers in the %v\n", response.Body.Competition.Name)

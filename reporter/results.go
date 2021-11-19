@@ -2,10 +2,11 @@
 Copyright © 2021 Sam Atkins <samatkins@hey.com>
 MIT License
 */
-package broker
+package reporter
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -21,7 +22,8 @@ func ResultsByLeague(league string) {
 	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr)
+		return
 	}
 
 	fmt.Printf("Results from the %v\n", response.Body.Competition.Name)
@@ -68,7 +70,8 @@ func ResultsByTeam(teamCode string, matchLimit bool) {
 	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr.Error())
+		return
 	}
 
 	fmt.Printf("Results for %s\n", teamName)

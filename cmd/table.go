@@ -5,7 +5,7 @@ MIT License
 package cmd
 
 import (
-	"github.com/sam-atkins/ftb/broker"
+	"github.com/sam-atkins/ftb/reporter"
 	"github.com/spf13/cobra"
 )
 
@@ -31,7 +31,7 @@ For example:
 			// TODO(sam) add default league to config
 			league = "BL1"
 		}
-		broker.GetTable(league)
+		reporter.GetTable(league)
 	},
 }
 

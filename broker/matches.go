@@ -6,6 +6,7 @@ package broker
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -17,11 +18,12 @@ import (
 // MatchesByLeague fetches matches for a league and prints to stdout
 func MatchesByLeague(league string) {
 	endpoint := fmt.Sprintf("competitions/%s/matches", league)
-	c := api.NewClient()
-	response, responseErr := c.GetMatches(endpoint)
+	client := api.NewClient()
+	response, responseErr := client.GetMatches(endpoint)
 
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr)
+		return
 	}
 
 	fmt.Printf("Next match day fixtures in the %v\n", response.Body.Competition.Name)
@@ -67,7 +69,8 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr)
+		return
 	}
 
 	fmt.Printf("Matches for %s\n", teamName)

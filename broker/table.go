@@ -6,6 +6,7 @@ package broker
 
 import (
 	"fmt"
+	"log"
 	"strings"
 
 	"github.com/sam-atkins/ftb/api"
@@ -19,7 +20,8 @@ func GetTable(league string) {
 	client := api.NewClient()
 	response, responseErr := client.GetTable(endpoint)
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr)
+		return
 	}
 
 	fmt.Printf("League table: %v\n", response.Body.Competition.Name)
@@ -58,7 +60,8 @@ func GetTableForTeam(teamCode string) {
 	client := api.NewClient()
 	response, responseErr := client.GetTable(endpoint)
 	if responseErr != nil {
-		fmt.Printf("Something went wrong with the request %s", responseErr)
+		log.Printf("Something went wrong with the request: %s\n", responseErr)
+		return
 	}
 
 	fmt.Printf("League table: %v\n", response.Body.Competition.Name)

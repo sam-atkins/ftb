@@ -9,6 +9,10 @@ tidy:
 install: tidy
 	go install
 
+.PHONY: build
+build: tidy
+	go build -v .
+
 .PHONY: test
 test:
 	go test ./... -v

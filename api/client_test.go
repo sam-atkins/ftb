@@ -16,7 +16,7 @@ import (
 
 func testClient(t *testing.T) (clientAPI, *http.ServeMux, func()) {
 	viper.SetConfigName("test_config")
-	viper.AddConfigPath("../")
+	viper.AddConfigPath("../test_files/")
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %w \n", err))
@@ -51,7 +51,7 @@ func Test_client_GetMatches_200(t *testing.T) {
 	endpoint := "/competitions/BL1/matches"
 	mux.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, string(loadTestJson("../examples/matches-FCB.json")))
+		fmt.Fprint(w, string(loadTestJson("../test_files/matches-FCB.json")))
 	})
 	wantRes := &apiMatchesResponse{
 		StatusCode: http.StatusOK,

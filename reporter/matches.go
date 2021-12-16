@@ -26,9 +26,9 @@ func MatchesByLeague(league string) {
 		return
 	}
 
-	fmt.Printf("Next match day fixtures in the %v\n", response.Body.Competition.Name)
+	fmt.Printf("Current match day fixtures in the %v\n", response.Body.Competition.Name)
 
-	header := []string{"Date", "Home", "Away"}
+	header := []string{"Date", "Home", "Away", "Match Status"}
 	var rows [][]string
 	for _, v := range response.Body.Matches {
 		if v.Season.CurrentMatchday == v.Matchday {
@@ -36,6 +36,7 @@ func MatchesByLeague(league string) {
 				fmt.Sprint(v.UtcDate.Local().Format(dateTimeFormat)),
 				v.HomeTeam.Name,
 				v.AwayTeam.Name,
+				v.Status,
 			})
 		}
 	}

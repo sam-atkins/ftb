@@ -31,7 +31,8 @@ func ResultsByLeague(league string) {
 	header := []string{"Date", "Home", "", "", "Away"}
 	var rows [][]string
 	for _, v := range response.Body.Matches {
-		if v.Season.CurrentMatchday-1 == v.Matchday && v.Status == "FINISHED" {
+		if v.Season.CurrentMatchday-1 == v.Matchday && v.Status == "FINISHED" ||
+			v.Season.CurrentMatchday == v.Matchday && v.Status == "FINISHED" {
 			rows = append(rows, []string{
 				fmt.Sprint(v.UtcDate.Local().Format(dateTimeFormat)),
 				v.HomeTeam.Name,

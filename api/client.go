@@ -19,6 +19,8 @@ type clientAPI interface {
 	GetScorers(endpoint string) (*apiScorersResponse, error)
 	// GetTable returns the league table
 	GetTable(endpoint string) (*apiLeagueResponse, error)
+	// GetTeams returns all teams in a competition
+	GetTeams(endpoint string) (*apiTeamsResponse, error)
 }
 
 type client struct {
@@ -97,6 +99,26 @@ func (c client) GetTable(endpoint string) (*apiLeagueResponse, error) {
 	}
 
 	clientResponse := &apiLeagueResponse{
+		StatusCode: response.StatusCode,
+		Body:       decodedResponse,
+	}
+
+	return clientResponse, nil
+}
+
+func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {
+	response, responseErr := c.doRequest(endpoint)
+	if responseErr != nil {
+		return nil, responseErr
+	}
+	defer response.Body.Close()
+	var decodedResponse teamsResponse
+	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
+	if decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	clientResponse := &apiTeamsResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
 	}

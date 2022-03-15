@@ -31,7 +31,7 @@ other commands e.g.
 		fmt.Println()
 		fmt.Println("These are the available team codes:")
 		headerClubs := []string{"Team", "Team Code", "Country"}
-		teamCodes := config.GetTeamCodesFromConfig()
+		teamCodes := config.GetTeamCodesForWriter()
 		writer.Table(headerClubs, teamCodes)
 	},
 }

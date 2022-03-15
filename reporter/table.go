@@ -47,12 +47,24 @@ func GetTable(league string) {
 
 // GetTable gets the league table for the given team
 func GetTableForTeam(teamCode string) {
+	teamCfg, err := config.ReadTeamsCodesFromConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	var leagueCode string
 	var teamName string
-	for _, v := range config.TeamConfig {
-		if v.Code == strings.ToUpper(teamCode) {
-			leagueCode = v.LeagueCode
+	var teamCountry string
+
+	for _, v := range teamCfg {
+		if v.Tla == strings.ToUpper(teamCode) {
 			teamName = v.Name
+			teamCountry = v.Area.Name
+		}
+		for _, v := range config.LeagueConfig {
+			if teamCountry == v.Country {
+				leagueCode = v.LeagueCode
+			}
 		}
 	}
 

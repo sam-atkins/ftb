@@ -85,17 +85,26 @@ func (c *teamConfig) parse(data []byte) error {
 	return yaml.Unmarshal(data, c)
 }
 
-// GetTeamCodesFromConfig returns the teams and their codes
-func GetTeamCodesFromConfig() [][]string {
+func ReadTeamsCodesFromConfig() (teamConfig, error) {
 	fileName := GetTeamConfigPath()
 	data, fileErr := ioutil.ReadFile(fileName)
 	if fileErr != nil {
-		log.Fatal(fileErr)
+		return nil, fileErr
 	}
 
 	var teamCfg teamConfig
 	if parseErr := teamCfg.parse(data); parseErr != nil {
-		log.Fatal(parseErr)
+		return nil, parseErr
+	}
+
+	return teamCfg, nil
+}
+
+// GetTeamCodesForWriter returns the teams and their codes
+func GetTeamCodesForWriter() [][]string {
+	teamCfg, err := ReadTeamsCodesFromConfig()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	var teamCodes [][]string
@@ -115,7 +124,7 @@ func GetTeamCodesFromConfig() [][]string {
 func CodeNotFound() {
 	fmt.Println("Did not recognise that team. These are the available team codes:")
 	header := []string{"Team", "Code"}
-	teamCodes := GetTeamCodesFromConfig()
+	teamCodes := GetTeamCodesForWriter()
 	writer.Table(header, teamCodes)
 	os.Exit(1)
 }

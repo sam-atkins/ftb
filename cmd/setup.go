@@ -19,25 +19,24 @@ var setupCmd = &cobra.Command{
 config file. Flags can amend the operation. For example:
 
 ftb setup --reset
-	will reset the existing teams config file. This is useful at the beginning of a
-	new season to ensure the teams are accurate.
+- Will reset the existing teams config file. This is useful at the beginning of a
+new season to ensure the teams are accurate.
 
-ftb setup --debug
-	switches on additional logging to the console.
+ftb setup --logging
+- Switches on additional logging to the console.
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		reset, _ := cmd.Flags().GetBool("reset")
+		logging, _ := cmd.Flags().GetBool("logging")
 		if reset {
 			fmt.Println("Resetting the teams config file")
-			reporter.GetTeamsConfig(true, false)
-		} else {
-			reporter.GetTeamsConfig(false, false)
 		}
+		reporter.GetTeamsConfig(reset, logging)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(setupCmd)
-	setupCmd.Flags().BoolP("debug", "d", false, "Set debug on")
+	setupCmd.Flags().BoolP("logging", "l", false, "Additional logging to the console")
 	setupCmd.Flags().BoolP("reset", "r", false, "Reset the teams config file")
 }

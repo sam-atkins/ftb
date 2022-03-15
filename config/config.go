@@ -1,5 +1,13 @@
 package config
 
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+
+	"github.com/mitchellh/go-homedir"
+)
+
 type leagueData struct {
 	LeagueCode string
 	LeagueName string
@@ -26,6 +34,30 @@ var LeagueConfig = []leagueData{
 		LeagueCode: "PD",
 		LeagueName: "La Liga",
 	},
+}
+
+// GetTeamConfigPath returns the path to the teams.yml config file
+func GetTeamConfigPath() string {
+	teamConfigFile := ".config/ftb/teams.yaml"
+
+	// Find home directory.
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	return filepath.Join(home, teamConfigFile)
+}
+
+func ResetTeamConfigFile(filename string) error {
+	f, err := os.OpenFile(filename, os.O_TRUNC, 0644)
+	if err != nil {
+		return fmt.Errorf("could not open file %q for truncation: %v", filename, err)
+	}
+	if err = f.Close(); err != nil {
+		return fmt.Errorf("could not close file handler for %q after truncation: %v", filename, err)
+	}
+	return nil
 }
 
 // TeamConfig provides useful info for each team to help with commands and API requests

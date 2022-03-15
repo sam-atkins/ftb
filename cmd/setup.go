@@ -14,32 +14,30 @@ import (
 // setupCmd represents the setup command
 var setupCmd = &cobra.Command{
 	Use:   "setup",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Adds team config",
+	Long: `Adds team config for the leagues saved in the config package to the teams
+config file. Flags can amend the operation. For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+ftb setup --reset
+	will reset the existing teams config file. This is useful at the beginning of a
+	new season to ensure the teams are accurate.
+
+ftb setup --debug
+	switches on additional logging to the console.
+`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("setup called")
-		reporter.GetTeams("BL1")
+		reset, _ := cmd.Flags().GetBool("reset")
+		if reset {
+			fmt.Println("Resetting the teams config file")
+			reporter.GetTeamsConfig(true, false)
+		} else {
+			reporter.GetTeamsConfig(false, false)
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(setupCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// setupCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// setupCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	setupCmd.Flags().BoolP("debug", "d", false, "Set debug on")
-
-	// flags: debug which prints JSON to terminal, add to favourites
+	setupCmd.Flags().BoolP("reset", "r", false, "Reset the teams config file")
 }

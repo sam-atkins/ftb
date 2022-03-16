@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/mitchellh/go-homedir"
@@ -19,14 +21,6 @@ type leagueData struct {
 	LeagueCode string
 	LeagueName string
 	Country    string
-}
-
-type teamData struct {
-	Id         string
-	Name       string
-	Code       string
-	League     string
-	LeagueCode string
 }
 
 var LeagueConfig = []leagueData{
@@ -85,24 +79,9 @@ func (c *teamConfig) parse(data []byte) error {
 	return yaml.Unmarshal(data, c)
 }
 
-func ReadTeamsCodesFromConfig() (teamConfig, error) {
-	fileName := GetTeamConfigPath()
-	data, fileErr := ioutil.ReadFile(fileName)
-	if fileErr != nil {
-		return nil, fileErr
-	}
-
-	var teamCfg teamConfig
-	if parseErr := teamCfg.parse(data); parseErr != nil {
-		return nil, parseErr
-	}
-
-	return teamCfg, nil
-}
-
 // GetTeamCodesForWriter returns the teams and their codes
 func GetTeamCodesForWriter() [][]string {
-	teamCfg, err := ReadTeamsCodesFromConfig()
+	teamCfg, err := readTeamsCodesFromConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -117,6 +96,38 @@ func GetTeamCodesForWriter() [][]string {
 		)
 	}
 	return teamCodes
+}
+
+// GetTeamInfoFromUserTeamCode verifies the arg userTeamcode and then provides the team's
+// league code, team name and ID
+func GetTeamInfoFromUserTeamCode(userTeamCode string) (string, string, string) {
+	teamCfg, err := readTeamsCodesFromConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var leagueCode string
+	var teamName string
+	var teamId string
+	var teamCountry string
+
+	for _, v := range teamCfg {
+		if v.Tla == strings.ToUpper(userTeamCode) {
+			teamName = v.Name
+			teamId = strconv.Itoa(v.ID)
+			teamCountry = v.Area.Name
+		}
+		for _, v := range LeagueConfig {
+			if teamCountry == v.Country {
+				leagueCode = v.LeagueCode
+			}
+		}
+	}
+
+	if leagueCode == "" && teamName == "" {
+		CodeNotFound()
+	}
+	return leagueCode, teamName, teamId
 }
 
 // CodeNotFound used when the user enters an unknown flag code. It prints the available
@@ -140,6 +151,7 @@ func GetTeamConfigPath() string {
 	return filepath.Join(home, teamConfigFile)
 }
 
+// ResetTeamConfigFile truncates the team config yaml file
 func ResetTeamConfigFile(filename string) error {
 	f, err := os.OpenFile(filename, os.O_TRUNC, 0644)
 	if err != nil {
@@ -151,69 +163,17 @@ func ResetTeamConfigFile(filename string) error {
 	return nil
 }
 
-// TeamConfig provides useful info for each team to help with commands and API requests
-var TeamConfig = []teamData{
-	{
-		Id:         "1",
-		Name:       "1. FC Köln",
-		Code:       "FCK",
-		League:     "1. Bundesliga",
-		LeagueCode: "BL1",
-	},
-	{
-		Id:         "4",
-		Name:       "Borussia Dortmund",
-		Code:       "BVB",
-		League:     "1. Bundesliga",
-		LeagueCode: "BL1",
-	},
-	{
-		Id:         "61",
-		Name:       "Chelsea FC",
-		Code:       "CHE",
-		League:     "Premier League",
-		LeagueCode: "PL",
-	},
-	{
-		Id:         "78",
-		Name:       "Club Atlético de Madrid",
-		Code:       "ATM",
-		League:     "La Liga",
-		LeagueCode: "PD",
-	},
-	{
-		Id:         "81",
-		Name:       "FC Barcelona",
-		Code:       "BAR",
-		League:     "La Liga",
-		LeagueCode: "PD",
-	},
-	{
-		Id:         "5",
-		Name:       "FC Bayern München",
-		Code:       "FCB",
-		League:     "1. Bundesliga",
-		LeagueCode: "BL1",
-	},
-	{
-		Id:         "64",
-		Name:       "Liverpool FC",
-		Code:       "LIV",
-		League:     "Premier League",
-		LeagueCode: "PL",
-	},
-	{
-		Id:         "86",
-		Name:       "Real Madrid CF",
-		Code:       "RMA",
-		League:     "La Liga",
-		LeagueCode: "PD",
-	},
-	{
-		Id:         "73",
-		Name:       "Tottenham Hotspur FC",
-		Code:       "TOT",
-		League:     "Premier League",
-		LeagueCode: "PL",
-	},
+func readTeamsCodesFromConfig() (teamConfig, error) {
+	fileName := GetTeamConfigPath()
+	data, fileErr := ioutil.ReadFile(fileName)
+	if fileErr != nil {
+		return nil, fileErr
+	}
+
+	var teamCfg teamConfig
+	if parseErr := teamCfg.parse(data); parseErr != nil {
+		return nil, parseErr
+	}
+
+	return teamCfg, nil
 }

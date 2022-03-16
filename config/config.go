@@ -100,17 +100,13 @@ func GetTeamCodesForWriter() [][]string {
 
 // GetTeamInfoFromUserTeamCode verifies the arg userTeamcode and then provides the team's
 // league code, team name and ID
-func GetTeamInfoFromUserTeamCode(userTeamCode string) (string, string, string) {
+func GetTeamInfoFromUserTeamCode(userTeamCode string) (leagueCode string, teamName string, teamId string) {
 	teamCfg, err := readTeamsCodesFromConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	var leagueCode string
-	var teamName string
-	var teamId string
 	var teamCountry string
-
 	for _, v := range teamCfg {
 		if v.Tla == strings.ToUpper(userTeamCode) {
 			teamName = v.Name

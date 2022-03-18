@@ -25,13 +25,13 @@ other commands e.g.
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("These are the available league codes:")
-		headerLeagues := []string{"league", "Code"}
+		headerLeagues := []string{"league", "Code", "Country"}
 		leagueCodes := config.GetLeagueCodes()
 		writer.Table(headerLeagues, leagueCodes)
 		fmt.Println()
 		fmt.Println("These are the available team codes:")
-		headerClubs := []string{"Team", "Team Code", "League Code"}
-		teamCodes := config.GetTeamCodes()
+		headerClubs := []string{"Team", "Team Code", "Country"}
+		teamCodes := config.GetTeamCodesForWriter()
 		writer.Table(headerClubs, teamCodes)
 	},
 }

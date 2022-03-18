@@ -7,7 +7,6 @@ package reporter
 import (
 	"fmt"
 	"log"
-	"strings"
 
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/config"
@@ -47,14 +46,7 @@ func GetTable(league string) {
 
 // GetTable gets the league table for the given team
 func GetTableForTeam(teamCode string) {
-	var leagueCode string
-	var teamName string
-	for _, v := range config.TeamConfig {
-		if v.Code == strings.ToUpper(teamCode) {
-			leagueCode = v.LeagueCode
-			teamName = v.Name
-		}
-	}
+	leagueCode, teamName, _ := config.GetTeamInfoFromUserTeamCode(teamCode)
 
 	endpoint := fmt.Sprintf("competitions/%s/standings", leagueCode)
 	client := api.NewClient()

@@ -17,6 +17,11 @@ type apiScorersResponse struct {
 	Body       scorersResponse
 }
 
+type apiTeamsResponse struct {
+	StatusCode int
+	Body       teamsResponse
+}
+
 type leagueResponse struct {
 	Filters struct {
 	} `json:"filters"`
@@ -193,4 +198,47 @@ type player struct {
 	Position       string      `json:"position"`
 	ShirtNumber    interface{} `json:"shirtNumber"`
 	LastUpdated    time.Time   `json:"lastUpdated"`
+}
+
+type teamsResponse struct {
+	Count   int `json:"count"`
+	Filters struct {
+	} `json:"filters"`
+	Competition struct {
+		ID   int `json:"id"`
+		Area struct {
+			ID   int    `json:"id"`
+			Name string `json:"name"`
+		} `json:"area"`
+		Name        string    `json:"name"`
+		Code        string    `json:"code"`
+		Plan        string    `json:"plan"`
+		LastUpdated time.Time `json:"lastUpdated"`
+	} `json:"competition"`
+	Season struct {
+		ID              int         `json:"id"`
+		StartDate       string      `json:"startDate"`
+		EndDate         string      `json:"endDate"`
+		CurrentMatchday interface{} `json:"currentMatchday"`
+		AvailableStages []string    `json:"availableStages"`
+	} `json:"season"`
+	Teams []struct {
+		ID   int `json:"id"`
+		Area struct {
+			ID   int    `json:"id"`
+			Name string `json:"name"`
+		} `json:"area"`
+		Name        string    `json:"name"`
+		ShortName   string    `json:"shortName"`
+		Tla         string    `json:"tla"`
+		CrestURL    string    `json:"crestUrl"`
+		Address     string    `json:"address"`
+		Phone       string    `json:"phone"`
+		Website     string    `json:"website"`
+		Email       string    `json:"email"`
+		Founded     int       `json:"founded"`
+		ClubColors  string    `json:"clubColors"`
+		Venue       string    `json:"venue"`
+		LastUpdated time.Time `json:"lastUpdated"`
+	} `json:"teams"`
 }

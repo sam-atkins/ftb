@@ -7,7 +7,6 @@ package reporter
 import (
 	"fmt"
 	"log"
-	"strings"
 	"time"
 
 	"github.com/sam-atkins/ftb/api"
@@ -48,19 +47,7 @@ func ResultsByLeague(league string) {
 // ResultsByTeam fetches results for a team and prints to stdout. Arg matchLimit limits
 // the results to the previous three weeks
 func ResultsByTeam(teamCode string, matchLimit bool) {
-	var teamId string
-	var teamName string
-	for _, v := range config.TeamConfig {
-		if v.Code == strings.ToUpper(teamCode) {
-			teamId = v.Id
-			teamName = v.Name
-		}
-	}
-
-	if teamId == "" {
-		config.CodeNotFound()
-	}
-
+	_, teamName, teamId := config.GetTeamInfoFromUserTeamCode(teamCode)
 	endpoint := fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)
 	if matchLimit {
 		now := time.Now()

@@ -118,9 +118,11 @@ func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {
 		return nil, decodeErr
 	}
 
+	editedResponse := editTeamsResponse(decodedResponse)
+
 	clientResponse := &apiTeamsResponse{
 		StatusCode: response.StatusCode,
-		Body:       decodedResponse,
+		Body:       editedResponse,
 	}
 
 	return clientResponse, nil
@@ -151,4 +153,16 @@ func (c client) doRequest(endpoint string) (*http.Response, error) {
 	}
 
 	return response, nil
+}
+
+// This edits the teamsResponse. It removes the short code (Tla) collision between FC
+// Bayern and FC Barcelona. Both have "FCB" as their code.
+func editTeamsResponse(response teamsResponse) teamsResponse {
+	for i, v := range response.Teams {
+		if v.Tla == "FCB" && v.Name == "FC Barcelona" {
+			response.Teams[i].Tla = "BAR"
+		}
+	}
+
+	return response
 }

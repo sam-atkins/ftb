@@ -52,8 +52,6 @@ func GetTableForTeam(teamCode string) {
 		return
 	}
 
-	fmt.Printf("League table: %v\n", response.Body.Competition.Name)
-
 	var teamIndex int
 	var data [][]string
 	for i, v := range response.Body.Standings[0].Table {
@@ -76,5 +74,7 @@ func GetTableForTeam(teamCode string) {
 	}
 
 	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
-	writer.TableWithTeamHighlight(teamIndex, header, data)
+	message := fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
+	w := writer.NewTableWithPositionHighlight(header, message, data, teamIndex)
+	w.RenderTableWithTeamHighlight()
 }

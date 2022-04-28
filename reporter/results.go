@@ -41,9 +41,7 @@ type results struct {
 func handleResultsByLeague(league string) {
 	r := resultsLeague(league)
 	r.getResultsByLeague()
-	// TODO:
-	// pass in r.message for printing
-	writer.Table(r.header, r.rows)
+	writer.NewTable(r.header, r.message, r.rows).RenderTable()
 }
 
 func handleResultsByTeam(team string, matchLimit bool) {

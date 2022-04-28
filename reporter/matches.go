@@ -21,8 +21,6 @@ func MatchesByLeague(league string) {
 		return
 	}
 
-	fmt.Printf("Current match day fixtures in the %v\n", response.Body.Competition.Name)
-
 	header := []string{"Date", "Home", "", "", "Away", "Match Status"}
 	var rows [][]string
 	for _, v := range response.Body.Matches {
@@ -37,7 +35,8 @@ func MatchesByLeague(league string) {
 			})
 		}
 	}
-	writer.Table(header, rows)
+	message := fmt.Sprintf("Current match day fixtures in the %v\n", response.Body.Competition.Name)
+	writer.NewTable(header, message, rows).RenderTable()
 }
 
 // MatchesByTeam fetches matches for a team and prints to stdout. Arg matchLimit limits
@@ -58,9 +57,7 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 		log.Printf("Something went wrong with the request: %s\n", responseErr)
 		return
 	}
-
-	fmt.Printf("Matches for %s\n", teamName)
-
+	message := fmt.Sprintf("Matches for %s\n", teamName)
 	header := []string{"Date", "Competition", "Home", "Away"}
 	var rows [][]string
 	for _, v := range response.Body.Matches {
@@ -71,5 +68,5 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 			v.AwayTeam.Name,
 		})
 	}
-	writer.Table(header, rows)
+	writer.NewTable(header, message, rows).RenderTable()
 }

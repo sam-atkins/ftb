@@ -129,10 +129,10 @@ func GetTeamInfoFromUserTeamCode(userTeamCode string) (leagueCode string, teamNa
 // CodeNotFound used when the user enters an unknown flag code. It prints the available
 // codes to stdout and exits (1)
 func CodeNotFound() {
-	fmt.Println("Did not recognise that team. These are the available team codes:")
 	header := []string{"Team", "Code"}
+	message := fmt.Sprintf("Did not recognise that team. These are the available team codes:")
 	teamCodes := GetTeamCodesForWriter()
-	writer.Table(header, teamCodes)
+	writer.NewTable(header, message, teamCodes).RenderTable()
 	os.Exit(1)
 }
 

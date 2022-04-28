@@ -19,7 +19,7 @@ func GetTable(league string) {
 		return
 	}
 
-	fmt.Printf("League table: %v\n", response.Body.Competition.Name)
+	message := fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
 
 	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
 	var rows [][]string
@@ -37,7 +37,7 @@ func GetTable(league string) {
 			fmt.Sprint(v.Points),
 		})
 	}
-	writer.Table(header, rows)
+	writer.NewTable(header, message, rows).RenderTable()
 }
 
 // GetTable gets the league table for the given team

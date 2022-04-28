@@ -18,7 +18,7 @@ func GetScorers(league string) {
 		return
 	}
 
-	fmt.Printf("Top Scorers in the %v\n", response.Body.Competition.Name)
+	message := fmt.Sprintf("Top Scorers in the %v\n", response.Body.Competition.Name)
 	header := []string{"Name", "Team", "Goals"}
 	var rows [][]string
 	for _, v := range response.Body.Scorers {
@@ -28,5 +28,5 @@ func GetScorers(league string) {
 			fmt.Sprint(v.NumberOfGoals),
 		})
 	}
-	writer.Table(header, rows)
+	writer.NewTable(header, message, rows).RenderTable()
 }

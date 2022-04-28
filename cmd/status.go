@@ -22,7 +22,7 @@ ftb status -t LIV
 	Run: func(cmd *cobra.Command, args []string) {
 		team, _ := cmd.Flags().GetString("team")
 		if team != "" {
-			reporter.ResultsByTeam(team, true)
+			reporter.ResultsCLI("", team, true)
 			fmt.Println("")
 			reporter.MatchesByTeam(team, true)
 			fmt.Println("")

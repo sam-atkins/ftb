@@ -37,7 +37,7 @@ ftb results -t liv
 			}
 			os.Exit(1)
 		}
-		reporter.ResultsCLI(league, team)
+		reporter.ResultsCLI(league, team, false)
 	},
 }
 

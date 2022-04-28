@@ -69,28 +69,26 @@ func resultsTeam(team string, matchLimit bool) *results {
 
 func (r *results) getResultsByLeague() *results {
 	r.endpoint = buildLeagueURL(r.league)
-	r.message = fmt.Sprintf("Results from the %s", r.league)
 	r.header = []string{"Date", "Home", "", "", "Away"}
-
-	results, err := fetchResultsByLeague(r.endpoint)
+	response, err := fetchResultsByLeague(r.endpoint)
 	if err != nil {
 		log.Printf("Something went wrong: %s\n", err)
 		os.Exit(1)
 	}
+	r.message = fmt.Sprintf("Results from the %s", response.Body.Competition.Name)
+	results := buildResultsByLeagueRows(response)
 	r.rows = results
-
 	return r
 }
 
-func fetchResultsByLeague(endpoint string) ([][]string, error) {
+func fetchResultsByLeague(endpoint string) (*api.ApiMatchesResponse, error) {
 	// TODO: move client to struct so in tests can inject test client
 	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		return nil, responseErr
 	}
-	result := buildResultsByLeagueRows(response)
-	return result, nil
+	return response, nil
 }
 
 // make the response struct public as interim step

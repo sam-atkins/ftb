@@ -6,6 +6,12 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// TODO:
+// take arg message and print this before rendering the table
+// Table struct
+// func to create and return a NewTable
+// tablewriter.NewWriter(os.Stdout) is the default, override for tests
+
 // Table writes a table to standard out
 func Table(header []string, rows [][]string) {
 	table := tablewriter.NewWriter(os.Stdout)

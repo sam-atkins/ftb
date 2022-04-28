@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/sam-atkins/ftb/api"
@@ -12,8 +13,6 @@ import (
 )
 
 func ResultsCLI(league, team string) {
-	fmt.Printf("Results for league: %s\n", league)
-	fmt.Printf("Results for team: %s\n", team)
 	// cmd should ensure both league and team are not empty but handle here too
 	if league == "" && team == "" {
 		fmt.Println("No league or team specified")
@@ -25,17 +24,16 @@ func ResultsCLI(league, team string) {
 	}
 
 	if team != "" {
-		fmt.Println("Not yet implemented")
-		os.Exit(1)
-		// TODO
-		// handleResultsByTeam(team)
+		handleResultsByTeam(team)
 	}
 }
 
 type results struct {
 	// client *api.Client ?
 	league   string
-	team     string
+	teamCode string
+	teamId   string
+	teamName string
 	endpoint string
 	message  string
 	header   []string
@@ -44,10 +42,15 @@ type results struct {
 
 func handleResultsByLeague(league string) {
 	r := resultsLeague(league)
-
-	// should return what I want in order to send to the writer: message, header and rows
 	r.getResultsByLeague()
+	// TODO:
+	// pass in r.message for printing
+	writer.Table(r.header, r.rows)
+}
 
+func handleResultsByTeam(team string) {
+	r := resultsTeam(team)
+	r.getResultsByTeam()
 	writer.Table(r.header, r.rows)
 }
 
@@ -60,7 +63,10 @@ func resultsLeague(league string) *results {
 
 // resultsByTeam wrapper on the Results struct for team results
 func resultsTeam(team string) *results {
-	return &results{}
+	teamCode := strings.ToUpper(team)
+	return &results{
+		teamCode: teamCode,
+	}
 }
 
 func (r *results) getResultsByLeague() *results {
@@ -78,15 +84,10 @@ func (r *results) getResultsByLeague() *results {
 	return r
 }
 
-func buildLeagueURL(league string) string {
-	return fmt.Sprintf("competitions/%s/matches", league)
-}
-
 func fetchResultsByLeague(endpoint string) ([][]string, error) {
 	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
-		// log.Printf("Something went wrong with the request: %s\n", responseErr)
 		return nil, responseErr
 	}
 	result := buildResultsByLeagueRows(response)
@@ -111,39 +112,49 @@ func buildResultsByLeagueRows(response *api.ApiMatchesResponse) [][]string {
 	return rows
 }
 
-// TODO delete
-// ResultsByLeague gets the results for a football league and pretty prints
-// the league table to stdout
-// func ResultsByLeague(league string) {
-// 	endpoint := fmt.Sprintf("competitions/%s/matches", league)
-// 	client := api.NewClient()
-// 	response, responseErr := client.GetMatches(endpoint)
-// 	if responseErr != nil {
-// 		log.Printf("Something went wrong with the request: %s\n", responseErr)
-// 		return
-// 	}
+func (r *results) getResultsByTeam() *results {
+	_, r.teamName, r.teamId = config.GetTeamInfoFromUserTeamCode(r.teamCode)
+	r.endpoint = buildTeamURL(r.teamId, false)
+	r.message = fmt.Sprintf("Results for %s", r.teamName)
+	r.header = []string{"Date", "Competition", "Home", "", "", "Away"}
 
-// 	fmt.Printf("Results from the %v\n", response.Body.Competition.Name)
+	results, err := fetchResultsByTeam(r.endpoint)
+	if err != nil {
+		log.Printf("Something went wrong: %s\n", err)
+		os.Exit(1)
+	}
+	r.rows = results
+	return r
+}
 
-// 	header := []string{"Date", "Home", "", "", "Away"}
-// 	var rows [][]string
-// 	for _, v := range response.Body.Matches {
-// 		if v.Season.CurrentMatchday-1 == v.Matchday && v.Status == "FINISHED" ||
-// 			v.Season.CurrentMatchday == v.Matchday && v.Status == "FINISHED" {
-// 			rows = append(rows, []string{
-// 				fmt.Sprint(v.UtcDate.Local().Format(dateTimeFormat)),
-// 				v.HomeTeam.Name,
-// 				fmt.Sprint(v.Score.FullTime.HomeTeam),
-// 				fmt.Sprint(v.Score.FullTime.AwayTeam),
-// 				v.AwayTeam.Name,
-// 			})
-// 		}
-// 	}
-// 	writer.Table(header, rows)
-// }
+func fetchResultsByTeam(endpoint string) ([][]string, error) {
+	client := api.NewClient()
+	response, responseErr := client.GetMatches(endpoint)
+	if responseErr != nil {
+		return nil, responseErr
+	}
+	result := buildResultsByTeamRows(response)
+	return result, nil
+}
+
+func buildResultsByTeamRows(response *api.ApiMatchesResponse) [][]string {
+	var rows [][]string
+	for _, v := range response.Body.Matches {
+		rows = append(rows, []string{
+			fmt.Sprint(v.UtcDate.Local().Format(dateTimeFormat)),
+			v.Competition.Name,
+			v.HomeTeam.Name,
+			fmt.Sprint(v.Score.FullTime.HomeTeam),
+			fmt.Sprint(v.Score.FullTime.AwayTeam),
+			v.AwayTeam.Name,
+		})
+	}
+	return rows
+}
 
 // ResultsByTeam fetches results for a team and prints to stdout. Arg matchLimit limits
 // the results to the previous three weeks
+// TODO: used in the status cmd so cannot delete yet
 func ResultsByTeam(teamCode string, matchLimit bool) {
 	_, teamName, teamId := config.GetTeamInfoFromUserTeamCode(teamCode)
 	endpoint := fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)

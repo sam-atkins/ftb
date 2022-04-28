@@ -1,7 +1,3 @@
-/*
-Copyright © 2020 Sam Atkins <samatkins@hey.com>
-MIT License
-*/
 package cmd
 
 import (
@@ -26,7 +22,7 @@ ftb status -t LIV
 	Run: func(cmd *cobra.Command, args []string) {
 		team, _ := cmd.Flags().GetString("team")
 		if team != "" {
-			reporter.ResultsByTeam(team, true)
+			reporter.ResultsCLI("", team, true)
 			fmt.Println("")
 			reporter.MatchesByTeam(team, true)
 			fmt.Println("")

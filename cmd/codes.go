@@ -1,7 +1,3 @@
-/*
-Copyright © 2021 Sam Atkins <samatkins@hey.com>
-MIT License
-*/
 package cmd
 
 import (
@@ -24,15 +20,15 @@ other commands e.g.
 	ftb status --team fcb
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("These are the available league codes:")
+		messageLeagueCodes := fmt.Sprintf("These are the available league codes:")
 		headerLeagues := []string{"league", "Code", "Country"}
 		leagueCodes := config.GetLeagueCodes()
-		writer.Table(headerLeagues, leagueCodes)
+		writer.NewTable(headerLeagues, messageLeagueCodes, leagueCodes).Render()
 		fmt.Println()
-		fmt.Println("These are the available team codes:")
+		messageTeamCodes := fmt.Sprintf("These are the available team codes:")
 		headerClubs := []string{"Team", "Team Code", "Country"}
 		teamCodes := config.GetTeamCodesForWriter()
-		writer.Table(headerClubs, teamCodes)
+		writer.NewTable(headerClubs, messageTeamCodes, teamCodes).Render()
 	},
 }
 

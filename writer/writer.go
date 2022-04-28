@@ -1,33 +1,57 @@
-/*
-Copyright © 2021 Sam Atkins <samatkins@hey.com>
-MIT License
-*/
 package writer
 
 import (
+	"fmt"
+	"io"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
 )
 
-// Table writes a table to standard out
-func Table(header []string, rows [][]string) {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader(header)
-	table.AppendBulk(rows)
-	table.Render()
+type Table struct {
+	Header             []string
+	Message            string
+	Rows               [][]string
+	TeamLeaguePosition int
+	Output             io.Writer
 }
 
-// TableWithTeamHighlight prints a league table to stdout, highlighting the team
-// at position teamIndex
-func TableWithTeamHighlight(teamIndex int, header []string, data [][]string) {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader(header)
-	table.SetColumnAlignment([]int{1, 1, 1, 1, 1, 1, 1, 1, 1, 1})
+func NewTable(header []string, message string, rows [][]string) *Table {
+	return &Table{
+		Header:  header,
+		Message: message,
+		Rows:    rows,
+		Output:  os.Stdout,
+	}
+}
 
-	for i, row := range data {
-		if i == teamIndex {
-			table.Rich(row, []tablewriter.Colors{
+func NewTableWithPositionHighlight(header []string, message string, rows [][]string, teamLeaguePosition int) *Table {
+	return &Table{
+		Header:             header,
+		Message:            message,
+		Rows:               rows,
+		Output:             os.Stdout,
+		TeamLeaguePosition: teamLeaguePosition,
+	}
+}
+
+func (t *Table) Render() {
+	fmt.Println(t.Message)
+	w := tablewriter.NewWriter(t.Output)
+	w.SetHeader(t.Header)
+	w.AppendBulk(t.Rows)
+	w.Render()
+}
+
+func (t *Table) RenderWithTeamHighlight() {
+	fmt.Println(t.Message)
+	w := tablewriter.NewWriter(t.Output)
+	w.SetHeader(t.Header)
+	w.SetColumnAlignment([]int{1, 1, 1, 1, 1, 1, 1, 1, 1, 1})
+
+	for i, row := range t.Rows {
+		if i == t.TeamLeaguePosition {
+			w.Rich(row, []tablewriter.Colors{
 				{tablewriter.Bold, tablewriter.FgWhiteColor},
 				{tablewriter.Bold, tablewriter.FgWhiteColor},
 				{tablewriter.Bold, tablewriter.FgWhiteColor},
@@ -43,7 +67,7 @@ func TableWithTeamHighlight(teamIndex int, header []string, data [][]string) {
 			// appended twice
 			continue
 		}
-		table.Append(row)
+		w.Append(row)
 	}
-	table.Render()
+	w.Render()
 }

@@ -1,7 +1,3 @@
-/*
-Copyright © 2021 Sam Atkins <samatkins@hey.com>
-MIT License
-*/
 package reporter
 
 import (
@@ -23,7 +19,7 @@ func GetTable(league string) {
 		return
 	}
 
-	fmt.Printf("League table: %v\n", response.Body.Competition.Name)
+	message := fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
 
 	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
 	var rows [][]string
@@ -41,7 +37,7 @@ func GetTable(league string) {
 			fmt.Sprint(v.Points),
 		})
 	}
-	writer.Table(header, rows)
+	writer.NewTable(header, message, rows).Render()
 }
 
 // GetTable gets the league table for the given team
@@ -55,8 +51,6 @@ func GetTableForTeam(teamCode string) {
 		log.Printf("Something went wrong with the request: %s\n", responseErr)
 		return
 	}
-
-	fmt.Printf("League table: %v\n", response.Body.Competition.Name)
 
 	var teamIndex int
 	var data [][]string
@@ -80,5 +74,7 @@ func GetTableForTeam(teamCode string) {
 	}
 
 	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
-	writer.TableWithTeamHighlight(teamIndex, header, data)
+	message := fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
+	w := writer.NewTableWithPositionHighlight(header, message, data, teamIndex)
+	w.RenderWithTeamHighlight()
 }

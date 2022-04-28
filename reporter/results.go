@@ -85,6 +85,7 @@ func (r *results) getResultsByLeague() *results {
 }
 
 func fetchResultsByLeague(endpoint string) ([][]string, error) {
+	// TODO: move client to struct so in tests can inject test client
 	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
@@ -114,7 +115,7 @@ func buildResultsByLeagueRows(response *api.ApiMatchesResponse) [][]string {
 
 func (r *results) getResultsByTeam() *results {
 	_, r.teamName, r.teamId = config.GetTeamInfoFromUserTeamCode(r.teamCode)
-	r.endpoint = buildTeamURL(r.teamId, false)
+	r.endpoint = newTeamURL().teamFinishedMatches(r.teamId, false)
 	r.message = fmt.Sprintf("Results for %s", r.teamName)
 	r.header = []string{"Date", "Competition", "Home", "", "", "Away"}
 

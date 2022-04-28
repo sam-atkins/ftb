@@ -12,19 +12,17 @@ import (
 	"github.com/sam-atkins/ftb/writer"
 )
 
+// ResultsCLI is the entrypoint for the reporter to get results for a league or team
 func ResultsCLI(league, team string) {
-	// cmd should ensure both league and team are not empty but handle here too
-	if league == "" && team == "" {
+	switch {
+	case league != "":
+		handleResultsByLeague(league)
+	case team != "":
+		handleResultsByTeam(team)
+	default:
+		// cmd should ensure both league and team are not empty but handle here too
 		fmt.Println("No league or team specified")
 		os.Exit(1)
-	}
-
-	if league != "" {
-		handleResultsByLeague(league)
-	}
-
-	if team != "" {
-		handleResultsByTeam(team)
 	}
 }
 
@@ -115,7 +113,7 @@ func buildResultsByLeagueRows(response *api.ApiMatchesResponse) [][]string {
 
 func (r *results) getResultsByTeam() *results {
 	_, r.teamName, r.teamId = config.GetTeamInfoFromUserTeamCode(r.teamCode)
-	r.endpoint = newTeamURL().teamFinishedMatches(r.teamId, false)
+	r.endpoint = newTeamURL().teamFinishedMatches(r.teamId, true)
 	r.message = fmt.Sprintf("Results for %s", r.teamName)
 	r.header = []string{"Date", "Competition", "Home", "", "", "Away"}
 

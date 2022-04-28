@@ -1,7 +1,3 @@
-/*
-Copyright © 2022 Sam Atkins <samatkins@hey.com>
-MIT License
-*/
 package cmd
 
 import (

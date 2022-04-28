@@ -53,7 +53,7 @@ func Test_client_GetMatches_200(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, string(loadTestJson("../test_files/matches-FCB.json")))
 	})
-	wantRes := &apiMatchesResponse{
+	wantRes := &ApiMatchesResponse{
 		StatusCode: http.StatusOK,
 		Body: matchesResponse{
 			Matches: []matches{

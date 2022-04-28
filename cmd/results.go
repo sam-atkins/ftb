@@ -1,7 +1,3 @@
-/*
-Copyright © 2021 Sam Atkins <samatkins@hey.com>
-MIT License
-*/
 package cmd
 
 import (
@@ -11,6 +7,9 @@ import (
 	"github.com/sam-atkins/ftb/reporter"
 	"github.com/spf13/cobra"
 )
+
+var league string
+var team string
 
 // resultsCmd represents the results command
 var resultsCmd = &cobra.Command{
@@ -30,29 +29,20 @@ ftb results -t LIV
 ftb results -t liv
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		league, _ := cmd.Flags().GetString("league")
-		if league != "" {
-			reporter.ResultsByLeague(league)
-			return
-		}
-
-		team, _ := cmd.Flags().GetString("team")
-		if team != "" {
-			reporter.ResultsByTeam(team, false)
-			return
-		}
-
-		fmt.Print("No flag provided. Check the below help menu for options.\n\n")
-		helpErr := cmd.Help()
-		if helpErr != nil {
+		if league == "" && team == "" {
+			fmt.Print("No flag provided. Check the below help menu for options.\n\n")
+			helpErr := cmd.Help()
+			if helpErr != nil {
+				os.Exit(1)
+			}
 			os.Exit(1)
 		}
-		os.Exit(1)
+		reporter.ResultsCLI(league, team)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(resultsCmd)
-	resultsCmd.Flags().StringP("league", "l", "", "The league to show e.g. PL, BL1")
-	resultsCmd.Flags().StringP("team", "t", "", "The team to show results for e.g. FCB, LIV")
+	resultsCmd.Flags().StringVarP(&league, "league", "l", "", "The league to show e.g. PL, BL1")
+	resultsCmd.Flags().StringVarP(&team, "team", "t", "", "The team to show results for e.g. FCB, LIV")
 }

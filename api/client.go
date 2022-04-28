@@ -14,7 +14,7 @@ import (
 
 type clientAPI interface {
 	// GetMatches returns the competition matches
-	GetMatches(endpoint string) (*apiMatchesResponse, error)
+	GetMatches(endpoint string) (*ApiMatchesResponse, error)
 	// GetScorers returns the tops scorers in a league
 	GetScorers(endpoint string) (*apiScorersResponse, error)
 	// GetTable returns the league table
@@ -45,7 +45,7 @@ func NewClient(url ...string) clientAPI {
 	}
 }
 
-func (c client) GetMatches(endpoint string) (*apiMatchesResponse, error) {
+func (c client) GetMatches(endpoint string) (*ApiMatchesResponse, error) {
 	response, responseErr := c.doRequest(endpoint)
 	if responseErr != nil {
 		return nil, responseErr
@@ -58,7 +58,7 @@ func (c client) GetMatches(endpoint string) (*apiMatchesResponse, error) {
 		return nil, decodeErr
 	}
 
-	clientResponse := &apiMatchesResponse{
+	clientResponse := &ApiMatchesResponse{
 		StatusCode: response.StatusCode,
 		Body:       decodedResponse,
 	}

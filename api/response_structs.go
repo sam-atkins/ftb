@@ -7,7 +7,7 @@ type apiLeagueResponse struct {
 	Body       leagueResponse
 }
 
-type apiMatchesResponse struct {
+type ApiMatchesResponse struct {
 	StatusCode int
 	Body       matchesResponse
 }

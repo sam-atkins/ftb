@@ -8,9 +8,6 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-// TODO:
-// take arg message and print this before rendering the table
-// Table struct, rename
 type Table struct {
 	Header             []string
 	Message            string
@@ -38,7 +35,7 @@ func NewTableWithPositionHighlight(header []string, message string, rows [][]str
 	}
 }
 
-func (t *Table) RenderTable() {
+func (t *Table) Render() {
 	fmt.Println(t.Message)
 	w := tablewriter.NewWriter(t.Output)
 	w.SetHeader(t.Header)
@@ -46,7 +43,7 @@ func (t *Table) RenderTable() {
 	w.Render()
 }
 
-func (t *Table) RenderTableWithTeamHighlight() {
+func (t *Table) RenderWithTeamHighlight() {
 	fmt.Println(t.Message)
 	w := tablewriter.NewWriter(t.Output)
 	w.SetHeader(t.Header)

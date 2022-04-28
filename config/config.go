@@ -132,7 +132,7 @@ func CodeNotFound() {
 	header := []string{"Team", "Code"}
 	message := fmt.Sprintf("Did not recognise that team. These are the available team codes:")
 	teamCodes := GetTeamCodesForWriter()
-	writer.NewTable(header, message, teamCodes).RenderTable()
+	writer.NewTable(header, message, teamCodes).Render()
 	os.Exit(1)
 }
 

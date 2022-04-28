@@ -36,7 +36,7 @@ func MatchesByLeague(league string) {
 		}
 	}
 	message := fmt.Sprintf("Current match day fixtures in the %v\n", response.Body.Competition.Name)
-	writer.NewTable(header, message, rows).RenderTable()
+	writer.NewTable(header, message, rows).Render()
 }
 
 // MatchesByTeam fetches matches for a team and prints to stdout. Arg matchLimit limits
@@ -68,5 +68,5 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 			v.AwayTeam.Name,
 		})
 	}
-	writer.NewTable(header, message, rows).RenderTable()
+	writer.NewTable(header, message, rows).Render()
 }

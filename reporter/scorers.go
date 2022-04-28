@@ -28,5 +28,5 @@ func GetScorers(league string) {
 			fmt.Sprint(v.NumberOfGoals),
 		})
 	}
-	writer.NewTable(header, message, rows).RenderTable()
+	writer.NewTable(header, message, rows).Render()
 }

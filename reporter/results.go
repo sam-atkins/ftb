@@ -41,14 +41,14 @@ type results struct {
 func handleResultsByLeague(league string) {
 	r := resultsLeague(league)
 	r.getResultsByLeague()
-	writer.NewTable(r.header, r.message, r.rows).RenderTable()
+	writer.NewTable(r.header, r.message, r.rows).Render()
 }
 
 func handleResultsByTeam(team string, matchLimit bool) {
 	r := resultsTeam(team, matchLimit)
 	r.getResultsByTeam()
 	w := writer.NewTable(r.header, r.message, r.rows)
-	w.RenderTable()
+	w.Render()
 }
 
 // ResultsByLeague wrapper on the Results struct for league results

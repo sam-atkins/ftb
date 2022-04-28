@@ -23,12 +23,12 @@ other commands e.g.
 		messageLeagueCodes := fmt.Sprintf("These are the available league codes:")
 		headerLeagues := []string{"league", "Code", "Country"}
 		leagueCodes := config.GetLeagueCodes()
-		writer.NewTable(headerLeagues, messageLeagueCodes, leagueCodes).RenderTable()
+		writer.NewTable(headerLeagues, messageLeagueCodes, leagueCodes).Render()
 		fmt.Println()
 		messageTeamCodes := fmt.Sprintf("These are the available team codes:")
 		headerClubs := []string{"Team", "Team Code", "Country"}
 		teamCodes := config.GetTeamCodesForWriter()
-		writer.NewTable(headerClubs, messageTeamCodes, teamCodes).RenderTable()
+		writer.NewTable(headerClubs, messageTeamCodes, teamCodes).Render()
 	},
 }
 

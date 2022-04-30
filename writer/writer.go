@@ -55,7 +55,7 @@ func NewTableWithPositionHighlight(header []string, message string, rows [][]str
 }
 
 // Render prints a table with a position highlight to the Output
-func (t *TableWithPositionHighlight) RenderWithTeamHighlight() {
+func (t *TableWithPositionHighlight) Render() {
 	fmt.Println(t.Message)
 	w := tablewriter.NewWriter(t.Output)
 	w.SetHeader(t.Header)

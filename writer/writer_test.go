@@ -65,7 +65,7 @@ func TestTable_Render(t *testing.T) {
 	}
 }
 
-func TestTableWithPositionHighlight_RenderWithTeamHighlight(t *testing.T) {
+func TestTableWithPositionHighlight_Render(t *testing.T) {
 	type fields struct {
 		Header             []string
 		Message            string
@@ -105,7 +105,7 @@ func TestTableWithPositionHighlight_RenderWithTeamHighlight(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			tbl := NewTableWithPositionHighlight(tt.fields.Header, tt.fields.Message, tt.fields.Rows, tt.fields.TeamLeaguePosition)
 			tbl.Output = file
-			tbl.RenderWithTeamHighlight()
+			tbl.Render()
 			got, err := os.ReadFile(tt.tempPath)
 			if err != nil {
 				t.Fatal(err)

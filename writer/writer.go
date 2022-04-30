@@ -9,6 +9,13 @@ import (
 )
 
 type Table struct {
+	Header  []string
+	Message string
+	Rows    [][]string
+	Output  io.Writer
+}
+
+type TableWithPositionHighlight struct {
 	Header             []string
 	Message            string
 	Rows               [][]string
@@ -16,7 +23,7 @@ type Table struct {
 	Output             io.Writer
 }
 
-// NewTable returns a Table with a default of os.Stdout as the output
+// NewTable returns a standard Table with a default of os.Stdout as the output
 func NewTable(header []string, message string, rows [][]string) *Table {
 	return &Table{
 		Header:  header,
@@ -26,16 +33,7 @@ func NewTable(header []string, message string, rows [][]string) *Table {
 	}
 }
 
-func NewTableWithPositionHighlight(header []string, message string, rows [][]string, teamLeaguePosition int) *Table {
-	return &Table{
-		Header:             header,
-		Message:            message,
-		Rows:               rows,
-		Output:             os.Stdout,
-		TeamLeaguePosition: teamLeaguePosition,
-	}
-}
-
+// Render prints a standard table to the Output
 func (t *Table) Render() {
 	fmt.Println(t.Message)
 	w := tablewriter.NewWriter(t.Output)
@@ -44,7 +42,20 @@ func (t *Table) Render() {
 	w.Render()
 }
 
-func (t *Table) RenderWithTeamHighlight() {
+// NewTableWithPositionHighlight returns a table with a position highlighted per the
+// teamLeaguePosition int. Output is set to a default of os.Stdout
+func NewTableWithPositionHighlight(header []string, message string, rows [][]string, teamLeaguePosition int) *TableWithPositionHighlight {
+	return &TableWithPositionHighlight{
+		Header:             header,
+		Message:            message,
+		Rows:               rows,
+		Output:             os.Stdout,
+		TeamLeaguePosition: teamLeaguePosition,
+	}
+}
+
+// Render prints a table with a position highlight to the Output
+func (t *TableWithPositionHighlight) RenderWithTeamHighlight() {
 	fmt.Println(t.Message)
 	w := tablewriter.NewWriter(t.Output)
 	w.SetHeader(t.Header)

@@ -3,6 +3,7 @@ module github.com/sam-atkins/ftb
 go 1.16
 
 require (
+	github.com/google/go-cmp v0.5.8
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/cobra v1.2.1

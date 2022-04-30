@@ -47,13 +47,9 @@ func TestTable_Render(t *testing.T) {
 		}
 		defer file.Close()
 		t.Run(tt.name, func(t *testing.T) {
-			tr := &Table{
-				Header:  tt.fields.Header,
-				Message: tt.fields.Message,
-				Rows:    tt.fields.Rows,
-				Output:  file,
-			}
-			tr.Render()
+			tbl := NewTable(tt.fields.Header, tt.fields.Message, tt.fields.Rows)
+			tbl.Output = file
+			tbl.Render()
 			got, err := os.ReadFile(tt.tempPath)
 			if err != nil {
 				t.Fatal(err)

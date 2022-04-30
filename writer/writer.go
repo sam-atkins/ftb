@@ -16,6 +16,7 @@ type Table struct {
 	Output             io.Writer
 }
 
+// NewTable returns a Table with a default of os.Stdout as the output
 func NewTable(header []string, message string, rows [][]string) *Table {
 	return &Table{
 		Header:  header,

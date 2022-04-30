@@ -8,9 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var league string
-var team string
-
 // resultsCmd represents the results command
 var resultsCmd = &cobra.Command{
 	Use:   "results",

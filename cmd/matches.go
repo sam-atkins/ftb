@@ -24,13 +24,19 @@ ftb results --team FCB
 ftb results -t liv
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		league, _ := cmd.Flags().GetString("league")
+		if league == "" && team == "" {
+			fmt.Print("No flag provided. Check the below help menu for options.\n\n")
+			helpErr := cmd.Help()
+			if helpErr != nil {
+				os.Exit(1)
+			}
+			os.Exit(1)
+		}
 		if league != "" {
-			reporter.MatchesByLeague(league)
+			reporter.MatchesCLI(league, team, false)
 			return
 		}
 
-		team, _ := cmd.Flags().GetString("team")
 		if team != "" {
 			reporter.MatchesByTeam(team, false)
 			return
@@ -47,6 +53,6 @@ ftb results -t liv
 
 func init() {
 	rootCmd.AddCommand(matchesCmd)
-	matchesCmd.Flags().StringP("league", "l", "", "The league to show e.g. PL, BL1")
-	matchesCmd.Flags().StringP("team", "t", "", "The team to show results for e.g. FCB, LIV")
+	matchesCmd.Flags().StringVarP(&league, "league", "l", "", "The league to show e.g. PL, BL1")
+	matchesCmd.Flags().StringVarP(&team, "team", "t", "", "The team to show results for e.g. FCB, LIV")
 }

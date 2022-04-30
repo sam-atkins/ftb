@@ -72,9 +72,7 @@ func GetTableForTeam(teamCode string) {
 				fmt.Sprint(v.Points),
 			})
 	}
-
 	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
 	message := fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
-	w := writer.NewTableWithPositionHighlight(header, message, data, teamIndex)
-	w.RenderWithTeamHighlight()
+	writer.NewTableWithPositionHighlight(header, message, data, teamIndex).RenderWithTeamHighlight()
 }

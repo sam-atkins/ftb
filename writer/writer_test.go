@@ -64,3 +64,59 @@ func TestTable_Render(t *testing.T) {
 		})
 	}
 }
+
+func TestTableWithPositionHighlight_RenderWithTeamHighlight(t *testing.T) {
+	type fields struct {
+		Header             []string
+		Message            string
+		Rows               [][]string
+		TeamLeaguePosition int
+		Output             io.Writer
+	}
+	tests := []struct {
+		name       string
+		fields     fields
+		tempPath   string
+		goldenPath string
+	}{
+		{
+			name: "Render table with highlighted team",
+			fields: fields{
+				Header:  []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"},
+				Message: "League table: Bundesliga",
+				Rows: [][]string{
+					{"1", "FC Bayern München", "31", "24", "3", "4", "92", "30", "62", "75"},
+					{"2", "Borussia Dortmund", "31", "20", "3", "8", "77", "46", "31", "63"},
+					{"3", "Bayer Leverkusen", "31", "16", "7", "8", "72", "44", "28", "55"},
+					{"4", "RB Leipzig", "31", "19", "16", "6", "9", "66", "33", "33", "54"},
+				},
+				TeamLeaguePosition: 0,
+			},
+			tempPath:   t.TempDir() + "/team_results.txt",
+			goldenPath: "../testdata/team_table_bundesliga.golden",
+		},
+	}
+	for _, tt := range tests {
+		file, err := os.OpenFile(tt.tempPath, os.O_RDWR|os.O_CREATE, 0666)
+		if err != nil {
+			t.Errorf("%s: failed to open file: %v", tt.name, err)
+		}
+		defer file.Close()
+		t.Run(tt.name, func(t *testing.T) {
+			tbl := NewTableWithPositionHighlight(tt.fields.Header, tt.fields.Message, tt.fields.Rows, tt.fields.TeamLeaguePosition)
+			tbl.Output = file
+			tbl.RenderWithTeamHighlight()
+			got, err := os.ReadFile(tt.tempPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			want, err := os.ReadFile(tt.goldenPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !cmp.Equal(want, got) {
+				t.Fatal(cmp.Diff(want, got))
+			}
+		})
+	}
+}

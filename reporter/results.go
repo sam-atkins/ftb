@@ -76,8 +76,7 @@ func (r *results) getResultsByLeague() *results {
 		os.Exit(1)
 	}
 	r.message = fmt.Sprintf("Results from the %s", response.Body.Competition.Name)
-	results := buildResultsByLeagueRows(response)
-	r.rows = results
+	r.rows = buildResultsByLeagueRows(response)
 	return r
 }
 
@@ -115,23 +114,22 @@ func (r *results) getResultsByTeam() *results {
 	r.message = fmt.Sprintf("Results for %s", r.teamName)
 	r.header = []string{"Date", "Competition", "Home", "", "", "Away"}
 
-	results, err := fetchResultsByTeam(r.endpoint)
+	response, err := fetchResultsByTeam(r.endpoint)
 	if err != nil {
 		log.Printf("Something went wrong: %s\n", err)
 		os.Exit(1)
 	}
-	r.rows = results
+	r.rows = buildResultsByTeamRows(response)
 	return r
 }
 
-func fetchResultsByTeam(endpoint string) ([][]string, error) {
+func fetchResultsByTeam(endpoint string) (*api.ApiMatchesResponse, error) {
 	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
 		return nil, responseErr
 	}
-	result := buildResultsByTeamRows(response)
-	return result, nil
+	return response, nil
 }
 
 func buildResultsByTeamRows(response *api.ApiMatchesResponse) [][]string {

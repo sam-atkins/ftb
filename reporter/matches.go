@@ -80,23 +80,6 @@ func fetchMatchesByLeague(endpoint string) (*api.ApiMatchesResponse, error) {
 	return response, nil
 }
 
-// MatchesByLeague fetches matches for a league and prints to stdout
-func MatchesByLeague(league string) {
-	endpoint := fmt.Sprintf("competitions/%s/matches", league)
-	client := api.NewClient()
-	response, responseErr := client.GetMatches(endpoint)
-
-	if responseErr != nil {
-		log.Printf("Something went wrong with the request: %s\n", responseErr)
-		return
-	}
-
-	header := []string{"Date", "Home", "", "", "Away", "Match Status"}
-	rows := buildRowsForCurrentMatchDayFixtures(response)
-	message := fmt.Sprintf("Current match day fixtures in the %v\n", response.Body.Competition.Name)
-	writer.NewTable(header, message, rows).Render()
-}
-
 func buildRowsForCurrentMatchDayFixtures(response *api.ApiMatchesResponse) [][]string {
 	var rows [][]string
 	for _, v := range response.Body.Matches {
@@ -136,6 +119,11 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 	}
 	message := fmt.Sprintf("Matches for %s\n", teamName)
 	header := []string{"Date", "Competition", "Home", "Away"}
+	rows := buildRowsForTeamFixtures(response)
+	writer.NewTable(header, message, rows).Render()
+}
+
+func buildRowsForTeamFixtures(response *api.ApiMatchesResponse) [][]string {
 	var rows [][]string
 	for _, v := range response.Body.Matches {
 		rows = append(rows, []string{
@@ -145,5 +133,5 @@ func MatchesByTeam(teamCode string, matchLimit bool) {
 			v.AwayTeam.Name,
 		})
 	}
-	writer.NewTable(header, message, rows).Render()
+	return rows
 }

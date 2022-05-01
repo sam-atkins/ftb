@@ -38,6 +38,39 @@ func Test_buildLeagueURL(t *testing.T) {
 	}
 }
 
+func Test_scorersURL(t *testing.T) {
+	type args struct {
+		league string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Build Bundesliga scorers URL",
+			args: args{
+				league: "BL1",
+			},
+			want: "competitions/BL1/scorers",
+		},
+		{
+			name: "Build Premier League scorers URL",
+			args: args{
+				league: "PL",
+			},
+			want: "competitions/PL/scorers",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := scorersURL(tt.args.league); got != tt.want {
+				t.Errorf("scorersURL() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_teamURL_teamFinishedMatches(t *testing.T) {
 	type fields struct {
 		now time.Time

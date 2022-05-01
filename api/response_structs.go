@@ -12,7 +12,7 @@ type ApiMatchesResponse struct {
 	Body       matchesResponse
 }
 
-type apiScorersResponse struct {
+type ApiScorersResponse struct {
 	StatusCode int
 	Body       scorersResponse
 }

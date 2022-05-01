@@ -14,6 +14,10 @@ func buildLeagueURL(league string) string {
 	return fmt.Sprintf("competitions/%s/matches", league)
 }
 
+func scorersURL(league string) string {
+	return fmt.Sprintf("competitions/%s/scorers", league)
+}
+
 type teamURL struct {
 	now time.Time
 }

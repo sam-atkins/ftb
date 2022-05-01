@@ -26,7 +26,7 @@ ftb status -t LIV
 		if team != "" {
 			reporter.ResultsCLI("", team, true)
 			fmt.Println("")
-			reporter.MatchesCLI(league, team, false)
+			reporter.MatchesCLI("", team, false)
 			fmt.Println("")
 			reporter.GetTableForTeam(team)
 			return

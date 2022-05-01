@@ -8,6 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var leagueResults string
+var teamResults string
+
 // resultsCmd represents the results command
 var resultsCmd = &cobra.Command{
 	Use:   "results",
@@ -26,7 +29,7 @@ ftb results -t LIV
 ftb results -t liv
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if league == "" && team == "" {
+		if leagueResults == "" && teamResults == "" {
 			fmt.Print("No flag provided. Check the below help menu for options.\n\n")
 			helpErr := cmd.Help()
 			if helpErr != nil {
@@ -34,12 +37,12 @@ ftb results -t liv
 			}
 			os.Exit(1)
 		}
-		reporter.ResultsCLI(league, team, false)
+		reporter.ResultsCLI(leagueResults, teamResults, false)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(resultsCmd)
-	resultsCmd.Flags().StringVarP(&league, "league", "l", "", "The league to show e.g. PL, BL1")
-	resultsCmd.Flags().StringVarP(&team, "team", "t", "", "The team to show results for e.g. FCB, LIV")
+	resultsCmd.Flags().StringVarP(&leagueResults, "league", "l", "", "The league to show e.g. PL, BL1")
+	resultsCmd.Flags().StringVarP(&teamResults, "team", "t", "", "The team to show results for e.g. FCB, LIV")
 }

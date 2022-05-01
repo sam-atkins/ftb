@@ -45,9 +45,12 @@ func matchesLeague(league string, matchLimit bool) *matches {
 }
 
 func matchesTeam(teamCode string, matchLimit bool) *matches {
+	cfg := config.NewTeamConfig(teamCode)
 	return &matches{
 		teamCode:   teamCode,
 		matchLimit: matchLimit,
+		teamId:     cfg.TeamId,
+		teamName:   cfg.TeamName,
 	}
 }
 
@@ -103,8 +106,7 @@ func handleMatchesByTeam(team string, matchLimit bool) {
 }
 
 func (m *matches) getMatchesByTeam() *matches {
-	_, m.teamName, m.teamId = config.GetTeamInfoFromUserTeamCode(m.teamCode)
-	m.endpoint = newTeamURL().teamMatches(m.teamId, m.matchLimit, false)
+	m.endpoint = newTeafmURL().teamMatches(m.teamId, m.matchLimit, false)
 	m.header = []string{"Date", "Competition", "Home", "Away"}
 	response, err := fetchMatchesByTeam(m.endpoint)
 	if err != nil {

@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/sam-atkins/ftb/config"
 	"github.com/sam-atkins/ftb/reporter"
@@ -22,14 +23,13 @@ ftb status -t fcb
 ftb status -t LIV
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		team, _ := cmd.Flags().GetString("team")
-		if team != "" {
-			reporter.ResultsCLI("", team, true)
+		if teamStatus != "" {
+			reporter.ResultsCLI("", teamStatus, true)
 			fmt.Println("")
-			reporter.MatchesCLI("", team, false)
+			reporter.MatchesCLI("", teamStatus, false)
 			fmt.Println("")
-			reporter.TeamTableCLI(team)
-			return
+			reporter.TeamTableCLI(teamStatus)
+			os.Exit(0)
 		}
 		config.CodeNotFound()
 	},

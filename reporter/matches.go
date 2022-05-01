@@ -104,7 +104,7 @@ func handleMatchesByTeam(team string, matchLimit bool) {
 
 func (m *matches) getMatchesByTeam() *matches {
 	_, m.teamName, m.teamId = config.GetTeamInfoFromUserTeamCode(m.teamCode)
-	m.endpoint = newTeamURL().teamScheduledMatches(m.teamId, m.matchLimit)
+	m.endpoint = newTeamURL().teamMatches(m.teamId, m.matchLimit, false)
 	m.header = []string{"Date", "Competition", "Home", "Away"}
 	response, err := fetchMatchesByTeam(m.endpoint)
 	if err != nil {

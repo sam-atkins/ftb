@@ -3,23 +3,60 @@ package reporter
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/writer"
 )
 
-// GetScorers fetches top scorers for a league and prints to stdout
-func GetScorers(league string) {
-	endpoint := fmt.Sprintf("competitions/%s/scorers", league)
+// ScorersCLI is the entrypoint for the reporter to get top scorers for a league
+func ScorersCLI(league string) {
+	handleScorers(league)
+}
+
+type scorers struct {
+	endpoint string
+	league   string
+	message  string
+	header   []string
+	rows     [][]string
+}
+
+func newScorers(league string) *scorers {
+	return &scorers{
+		league: league,
+	}
+}
+
+func handleScorers(league string) {
+	s := newScorers(league)
+	s.getScorersByLeague()
+	writer.NewTable(s.header, s.message, s.rows).Render()
+}
+
+func (s *scorers) getScorersByLeague() *scorers {
+	s.endpoint = scorersURL(s.league)
+	response, err := fetchScorers(s.endpoint)
+	if err != nil {
+		log.Printf("Something went wrong with the request: %s\n", err)
+		os.Exit(1)
+	}
+	s.message = fmt.Sprintf("Top Scorers in the %v\n", response.Body.Competition.Name)
+	s.header = []string{"Name", "Team", "Goals"}
+	s.rows = buildScorersByLeagueRows(response)
+	return s
+}
+
+func fetchScorers(endpoint string) (*api.ApiScorersResponse, error) {
 	client := api.NewClient()
 	response, responseErr := client.GetScorers(endpoint)
 	if responseErr != nil {
-		log.Printf("Something went wrong with the request: %s\n", responseErr)
-		return
+		return nil, responseErr
 	}
+	return response, nil
+}
 
-	message := fmt.Sprintf("Top Scorers in the %v\n", response.Body.Competition.Name)
-	header := []string{"Name", "Team", "Goals"}
+func buildScorersByLeagueRows(response *api.ApiScorersResponse) [][]string {
 	var rows [][]string
 	for _, v := range response.Body.Scorers {
 		rows = append(rows, []string{
@@ -28,5 +65,5 @@ func GetScorers(league string) {
 			fmt.Sprint(v.NumberOfGoals),
 		})
 	}
-	writer.NewTable(header, message, rows).Render()
+	return rows
 }

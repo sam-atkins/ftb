@@ -1,11 +1,15 @@
 package cmd
 
 import (
+	"fmt"
+	"os"
 	"strings"
 
 	"github.com/sam-atkins/ftb/reporter"
 	"github.com/spf13/cobra"
 )
+
+var leagueScorers string
 
 // scorersCmd represents the scorers command
 var scorersCmd = &cobra.Command{
@@ -21,16 +25,19 @@ ftb scorers -l BL1
 ftb scorers --league PL
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		league, _ := cmd.Flags().GetString("league")
-		if league == "" {
-			// TODO(sam) add default league to config
-			league = "BL1"
+		if leagueScorers == "" {
+			fmt.Print("No flag provided. Check the below help menu for options.\n\n")
+			helpErr := cmd.Help()
+			if helpErr != nil {
+				os.Exit(1)
+			}
+			os.Exit(1)
 		}
-		reporter.GetScorers(strings.ToUpper(league))
+		reporter.ScorersCLI(strings.ToUpper(leagueScorers))
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(scorersCmd)
-	scorersCmd.Flags().StringP("league", "l", "", "The league to show e.g. PL, BL1")
+	scorersCmd.Flags().StringVarP(&leagueScorers, "league", "l", "", "The league to show e.g. PL, BL1")
 }

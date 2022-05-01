@@ -39,27 +39,27 @@ type results struct {
 }
 
 func handleResultsByLeague(league string) {
-	r := resultsLeague(league)
+	r := newResultsLeague(league)
 	r.getResultsByLeague()
 	writer.NewTable(r.header, r.message, r.rows).Render()
 }
 
 func handleResultsByTeam(team string, matchLimit bool) {
-	r := resultsTeam(team, matchLimit)
+	r := newResultsTeam(team, matchLimit)
 	r.getResultsByTeam()
 	w := writer.NewTable(r.header, r.message, r.rows)
 	w.Render()
 }
 
 // ResultsByLeague wrapper on the Results struct for league results
-func resultsLeague(league string) *results {
+func newResultsLeague(league string) *results {
 	return &results{
 		league: league,
 	}
 }
 
 // resultsByTeam wrapper on the Results struct for team results
-func resultsTeam(team string, matchLimit bool) *results {
+func newResultsTeam(team string, matchLimit bool) *results {
 	teamCode := strings.ToUpper(team)
 	return &results{
 		matchLimit: matchLimit,

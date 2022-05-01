@@ -110,7 +110,7 @@ func Test_client_GetScorers_200(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, string(loadTestJson("../test_files/top-scorers-BL1.json")))
 	})
-	wantRes := &apiScorersResponse{
+	wantRes := &ApiScorersResponse{
 		StatusCode: http.StatusOK,
 		Body: scorersResponse{
 			Scorers: []scorers{

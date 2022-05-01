@@ -45,17 +45,17 @@ func newTable(leagueCode string) *table {
 }
 
 func newTeamTable(teamCode string) *table {
+	cfg := config.NewTeamConfig(teamCode)
 	return &table{
 		header:       []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"},
+		leagueCode:   cfg.LeagueCode,
 		tableForTeam: true,
 		teamCode:     teamCode,
+		teamName:     cfg.TeamName,
 	}
 }
 
 func (t *table) getTable() *table {
-	if t.leagueCode == "" {
-		t.leagueCode, t.teamName, _ = config.GetTeamInfoFromUserTeamCode(t.teamCode)
-	}
 	t.endpoint = buildLeagueStandingsURL(t.leagueCode)
 	response, err := fetchTable(t.endpoint)
 	if err != nil {

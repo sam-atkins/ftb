@@ -98,10 +98,19 @@ func GetTeamCodesForWriter() [][]string {
 	return teamCodes
 }
 
-// GetTeamInfoFromUserTeamCode verifies the arg userTeamcode and then provides the team's
-// league code, team name and ID
-// TODO refactor this fn
-func GetTeamInfoFromUserTeamCode(userTeamCode string) (leagueCode string, teamName string, teamId string) {
+// TeamInfoConfig holds the team information
+type TeamInfoConfig struct {
+	LeagueCode string
+	TeamName   string
+	TeamId     string
+}
+
+// NewTeamConfig returns a new TeamInfoConfig, populated based on the input of the arg
+// teamCode
+func NewTeamConfig(teamCode string) *TeamInfoConfig {
+	cfg := &TeamInfoConfig{
+		TeamName: teamCode,
+	}
 	teamCfg, err := readTeamsCodesFromConfig()
 	if err != nil {
 		log.Fatal(err)
@@ -109,22 +118,22 @@ func GetTeamInfoFromUserTeamCode(userTeamCode string) (leagueCode string, teamNa
 
 	var teamCountry string
 	for _, v := range teamCfg {
-		if v.Tla == strings.ToUpper(userTeamCode) {
-			teamName = v.Name
-			teamId = strconv.Itoa(v.ID)
+		if v.Tla == strings.ToUpper(teamCode) {
+			cfg.TeamName = v.Name
+			cfg.TeamId = strconv.Itoa(v.ID)
 			teamCountry = v.Area.Name
 		}
 		for _, v := range LeagueConfig {
 			if teamCountry == v.Country {
-				leagueCode = v.LeagueCode
+				cfg.LeagueCode = v.LeagueCode
 			}
 		}
 	}
 
-	if leagueCode == "" && teamName == "" {
+	if cfg.LeagueCode == "" && cfg.TeamName == "" {
 		CodeNotFound()
 	}
-	return leagueCode, teamName, teamId
+	return cfg
 }
 
 // CodeNotFound used when the user enters an unknown flag code. It prints the available

@@ -100,6 +100,7 @@ func GetTeamCodesForWriter() [][]string {
 
 // GetTeamInfoFromUserTeamCode verifies the arg userTeamcode and then provides the team's
 // league code, team name and ID
+// TODO refactor this fn
 func GetTeamInfoFromUserTeamCode(userTeamCode string) (leagueCode string, teamName string, teamId string) {
 	teamCfg, err := readTeamsCodesFromConfig()
 	if err != nil {

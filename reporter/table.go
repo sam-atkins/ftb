@@ -10,13 +10,18 @@ import (
 	"github.com/sam-atkins/ftb/writer"
 )
 
-// consolidate with TeamTableCLI ?
+// TableCLI renders a league table
 func TableCLI(league string) {
-	GetTable(league)
+	t := newTable(league)
+	t.getTable()
+	writer.NewTable(t.header, t.message, t.rows).Render()
 }
 
+// TeamTableCLI renders a league table with the specified team highlighted
 func TeamTableCLI(teamCode string) {
-	handleGetTeamTable(teamCode)
+	t := newTeamTable(teamCode)
+	t.getTable()
+	writer.NewTableWithPositionHighlight(t.header, t.message, t.rows, t.teamIndex).Render()
 }
 
 type table struct {
@@ -47,16 +52,10 @@ func newTeamTable(teamCode string) *table {
 	}
 }
 
-func handleGetTable(leagueCode string) {}
-
-func handleGetTeamTable(teamCode string) {
-	t := newTeamTable(teamCode)
-	t.getTable()
-	writer.NewTableWithPositionHighlight(t.header, t.message, t.rows, t.teamIndex).Render()
-}
-
 func (t *table) getTable() *table {
-	t.leagueCode, t.teamName, _ = config.GetTeamInfoFromUserTeamCode(t.teamCode)
+	if t.leagueCode == "" {
+		t.leagueCode, t.teamName, _ = config.GetTeamInfoFromUserTeamCode(t.teamCode)
+	}
 	t.endpoint = buildLeagueStandingsURL(t.leagueCode)
 	response, err := fetchTable(t.endpoint)
 	if err != nil {
@@ -64,7 +63,11 @@ func (t *table) getTable() *table {
 		os.Exit(1)
 	}
 	t.message = fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
-	t.teamIndex, t.rows = buildLeagueTableRows(response, t.teamName)
+	if t.tableForTeam {
+		t.buildLeagueTableRows(response, t.teamName)
+	} else {
+		t.buildLeagueTableRows(response, "")
+	}
 	return t
 }
 
@@ -77,27 +80,10 @@ func fetchTable(endpoint string) (*api.ApiLeagueResponse, error) {
 	return response, nil
 }
 
-// GetTable gets a league table
-func GetTable(league string) {
-	endpoint := fmt.Sprintf("competitions/%s/standings", league)
-	client := api.NewClient()
-	response, responseErr := client.GetTable(endpoint)
-	if responseErr != nil {
-		log.Printf("Something went wrong with the request: %s\n", responseErr)
-		return
-	}
-
-	message := fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
-
-	header := []string{"Pos", "Team", "Played", "Won", "Draw", "Lost", "+", "-", "GD", "Points"}
-	_, rows := buildLeagueTableRows(response, "")
-	writer.NewTable(header, message, rows).Render()
-}
-
-// buildLeagueTableRows builds the rows for the league table and returns the index where
-// the team is located. If you don't want to highlight a team, pass in an empty string ""
-// and index returned will be -1.
-func buildLeagueTableRows(response *api.ApiLeagueResponse, teamName string) (int, [][]string) {
+// buildLeagueTableRows builds the rows for the league table and returns the rows and an
+// updated table instance with the index where the team is located. If you don't want to
+// highlight a team, pass in an empty string "" and index returned will set as -1.
+func (t *table) buildLeagueTableRows(response *api.ApiLeagueResponse, teamName string) *table {
 	teamIndex := -1
 	var data [][]string
 	for i, v := range response.Body.Standings[0].Table {
@@ -118,5 +104,7 @@ func buildLeagueTableRows(response *api.ApiLeagueResponse, teamName string) (int
 				fmt.Sprint(v.Points),
 			})
 	}
-	return teamIndex, data
+	t.rows = data
+	t.teamIndex = teamIndex
+	return t
 }

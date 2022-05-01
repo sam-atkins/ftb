@@ -28,7 +28,8 @@ ftb status -t LIV
 			fmt.Println("")
 			reporter.MatchesCLI("", team, false)
 			fmt.Println("")
-			reporter.GetTableForTeam(team)
+			// reporter.GetTableForTeam(team)
+			reporter.TeamTableCLI(team)
 			return
 		}
 		config.CodeNotFound()

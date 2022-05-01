@@ -2,7 +2,7 @@ package api
 
 import "time"
 
-type apiLeagueResponse struct {
+type ApiLeagueResponse struct {
 	StatusCode int
 	Body       leagueResponse
 }

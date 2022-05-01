@@ -47,8 +47,7 @@ func handleResultsByLeague(league string) {
 func handleResultsByTeam(team string, matchLimit bool) {
 	r := newResultsTeam(team, matchLimit)
 	r.getResultsByTeam()
-	w := writer.NewTable(r.header, r.message, r.rows)
-	w.Render()
+	writer.NewTable(r.header, r.message, r.rows).Render()
 }
 
 // ResultsByLeague wrapper on the Results struct for league results

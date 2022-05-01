@@ -169,7 +169,7 @@ func Test_client_GetTable_200(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, string(loadTestJson("../test_files/standings-BL1.json")))
 	})
-	wantRes := &apiLeagueResponse{
+	wantRes := &ApiLeagueResponse{
 		StatusCode: http.StatusOK,
 		Body: leagueResponse{
 			Standings: []standings{

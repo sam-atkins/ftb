@@ -11,7 +11,9 @@ import (
 
 // ScorersCLI is the entrypoint for the reporter to get top scorers for a league
 func ScorersCLI(league string) {
-	handleScorers(league)
+	s := newScorers(league)
+	s.getScorersByLeague()
+	writer.NewTable(s.header, s.message, s.rows).Render()
 }
 
 type scorers struct {
@@ -28,12 +30,6 @@ func newScorers(league string) *scorers {
 	}
 }
 
-func handleScorers(league string) {
-	s := newScorers(league)
-	s.getScorersByLeague()
-	writer.NewTable(s.header, s.message, s.rows).Render()
-}
-
 func (s *scorers) getScorersByLeague() *scorers {
 	s.endpoint = scorersURL(s.league)
 	response, err := fetchScorers(s.endpoint)
@@ -43,7 +39,20 @@ func (s *scorers) getScorersByLeague() *scorers {
 	}
 	s.message = fmt.Sprintf("Top Scorers in the %v\n", response.Body.Competition.Name)
 	s.header = []string{"Name", "Team", "Goals"}
-	s.rows = buildScorersByLeagueRows(response)
+	s.buildScorersByLeagueRows(response)
+	return s
+}
+
+func (s *scorers) buildScorersByLeagueRows(response *api.ApiScorersResponse) *scorers {
+	var rows [][]string
+	for _, v := range response.Body.Scorers {
+		rows = append(rows, []string{
+			v.Player.Name,
+			v.Team.Name,
+			fmt.Sprint(v.NumberOfGoals),
+		})
+	}
+	s.rows = rows
 	return s
 }
 
@@ -54,16 +63,4 @@ func fetchScorers(endpoint string) (*api.ApiScorersResponse, error) {
 		return nil, responseErr
 	}
 	return response, nil
-}
-
-func buildScorersByLeagueRows(response *api.ApiScorersResponse) [][]string {
-	var rows [][]string
-	for _, v := range response.Body.Scorers {
-		rows = append(rows, []string{
-			v.Player.Name,
-			v.Team.Name,
-			fmt.Sprint(v.NumberOfGoals),
-		})
-	}
-	return rows
 }

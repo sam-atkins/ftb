@@ -98,15 +98,18 @@ func GetTeamCodesForWriter() [][]string {
 	return teamCodes
 }
 
-type teamInfoConfig struct {
+// TeamInfoConfig holds the team information
+type TeamInfoConfig struct {
 	LeagueCode string
 	TeamName   string
 	TeamId     string
 }
 
-func NewTeamConfig(userTeamCode string) *teamInfoConfig {
-	cfg := &teamInfoConfig{
-		TeamName: userTeamCode,
+// NewTeamConfig returns a new TeamInfoConfig, populated based on the input of the arg
+// teamCode
+func NewTeamConfig(teamCode string) *TeamInfoConfig {
+	cfg := &TeamInfoConfig{
+		TeamName: teamCode,
 	}
 	teamCfg, err := readTeamsCodesFromConfig()
 	if err != nil {
@@ -115,7 +118,7 @@ func NewTeamConfig(userTeamCode string) *teamInfoConfig {
 
 	var teamCountry string
 	for _, v := range teamCfg {
-		if v.Tla == strings.ToUpper(userTeamCode) {
+		if v.Tla == strings.ToUpper(teamCode) {
 			cfg.TeamName = v.Name
 			cfg.TeamId = strconv.Itoa(v.ID)
 			teamCountry = v.Area.Name
@@ -131,35 +134,6 @@ func NewTeamConfig(userTeamCode string) *teamInfoConfig {
 		CodeNotFound()
 	}
 	return cfg
-}
-
-// GetTeamInfoFromUserTeamCode verifies the arg userTeamcode and then provides the team's
-// league code, team name and ID
-// TODO refactor this fn
-func GetTeamInfoFromUserTeamCode(userTeamCode string) (leagueCode string, teamName string, teamId string) {
-	teamCfg, err := readTeamsCodesFromConfig()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var teamCountry string
-	for _, v := range teamCfg {
-		if v.Tla == strings.ToUpper(userTeamCode) {
-			teamName = v.Name
-			teamId = strconv.Itoa(v.ID)
-			teamCountry = v.Area.Name
-		}
-		for _, v := range LeagueConfig {
-			if teamCountry == v.Country {
-				leagueCode = v.LeagueCode
-			}
-		}
-	}
-
-	if leagueCode == "" && teamName == "" {
-		CodeNotFound()
-	}
-	return leagueCode, teamName, teamId
 }
 
 // CodeNotFound used when the user enters an unknown flag code. It prints the available

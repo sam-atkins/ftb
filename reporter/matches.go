@@ -106,7 +106,7 @@ func handleMatchesByTeam(team string, matchLimit bool) {
 }
 
 func (m *matches) getMatchesByTeam() *matches {
-	m.endpoint = newTeafmURL().teamMatches(m.teamId, m.matchLimit, false)
+	m.endpoint = newTeamURL().teamMatches(m.teamId, m.matchLimit, false)
 	m.header = []string{"Date", "Competition", "Home", "Away"}
 	response, err := fetchMatchesByTeam(m.endpoint)
 	if err != nil {

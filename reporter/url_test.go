@@ -43,8 +43,9 @@ func Test_teamURL_teamFinishedMatches(t *testing.T) {
 		now time.Time
 	}
 	type args struct {
-		teamId     string
-		matchLimit bool
+		teamId        string
+		matchLimit    bool
+		matchComplete bool
 	}
 	tests := []struct {
 		name   string
@@ -53,16 +54,22 @@ func Test_teamURL_teamFinishedMatches(t *testing.T) {
 		want   string
 	}{
 		{
-			name:   "Build team finished matches URL with time limit",
+			name:   "Build URL for team finished matches with time limit",
 			fields: fields{now: time.Date(2021, time.November, 1, 23, 0, 0, 0, time.UTC)},
-			args:   args{teamId: "FCB", matchLimit: true},
+			args:   args{teamId: "FCB", matchLimit: true, matchComplete: true},
 			want:   "teams/FCB/matches?status=FINISHED&dateFrom=2021-10-04&dateTo=2021-11-29",
 		},
 		{
-			name:   "Build team finished matches URL with time limit",
+			name:   "Build URL for team finished matches without time limit",
 			fields: fields{now: time.Date(2021, time.November, 1, 23, 0, 0, 0, time.UTC)},
-			args:   args{teamId: "FCB", matchLimit: false},
+			args:   args{teamId: "FCB", matchLimit: false, matchComplete: true},
 			want:   "teams/FCB/matches?status=FINISHED",
+		},
+		{
+			name:   "Build URL for team scheduled matches URL without time limit",
+			fields: fields{now: time.Date(2021, time.November, 1, 23, 0, 0, 0, time.UTC)},
+			args:   args{teamId: "FCB", matchLimit: false, matchComplete: false},
+			want:   "teams/FCB/matches?status=SCHEDULED",
 		},
 	}
 	for _, tt := range tests {
@@ -70,8 +77,8 @@ func Test_teamURL_teamFinishedMatches(t *testing.T) {
 			tr := &teamURL{
 				now: tt.fields.now,
 			}
-			if got := tr.teamFinishedMatches(tt.args.teamId, tt.args.matchLimit); got != tt.want {
-				t.Errorf("teamURL.teamFinishedMatches() got = %v, want %v", got, tt.want)
+			if got := tr.teamMatches(tt.args.teamId, tt.args.matchLimit, tt.args.matchComplete); got != tt.want {
+				t.Errorf("teamURL.teamMatches() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

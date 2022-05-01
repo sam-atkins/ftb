@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var teamStatus string
+
 // statusCmd represents the status command
 var statusCmd = &cobra.Command{
 	Use:   "status",
@@ -24,7 +26,7 @@ ftb status -t LIV
 		if team != "" {
 			reporter.ResultsCLI("", team, true)
 			fmt.Println("")
-			reporter.MatchesByTeam(team, true)
+			reporter.MatchesCLI(league, team, false)
 			fmt.Println("")
 			reporter.GetTableForTeam(team)
 			return
@@ -35,5 +37,5 @@ ftb status -t LIV
 
 func init() {
 	rootCmd.AddCommand(statusCmd)
-	statusCmd.Flags().StringP("team", "t", "", "The team to show results for e.g. FCB, LIV")
+	statusCmd.Flags().StringVarP(&teamStatus, "team", "t", "", "The team to show results for e.g. FCB, LIV")
 }

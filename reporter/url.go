@@ -3,8 +3,6 @@ package reporter
 import (
 	"fmt"
 	"time"
-
-	"github.com/sam-atkins/ftb/config"
 )
 
 const (
@@ -15,11 +13,6 @@ const (
 func buildLeagueURL(league string) string {
 	return fmt.Sprintf("competitions/%s/matches", league)
 }
-
-// func buildLeagueURL(league string) string {
-// 	return fmt.Sprintf("competitions/%s/matches", league)
-// }
-// endpoint := fmt.Sprintf("competitions/%s/matches", league)
 
 type teamURL struct {
 	now time.Time
@@ -41,8 +34,8 @@ func (t *teamURL) teamFinishedMatches(teamId string, matchLimit bool) string {
 	return fmt.Sprintf("teams/%s/matches?status=FINISHED", teamId)
 }
 
-func (t *teamURL) teamScheduledMatches(teamCode string, matchLimit bool) string {
-	_, _, teamId := config.GetTeamInfoFromUserTeamCode(teamCode)
+// TODO: merge with teamFinishedMatches, rename fn, add bool if FINISHED or SCHEDULED
+func (t *teamURL) teamScheduledMatches(teamId string, matchLimit bool) string {
 	if matchLimit {
 		dateFrom := t.now.AddDate(0, 0, daysAgo).Format("2006-01-02")
 		dateTo := t.now.AddDate(0, 0, daysAhead).Format("2006-01-02")

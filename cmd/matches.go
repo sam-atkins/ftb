@@ -32,22 +32,7 @@ ftb results -t liv
 			}
 			os.Exit(1)
 		}
-		if league != "" {
-			reporter.MatchesCLI(league, team, false)
-			return
-		}
-
-		if team != "" {
-			reporter.MatchesByTeam(team, false)
-			return
-		}
-
-		fmt.Print("No flag provided. Check the below help menu for options.\n\n")
-		helpErr := cmd.Help()
-		if helpErr != nil {
-			os.Exit(1)
-		}
-		os.Exit(1)
+		reporter.MatchesCLI(league, team, false)
 	},
 }
 

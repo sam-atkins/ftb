@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	"github.com/sam-atkins/ftb/api"
 	"github.com/sam-atkins/ftb/config"
@@ -97,30 +96,33 @@ func buildRowsForCurrentMatchDayFixtures(response *api.ApiMatchesResponse) [][]s
 	return rows
 }
 
-func handleMatchesByTeam(team string, matchLimit bool) {}
+func handleMatchesByTeam(team string, matchLimit bool) {
+	m := matchesTeam(team, matchLimit)
+	m.getMatchesByTeam()
+	writer.NewTable(m.header, m.message, m.rows).Render()
+}
 
-// MatchesByTeam fetches matches for a team and prints to stdout. Arg matchLimit limits
-// the results to the next three weeks
-func MatchesByTeam(teamCode string, matchLimit bool) {
-	_, teamName, teamId := config.GetTeamInfoFromUserTeamCode(teamCode)
-	endpoint := fmt.Sprintf("teams/%s/matches?status=SCHEDULED", teamId)
-	client := api.NewClient()
-	if matchLimit {
-		now := time.Now()
-		dateFrom := now.AddDate(0, 0, daysAgo).Format("2006-01-02")
-		dateTo := now.AddDate(0, 0, daysAhead).Format("2006-01-02")
-		endpoint = fmt.Sprintf("teams/%s/matches?status=SCHEDULED&dateFrom=%s&dateTo=%s", teamId, dateFrom, dateTo)
+func (m *matches) getMatchesByTeam() *matches {
+	_, m.teamName, m.teamId = config.GetTeamInfoFromUserTeamCode(m.teamCode)
+	m.endpoint = newTeamURL().teamScheduledMatches(m.teamId, m.matchLimit)
+	m.header = []string{"Date", "Competition", "Home", "Away"}
+	response, err := fetchMatchesByTeam(m.endpoint)
+	if err != nil {
+		log.Printf("Something went wrong with the request: %s\n", err)
+		os.Exit(1)
 	}
+	m.message = fmt.Sprintf("Matches for %s\n", m.teamName)
+	m.rows = buildRowsForTeamFixtures(response)
+	return m
+}
 
+func fetchMatchesByTeam(endpoint string) (*api.ApiMatchesResponse, error) {
+	client := api.NewClient()
 	response, responseErr := client.GetMatches(endpoint)
 	if responseErr != nil {
-		log.Printf("Something went wrong with the request: %s\n", responseErr)
-		return
+		return nil, responseErr
 	}
-	message := fmt.Sprintf("Matches for %s\n", teamName)
-	header := []string{"Date", "Competition", "Home", "Away"}
-	rows := buildRowsForTeamFixtures(response)
-	writer.NewTable(header, message, rows).Render()
+	return response, nil
 }
 
 func buildRowsForTeamFixtures(response *api.ApiMatchesResponse) [][]string {

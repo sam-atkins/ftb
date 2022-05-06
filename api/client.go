@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/sam-atkins/httpc"
 	"github.com/spf13/viper"
 )
 
@@ -130,16 +131,8 @@ func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {
 
 // doRequest is a helper function which makes a HTTP request
 func (c client) doRequest(endpoint string) (*http.Response, error) {
-	req, err := http.NewRequest(http.MethodGet, c.baseURL+endpoint, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", "application/json;charset=UTF-8")
-	req.Header.Set("X-Auth-Token", c.token)
-
-	var client http.Client
-	response, respErr := client.Do(req)
+	headers := map[string]string{"X-Auth-Token": c.token}
+	response, respErr := httpc.Get(c.baseURL + endpoint).AddHeaders(headers).Do()
 	if respErr != nil {
 		return nil, respErr
 	}

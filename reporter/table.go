@@ -62,7 +62,7 @@ func (t *table) getTable() *table {
 		log.Printf("Something went wrong with the request: %s\n", err)
 		os.Exit(1)
 	}
-	t.message = fmt.Sprintf("League table: %v\n", response.Body.Competition.Name)
+	t.message = fmt.Sprintf("League table: %v\n", response.Competition.Name)
 	if t.tableForTeam {
 		t.buildLeagueTableRows(response, t.teamName)
 	} else {
@@ -71,7 +71,7 @@ func (t *table) getTable() *table {
 	return t
 }
 
-func fetchTable(endpoint string) (*api.ApiLeagueResponse, error) {
+func fetchTable(endpoint string) (*api.LeagueResponse, error) {
 	client := api.NewClient()
 	response, err := client.GetTable(endpoint)
 	if err != nil {
@@ -83,10 +83,10 @@ func fetchTable(endpoint string) (*api.ApiLeagueResponse, error) {
 // buildLeagueTableRows builds the rows for the league table and returns the rows and an
 // updated table instance with the index where the team is located. If you don't want to
 // highlight a team, pass in an empty string "" and index returned will set as -1.
-func (t *table) buildLeagueTableRows(response *api.ApiLeagueResponse, teamName string) *table {
+func (t *table) buildLeagueTableRows(response *api.LeagueResponse, teamName string) *table {
 	teamIndex := -1
 	var data [][]string
-	for i, v := range response.Body.Standings[0].Table {
+	for i, v := range response.Standings[0].Table {
 		if v.Team.Name == teamName {
 			teamIndex = i
 		}

@@ -4,7 +4,7 @@ import "time"
 
 type ApiLeagueResponse struct {
 	StatusCode int
-	Body       leagueResponse
+	Body       LeagueResponse
 }
 
 type ApiMatchesResponse struct {
@@ -22,7 +22,7 @@ type apiTeamsResponse struct {
 	Body       teamsResponse
 }
 
-type leagueResponse struct {
+type LeagueResponse struct {
 	Filters struct {
 	} `json:"filters"`
 	Competition struct {

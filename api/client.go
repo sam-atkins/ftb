@@ -19,7 +19,7 @@ type clientAPI interface {
 	// GetScorers returns the tops scorers in a league
 	GetScorers(endpoint string) (*ApiScorersResponse, error)
 	// GetTable returns the league table
-	GetTable(endpoint string) (*ApiLeagueResponse, error)
+	GetTable(endpoint string) (*LeagueResponse, error)
 	// GetTeams returns all teams in a competition
 	GetTeams(endpoint string) (*apiTeamsResponse, error)
 }
@@ -87,24 +87,14 @@ func (c client) GetScorers(endpoint string) (*ApiScorersResponse, error) {
 	return clientResponse, nil
 }
 
-func (c client) GetTable(endpoint string) (*ApiLeagueResponse, error) {
-	response, responseErr := c.doRequest(endpoint)
-	if responseErr != nil {
-		return nil, responseErr
+func (c client) GetTable(endpoint string) (*LeagueResponse, error) {
+	headers := map[string]string{"X-Auth-Token": c.token}
+	var leagueRes LeagueResponse
+	err := httpc.Get(c.baseURL + endpoint).AddHeaders(headers).Load(&leagueRes)
+	if err != nil {
+		return nil, err
 	}
-	defer response.Body.Close()
-	var decodedResponse leagueResponse
-	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
-	if decodeErr != nil {
-		return nil, decodeErr
-	}
-
-	clientResponse := &ApiLeagueResponse{
-		StatusCode: response.StatusCode,
-		Body:       decodedResponse,
-	}
-
-	return clientResponse, nil
+	return &leagueRes, nil
 }
 
 func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {

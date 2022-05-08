@@ -10,11 +10,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mitchellh/go-homedir"
 	"github.com/sam-atkins/ftb/writer"
 	"gopkg.in/yaml.v2"
 )
-
-var teamConfigFile = "teams.yaml"
 
 type leagueData struct {
 	LeagueCode string
@@ -146,13 +145,24 @@ func CodeNotFound() {
 }
 
 // GetTeamConfigPath returns the path to the teams.yml config file
-func GetTeamConfigPath() (string, error) {
-	filepathCfg, err := filepath.Abs(teamConfigFile)
+func GetTeamConfigPath() string {
+	teamConfigFile := ".config/ftb/teams.yaml"
+	testTeamConfigFile := "../testdata/teams.yaml"
+	testTeamConfigPath, _ := filepath.Abs(testTeamConfigFile)
+	stage, envVar := os.LookupEnv("STAGE")
+	home, err := homedir.Dir()
 	if err != nil {
-		fmt.Printf("Error getting absolute path for team config file: %v\n", err)
-		return "", err
+		fmt.Println(err)
+		os.Exit(1)
 	}
-	return filepathCfg, nil
+
+	if !envVar {
+		return filepath.Join(home, teamConfigFile)
+	} else if stage == "TEST" {
+		return testTeamConfigPath
+	} else {
+		return filepath.Join(home, teamConfigFile)
+	}
 }
 
 // ResetTeamConfigFile truncates the team config yaml file
@@ -168,10 +178,7 @@ func ResetTeamConfigFile(filename string) error {
 }
 
 func readTeamsCodesFromConfig() (teamConfig, error) {
-	cfgFile, cfgFileErr := GetTeamConfigPath()
-	if cfgFileErr != nil {
-		return nil, cfgFileErr
-	}
+	cfgFile := GetTeamConfigPath()
 	data, fileErr := ioutil.ReadFile(cfgFile)
 	if fileErr != nil {
 		return nil, fileErr

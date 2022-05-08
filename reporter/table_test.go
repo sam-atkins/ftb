@@ -40,11 +40,18 @@ func loadTestJson(path string) []byte {
 	return content
 }
 
+func unsetTestEnvVar() {
+	os.Unsetenv("STAGE")
+}
+
 func Test_table_getTable(t *testing.T) {
 	t.Parallel()
 
+	os.Setenv("STAGE", "TEST")
+	t.Cleanup(unsetTestEnvVar)
+
 	server, mux, teardown := testServerFixture(t)
-	defer teardown()
+	t.Cleanup(teardown)
 
 	endpoint := "/competitions/BL1/standings"
 	mux.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {

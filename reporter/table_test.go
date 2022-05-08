@@ -14,7 +14,8 @@ import (
 )
 
 // Test Fixtures
-func testServerFixture(t *testing.T) (*httptest.Server, *http.ServeMux, func()) {
+func testSetUp(t *testing.T) (*httptest.Server, *http.ServeMux, func()) {
+	os.Setenv("STAGE", "TEST")
 	viper.SetConfigName("test_config")
 	viper.AddConfigPath("../testdata/")
 	err := viper.ReadInConfig()
@@ -29,6 +30,7 @@ func testServerFixture(t *testing.T) (*httptest.Server, *http.ServeMux, func()) 
 	server := httptest.NewServer(mux)
 	return server, mux, func() {
 		server.Close()
+		os.Unsetenv("STAGE")
 	}
 }
 
@@ -40,17 +42,9 @@ func loadTestJson(path string) []byte {
 	return content
 }
 
-func unsetTestEnvVar() {
-	os.Unsetenv("STAGE")
-}
-
 func Test_table_getTable(t *testing.T) {
 	t.Parallel()
-
-	os.Setenv("STAGE", "TEST")
-	t.Cleanup(unsetTestEnvVar)
-
-	server, mux, teardown := testServerFixture(t)
+	server, mux, teardown := testSetUp(t)
 	t.Cleanup(teardown)
 
 	endpoint := "/competitions/BL1/standings"

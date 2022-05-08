@@ -19,14 +19,14 @@ func Test_buildLeagueURL(t *testing.T) {
 			args: args{
 				league: "BL1",
 			},
-			want: "competitions/BL1/matches",
+			want: "/competitions/BL1/matches",
 		},
 		{
 			name: "Build Premier League URL",
 			args: args{
 				league: "PL",
 			},
-			want: "competitions/PL/matches",
+			want: "/competitions/PL/matches",
 		},
 	}
 	for _, tt := range tests {
@@ -52,14 +52,14 @@ func Test_buildLeagueStandingsURL(t *testing.T) {
 			args: args{
 				leagueCode: "BL1",
 			},
-			want: "competitions/BL1/standings",
+			want: "/competitions/BL1/standings",
 		},
 		{
 			name: "Build Premier League league standings URL",
 			args: args{
 				leagueCode: "PL",
 			},
-			want: "competitions/PL/standings",
+			want: "/competitions/PL/standings",
 		},
 	}
 	for _, tt := range tests {
@@ -85,14 +85,14 @@ func Test_scorersURL(t *testing.T) {
 			args: args{
 				league: "BL1",
 			},
-			want: "competitions/BL1/scorers",
+			want: "/competitions/BL1/scorers",
 		},
 		{
 			name: "Build Premier League scorers URL",
 			args: args{
 				league: "PL",
 			},
-			want: "competitions/PL/scorers",
+			want: "/competitions/PL/scorers",
 		},
 	}
 	for _, tt := range tests {
@@ -123,19 +123,19 @@ func Test_teamURL_teamFinishedMatches(t *testing.T) {
 			name:   "Build URL for team finished matches with time limit",
 			fields: fields{now: time.Date(2021, time.November, 1, 23, 0, 0, 0, time.UTC)},
 			args:   args{teamId: "FCB", matchLimit: true, matchComplete: true},
-			want:   "teams/FCB/matches?status=FINISHED&dateFrom=2021-10-04&dateTo=2021-11-29",
+			want:   "/teams/FCB/matches?status=FINISHED&dateFrom=2021-10-04&dateTo=2021-11-29",
 		},
 		{
 			name:   "Build URL for team finished matches without time limit",
 			fields: fields{now: time.Date(2021, time.November, 1, 23, 0, 0, 0, time.UTC)},
 			args:   args{teamId: "FCB", matchLimit: false, matchComplete: true},
-			want:   "teams/FCB/matches?status=FINISHED",
+			want:   "/teams/FCB/matches?status=FINISHED",
 		},
 		{
 			name:   "Build URL for team scheduled matches URL without time limit",
 			fields: fields{now: time.Date(2021, time.November, 1, 23, 0, 0, 0, time.UTC)},
 			args:   args{teamId: "FCB", matchLimit: false, matchComplete: false},
-			want:   "teams/FCB/matches?status=SCHEDULED",
+			want:   "/teams/FCB/matches?status=SCHEDULED",
 		},
 	}
 	for _, tt := range tests {

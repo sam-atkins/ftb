@@ -11,15 +11,15 @@ const (
 )
 
 func buildLeagueURL(league string) string {
-	return fmt.Sprintf("competitions/%s/matches", league)
+	return fmt.Sprintf("/competitions/%s/matches", league)
 }
 
 func buildLeagueStandingsURL(leagueCode string) string {
-	return fmt.Sprintf("competitions/%s/standings", leagueCode)
+	return fmt.Sprintf("/competitions/%s/standings", leagueCode)
 }
 
 func scorersURL(league string) string {
-	return fmt.Sprintf("competitions/%s/scorers", league)
+	return fmt.Sprintf("/competitions/%s/scorers", league)
 }
 
 type teamURL struct {
@@ -42,7 +42,7 @@ func (t *teamURL) teamMatches(teamId string, matchLimit bool, matchComplete bool
 	if matchLimit {
 		dateFrom := t.now.AddDate(0, 0, daysAgo).Format("2006-01-02")
 		dateTo := t.now.AddDate(0, 0, daysAhead).Format("2006-01-02")
-		return fmt.Sprintf("teams/%s/matches?status=%s&dateFrom=%s&dateTo=%s", teamId, matchStatus, dateFrom, dateTo)
+		return fmt.Sprintf("/teams/%s/matches?status=%s&dateFrom=%s&dateTo=%s", teamId, matchStatus, dateFrom, dateTo)
 	}
-	return fmt.Sprintf("teams/%s/matches?status=%s", teamId, matchStatus)
+	return fmt.Sprintf("/teams/%s/matches?status=%s", teamId, matchStatus)
 }

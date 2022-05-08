@@ -13,7 +13,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-type clientAPI interface {
+// type ClientAPI interface {
+type ClientAPI interface {
 	// GetMatches returns the competition matches
 	GetMatches(endpoint string) (*ApiMatchesResponse, error)
 	// GetScorers returns the tops scorers in a league
@@ -30,13 +31,13 @@ type client struct {
 }
 
 // NewClient is a factory interface to the clientAPI
-func NewClient(url ...string) clientAPI {
+func NewClient(url ...string) ClientAPI {
 	token := viper.GetString("TOKEN")
 	if token == "" {
 		fmt.Print("API token missing from config")
 		os.Exit(1)
 	}
-	baseUrl := "https://api.football-data.org/v2/"
+	baseUrl := "https://api.football-data.org/v2"
 	if len(url) != 0 {
 		baseUrl = url[0]
 	}

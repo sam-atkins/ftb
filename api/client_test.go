@@ -14,7 +14,7 @@ import (
 
 // test fixtures
 
-func testClient(t *testing.T) (clientAPI, *http.ServeMux, func()) {
+func testClient(t *testing.T) (ClientAPI, *http.ServeMux, func()) {
 	viper.SetConfigName("test_config")
 	viper.AddConfigPath("../test_files/")
 	err := viper.ReadInConfig()

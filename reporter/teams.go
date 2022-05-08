@@ -28,7 +28,7 @@ func GetTeamsConfig(truncateConfigFile, debug bool) {
 }
 
 func writeTeamDataToConfigFile(league, configFilePath string, debug bool) {
-	endpoint := fmt.Sprintf("competitions/%s/teams", league)
+	endpoint := fmt.Sprintf("/competitions/%s/teams", league)
 	client := api.NewClient()
 	response, responseErr := client.GetTeams(endpoint)
 	if responseErr != nil {

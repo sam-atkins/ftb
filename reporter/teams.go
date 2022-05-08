@@ -16,7 +16,11 @@ import (
 // useful at the beginning of a new season to ensure the teams are accurate.
 // debug switches on additional logging to the console.
 func GetTeamsConfig(truncateConfigFile, debug bool) {
-	fileName := config.GetTeamConfigPath()
+	fileName, err := config.GetTeamConfigPath()
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
 	if truncateConfigFile {
 		config.ResetTeamConfigFile(fileName)
 	}

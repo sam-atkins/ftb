@@ -1,0 +1,928 @@
+- id: 1
+  area:
+    id: 2088
+    name: Germany
+  name: 1. FC Köln
+  shortname: 1. FC Köln
+  tla: KOE
+  cresturl: https://crests.football-data.org/1.png
+  address: Franz-Kremer-Allee 1 Köln 50937
+  phone: +49 (221) 71616300
+  website: http://www.fc-koeln.de
+  email: info@fc-koeln.de
+  founded: 1948
+  clubcolors: Red / White
+  venue: RheinEnergieSTADION
+  lastupdated: 2022-02-25T16:49:46Z
+- id: 2
+  area:
+    id: 2088
+    name: Germany
+  name: TSG 1899 Hoffenheim
+  shortname: Hoffenheim
+  tla: TSG
+  cresturl: https://crests.football-data.org/2.png
+  address: Horrenberger Straße 58 Zuzenhausen 74939
+  phone: +49 (07261) 94930
+  website: http://www.achtzehn99.de
+  email: info@achtzehn99.de
+  founded: 1921
+  clubcolors: Blue / White
+  venue: PreZero Arena
+  lastupdated: 2022-02-25T16:49:58Z
+- id: 3
+  area:
+    id: 2088
+    name: Germany
+  name: Bayer 04 Leverkusen
+  shortname: Leverkusen
+  tla: B04
+  cresturl: https://crests.football-data.org/3.png
+  address: Bismarckstr. 122-124 Leverkusen 51373
+  phone: +49 (01805) 040404
+  website: http://www.bayer04.de
+  email: stefan.kusche.sk@bayer04.de
+  founded: 1904
+  clubcolors: Red / White / Black
+  venue: BayArena
+  lastupdated: 2022-02-25T16:43:07Z
+- id: 4
+  area:
+    id: 2088
+    name: Germany
+  name: Borussia Dortmund
+  shortname: Dortmund
+  tla: BVB
+  cresturl: https://crests.football-data.org/4.png
+  address: Rheinlanddamm 207-209 Dortmund 44137
+  phone: +49 (231) 90200
+  website: http://www.bvb.de
+  email: info@bvb.de
+  founded: 1909
+  clubcolors: Black / Yellow
+  venue: Signal Iduna Park
+  lastupdated: 2022-02-25T16:50:16Z
+- id: 5
+  area:
+    id: 2088
+    name: Germany
+  name: FC Bayern München
+  shortname: Bayern
+  tla: FCB
+  cresturl: https://crests.football-data.org/5.svg
+  address: Säbenerstr. 51 München 81547
+  phone: +49 (089) 699310
+  website: http://www.fcbayern.de
+  email: service-team@fcb.de
+  founded: 1900
+  clubcolors: Red / White / Blue
+  venue: Allianz Arena
+  lastupdated: 2021-12-16T18:52:55Z
+- id: 9
+  area:
+    id: 2088
+    name: Germany
+  name: Hertha BSC
+  shortname: Hertha BSC
+  tla: BSC
+  cresturl: https://crests.football-data.org/9.svg
+  address: Hanns-Braun-Straße, Friesenhaus II Berlin 14053
+  phone: +49 (030) 3009280
+  website: http://www.herthabsc.de
+  email: info@herthabsc.de
+  founded: 1892
+  clubcolors: Blue / White
+  venue: Olympiastadion Berlin
+  lastupdated: 2021-04-07T17:14:52Z
+- id: 10
+  area:
+    id: 2088
+    name: Germany
+  name: VfB Stuttgart
+  shortname: Stuttgart
+  tla: VFB
+  cresturl: https://crests.football-data.org/10.svg
+  address: Mercedesstraße 109 Stuttgart 70372
+  phone: +49 (1805) 832 5463
+  website: http://www.vfb.de
+  email: info@vfb-stuttgart.de
+  founded: 1893
+  clubcolors: White / Red
+  venue: Mercedes-Benz Arena
+  lastupdated: 2021-04-07T17:14:54Z
+- id: 11
+  area:
+    id: 2088
+    name: Germany
+  name: VfL Wolfsburg
+  shortname: Wolfsburg
+  tla: WOB
+  cresturl: https://crests.football-data.org/11.svg
+  address: In den Allerwiesen 1 Wolfsburg 38446
+  phone: +49 (05361) 89030
+  website: http://www.vfl-wolfsburg.de
+  email: fussball@vfl-wolfsburg.de
+  founded: 1945
+  clubcolors: Green / White
+  venue: Volkswagen Arena
+  lastupdated: 2021-04-10T15:53:44Z
+- id: 15
+  area:
+    id: 2088
+    name: Germany
+  name: 1. FSV Mainz 05
+  shortname: Mainz
+  tla: M05
+  cresturl: https://crests.football-data.org/15.svg
+  address: Dr.-Martin-Luther-King-Weg 20 Mainz 55122
+  phone: +49 (06131) 375500
+  website: http://www.mainz05.de
+  email: info@mainz05.de
+  founded: 1905
+  clubcolors: Red / White
+  venue: Opel Arena
+  lastupdated: 2021-04-13T21:47:10Z
+- id: 16
+  area:
+    id: 2088
+    name: Germany
+  name: FC Augsburg
+  shortname: Augsburg
+  tla: FCA
+  cresturl: https://crests.football-data.org/16.svg
+  address: Donauwörther Straße 170 Augsburg 86154
+  phone: +49 (0821) 4554770
+  website: http://www.fcaugsburg.de
+  email: info@fcaugsburg.de
+  founded: 1907
+  clubcolors: Red / Green / White
+  venue: WWK Arena
+  lastupdated: 2020-11-26T02:04:27Z
+- id: 17
+  area:
+    id: 2088
+    name: Germany
+  name: SC Freiburg
+  shortname: Freiburg
+  tla: SCF
+  cresturl: https://crests.football-data.org/17.svg
+  address: Schwarzwaldstraße 193 Freiburg 79117
+  phone: +49 (0761) 385510
+  website: http://www.scfreiburg.com
+  email: scf@scfreiburg.com
+  founded: 1912
+  clubcolors: Red / White
+  venue: Schwarzwald-Stadion
+  lastupdated: 2020-11-26T02:04:28Z
+- id: 18
+  area:
+    id: 2088
+    name: Germany
+  name: Borussia Mönchengladbach
+  shortname: M'gladbach
+  tla: BMG
+  cresturl: https://crests.football-data.org/18.svg
+  address: Hennes-Weisweiler-Allee 1 Mönchengladbach 41179
+  phone: +49 (02161) 92930
+  website: http://www.borussia.de
+  email: info@borussia.de
+  founded: 1900
+  clubcolors: Black / White / Green
+  venue: Stadion im Borussia-Park
+  lastupdated: 2020-11-26T02:04:29Z
+- id: 19
+  area:
+    id: 2088
+    name: Germany
+  name: Eintracht Frankfurt
+  shortname: Frankfurt
+  tla: SGE
+  cresturl: https://crests.football-data.org/19.svg
+  address: Mörfelder Landstraße 362 Frankfurt am Main 60528
+  phone: +49 (0180) 5060303
+  website: http://www.eintracht.de
+  email: info@eintracht-frankfurt.de
+  founded: 1899
+  clubcolors: Red / Black
+  venue: Deutsche Bank Park
+  lastupdated: 2020-11-26T02:04:32Z
+- id: 21
+  area:
+    id: 2088
+    name: Germany
+  name: SpVgg Greuther Fürth 1903
+  shortname: Greuther Fürth
+  tla: FUR
+  cresturl: https://crests.football-data.org/21.svg
+  address: Laubenweg 60 Fürth 90765
+  phone: +49 (0911) 9767680
+  website: http://www.greuther-fuerth.de
+  email: info@greuther-fuerth.de
+  founded: 1860
+  clubcolors: White / Green
+  venue: Sportpark Ronhof Thomas Sommer
+  lastupdated: 2021-04-09T02:23:01Z
+- id: 28
+  area:
+    id: 2088
+    name: Germany
+  name: 1. FC Union Berlin
+  shortname: Union Berlin
+  tla: UNB
+  cresturl: https://crests.football-data.org/28.svg
+  address: An der Wuhlheide 263 Berlin 12555
+  phone: +49 (030) 6566880
+  website: http://www.fc-union-berlin.de
+  email: verein@fc-union-berlin.de
+  founded: 1906
+  clubcolors: Red / White
+  venue: Stadion An der Alten Försterei
+  lastupdated: 2020-11-26T02:04:33Z
+- id: 36
+  area:
+    id: 2088
+    name: Germany
+  name: VfL Bochum 1848
+  shortname: Bochum
+  tla: BOC
+  cresturl: https://crests.football-data.org/36.png
+  address: Castroper Straße 145 Bochum 44791
+  phone: +49 (0234) 951848
+  website: http://www.vfl-bochum.de
+  email: info@vfl-bochum.de
+  founded: 1849
+  clubcolors: Blue / White
+  venue: Vonovia Ruhrstadion
+  lastupdated: 2022-02-19T08:39:46Z
+- id: 38
+  area:
+    id: 2088
+    name: Germany
+  name: Arminia Bielefeld
+  shortname: Bielefeld
+  tla: BIE
+  cresturl: https://crests.football-data.org/38.svg
+  address: Melanchthonstraße 31a Bielefeld 33615
+  phone: +49 (0521) 966110
+  website: http://www.arminia-bielefeld.de
+  email: kontakt@arminia-bielefeld.de
+  founded: 1905
+  clubcolors: Black / White / Blue
+  venue: SchücoArena Kunstrasenplatz
+  lastupdated: 2021-02-15T17:32:29Z
+- id: 721
+  area:
+    id: 2088
+    name: Germany
+  name: RB Leipzig
+  shortname: RB Leipzig
+  tla: RBL
+  cresturl: https://crests.football-data.org/721.png
+  address: Neumarkt 29-33 Leipzig 04109
+  phone: +49 (0341) 1247970
+  website: http://www.dierotenbullen.com
+  email: soccerrbl.office@redbulls.com
+  founded: 2009
+  clubcolors: White / Red
+  venue: Red Bull Arena
+  lastupdated: 2022-02-19T09:03:00Z
+- id: 57
+  area:
+    id: 2072
+    name: England
+  name: Arsenal FC
+  shortname: Arsenal
+  tla: ARS
+  cresturl: https://crests.football-data.org/57.png
+  address: 75 Drayton Park London N5 1BU
+  phone: +44 (020) 76195003
+  website: http://www.arsenal.com
+  email: info@arsenal.co.uk
+  founded: 1886
+  clubcolors: Red / White
+  venue: Emirates Stadium
+  lastupdated: 2022-02-10T19:48:56Z
+- id: 58
+  area:
+    id: 2072
+    name: England
+  name: Aston Villa FC
+  shortname: Aston Villa
+  tla: AST
+  cresturl: https://crests.football-data.org/58.svg
+  address: Villa Park Birmingham B6 6HE
+  phone: +44 (0121) 3272299
+  website: http://www.avfc.co.uk
+  email: ""
+  founded: 1872
+  clubcolors: Claret / Sky Blue
+  venue: Villa Park
+  lastupdated: 2021-03-03T09:46:16Z
+- id: 61
+  area:
+    id: 2072
+    name: England
+  name: Chelsea FC
+  shortname: Chelsea
+  tla: CHE
+  cresturl: https://crests.football-data.org/61.png
+  address: Fulham Road London SW6 1HS
+  phone: +44 (0871) 9841955
+  website: http://www.chelseafc.com
+  email: ""
+  founded: 1905
+  clubcolors: Royal Blue / White
+  venue: Stamford Bridge
+  lastupdated: 2022-02-10T19:24:40Z
+- id: 62
+  area:
+    id: 2072
+    name: England
+  name: Everton FC
+  shortname: Everton
+  tla: EVE
+  cresturl: https://crests.football-data.org/62.png
+  address: Goodison Park Liverpool L4 4EL
+  phone: +44 (0871) 6631878
+  website: http://www.evertonfc.com
+  email: everton@evertonfc.com
+  founded: 1878
+  clubcolors: Blue / White
+  venue: Goodison Park
+  lastupdated: 2022-02-10T19:47:42Z
+- id: 64
+  area:
+    id: 2072
+    name: England
+  name: Liverpool FC
+  shortname: Liverpool
+  tla: LIV
+  cresturl: https://crests.football-data.org/64.png
+  address: Anfield Road Liverpool L4 0TH
+  phone: +44 (0844) 4993000
+  website: http://www.liverpoolfc.tv
+  email: customercontact@liverpoolfc.tv
+  founded: 1892
+  clubcolors: Red / White
+  venue: Anfield
+  lastupdated: 2022-02-10T19:30:22Z
+- id: 65
+  area:
+    id: 2072
+    name: England
+  name: Manchester City FC
+  shortname: Man City
+  tla: MCI
+  cresturl: https://crests.football-data.org/65.png
+  address: SportCity Manchester M11 3FF
+  phone: +44 (0870) 0621894
+  website: https://www.mancity.com
+  email: mancity@mancity.com
+  founded: 1880
+  clubcolors: Sky Blue / White
+  venue: Etihad Stadium
+  lastupdated: 2022-02-10T19:48:37Z
+- id: 66
+  area:
+    id: 2072
+    name: England
+  name: Manchester United FC
+  shortname: Man United
+  tla: MUN
+  cresturl: https://crests.football-data.org/66.png
+  address: Sir Matt Busby Way Manchester M16 0RA
+  phone: +44 (0161) 8688000
+  website: http://www.manutd.com
+  email: enquiries@manutd.co.uk
+  founded: 1878
+  clubcolors: Red / White
+  venue: Old Trafford
+  lastupdated: 2022-02-10T19:27:46Z
+- id: 67
+  area:
+    id: 2072
+    name: England
+  name: Newcastle United FC
+  shortname: Newcastle
+  tla: NEW
+  cresturl: https://crests.football-data.org/67.png
+  address: Sports Direct Arena Newcastle upon Tyne NE1 4ST
+  phone: ""
+  website: http://www.nufc.co.uk
+  email: admin@nufc.co.uk
+  founded: 1881
+  clubcolors: Black / White
+  venue: St. James' Park
+  lastupdated: 2022-02-10T19:22:56Z
+- id: 68
+  area:
+    id: 2072
+    name: England
+  name: Norwich City FC
+  shortname: Norwich
+  tla: NOR
+  cresturl: https://upload.wikimedia.org/wikipedia/en/8/8c/Norwich_City.svg
+  address: Carrow Road Norwich NR1 1JE
+  phone: ""
+  website: http://www.canaries.co.uk
+  email: reception@ncfc-canaries.co.uk
+  founded: 1902
+  clubcolors: Yellow / Green
+  venue: Carrow Road
+  lastupdated: 2021-04-20T18:23:20Z
+- id: 73
+  area:
+    id: 2072
+    name: England
+  name: Tottenham Hotspur FC
+  shortname: Tottenham
+  tla: TOT
+  cresturl: https://crests.football-data.org/73.svg
+  address: Bill Nicholson Way, 748 High Road London N17 0AP
+  phone: +44 (0844) 4995000
+  website: http://www.tottenhamhotspur.com
+  email: customer.care@tottenhamhotspur.com
+  founded: 1882
+  clubcolors: Navy Blue / White
+  venue: Tottenham Hotspur Stadium
+  lastupdated: 2020-11-20T07:12:32Z
+- id: 76
+  area:
+    id: 2072
+    name: England
+  name: Wolverhampton Wanderers FC
+  shortname: Wolverhampton
+  tla: WOL
+  cresturl: https://crests.football-data.org/76.svg
+  address: Waterloo Road Wolverhampton WV1 4QR
+  phone: +44 (0871) 2222220
+  website: http://www.wolves.co.uk
+  email: info@wolves.co.uk
+  founded: 1877
+  clubcolors: Black / Gold
+  venue: Molineux Stadium
+  lastupdated: 2021-04-09T02:25:24Z
+- id: 328
+  area:
+    id: 2072
+    name: England
+  name: Burnley FC
+  shortname: Burnley
+  tla: BUR
+  cresturl: https://crests.football-data.org/328.png
+  address: Harry Potts Way Burnley BB10 4BX
+  phone: +44 (0871) 2211882
+  website: http://www.burnleyfootballclub.com
+  email: info@burnleyfc.com
+  founded: 1881
+  clubcolors: Claret / Sky Blue
+  venue: Turf Moor
+  lastupdated: 2022-02-10T19:24:11Z
+- id: 338
+  area:
+    id: 2072
+    name: England
+  name: Leicester City FC
+  shortname: Leicester City
+  tla: LEI
+  cresturl: https://crests.football-data.org/338.png
+  address: The Walkers Stadium, Filbert Way Leicester LE2 7FL
+  phone: +44 (0844) 8156000
+  website: http://www.lcfc.com
+  email: ""
+  founded: 1884
+  clubcolors: Royal Blue / White
+  venue: King Power Stadium
+  lastupdated: 2022-02-10T19:48:23Z
+- id: 340
+  area:
+    id: 2072
+    name: England
+  name: Southampton FC
+  shortname: Southampton
+  tla: SOU
+  cresturl: https://crests.football-data.org/340.png
+  address: Britannia Road Southampton SO14 5FP
+  phone: ""
+  website: http://www.saintsfc.co.uk
+  email: sfc@saintsfc.co.uk
+  founded: 1885
+  clubcolors: Red / White / Black
+  venue: St. Mary's Stadium
+  lastupdated: 2022-02-10T19:48:04Z
+- id: 341
+  area:
+    id: 2072
+    name: England
+  name: Leeds United FC
+  shortname: Leeds United
+  tla: LEE
+  cresturl: https://crests.football-data.org/341.png
+  address: Elland Road Leeds LS11 0ES
+  phone: +44 (0871) 3341919
+  website: http://www.leedsunited.com
+  email: reception@leedsunited.com
+  founded: 1904
+  clubcolors: White / Blue
+  venue: Elland Road
+  lastupdated: 2022-02-10T19:27:14Z
+- id: 346
+  area:
+    id: 2072
+    name: England
+  name: Watford FC
+  shortname: Watford
+  tla: WAT
+  cresturl: https://crests.football-data.org/346.svg
+  address: Vicarage Road Watford WD18 0ER
+  phone: ""
+  website: http://www.watfordfc.com
+  email: yourvoice@watfordfc.com
+  founded: 1881
+  clubcolors: Yellow / Black
+  venue: Vicarage Road Stadium
+  lastupdated: 2020-11-26T02:16:48Z
+- id: 354
+  area:
+    id: 2072
+    name: England
+  name: Crystal Palace FC
+  shortname: Crystal Palace
+  tla: CRY
+  cresturl: https://crests.football-data.org/354.png
+  address: Whitehorse Lane London SE25 6PU
+  phone: +44 (020) 87686000
+  website: http://www.cpfc.co.uk
+  email: info@cpfc.co.uk
+  founded: 1905
+  clubcolors: Red / Blue
+  venue: Selhurst Park
+  lastupdated: 2022-02-10T19:22:36Z
+- id: 397
+  area:
+    id: 2072
+    name: England
+  name: Brighton & Hove Albion FC
+  shortname: Brighton Hove
+  tla: BHA
+  cresturl: https://crests.football-data.org/397.svg
+  address: 44 North Road Brighton & Hove BN1 1YR
+  phone: +44 (01273) 878288
+  website: http://www.seagulls.co.uk
+  email: seagulls@bhafc.co.uk
+  founded: 1898
+  clubcolors: Blue / White
+  venue: The American Express Community Stadium
+  lastupdated: 2021-04-12T13:10:44Z
+- id: 402
+  area:
+    id: 2072
+    name: England
+  name: Brentford FC
+  shortname: Brentford
+  tla: BRF
+  cresturl: https://crests.football-data.org/402.png
+  address: Braemar Road Brentford TW8 0NT
+  phone: ""
+  website: http://www.brentfordfc.co.uk
+  email: enquiries@brentfordfc.co.uk
+  founded: 1889
+  clubcolors: Red / White / Black
+  venue: Griffin Park
+  lastupdated: 2022-02-10T19:22:16Z
+- id: 563
+  area:
+    id: 2072
+    name: England
+  name: West Ham United FC
+  shortname: West Ham
+  tla: WHU
+  cresturl: https://crests.football-data.org/563.png
+  address: Queen Elizabeth Olympic Park, London London E20 2ST
+  phone: +44 (020) 85482794
+  website: http://www.whufc.com
+  email: yourcomments@westhamunited.co.uk
+  founded: 1895
+  clubcolors: Claret / Sky Blue
+  venue: London Stadium
+  lastupdated: 2022-02-19T08:09:25Z
+- id: 77
+  area:
+    id: 2224
+    name: Spain
+  name: Athletic Club
+  shortname: Athletic
+  tla: ATH
+  cresturl: https://crests.football-data.org/77.png
+  address: Ibaigane, Alameda Mazarredo, 23 Bilbao 48009
+  phone: +34 (944) 240877
+  website: http://www.athletic-club.eus
+  email: prensa@athletic-club.net
+  founded: 1898
+  clubcolors: Red / White / Black
+  venue: San Mamés
+  lastupdated: 2022-03-06T09:31:27Z
+- id: 78
+  area:
+    id: 2224
+    name: Spain
+  name: Club Atlético de Madrid
+  shortname: Atleti
+  tla: ATL
+  cresturl: https://crests.football-data.org/78.svg
+  address: Paseo Virgen del Puerto, 67 Madrid 28005
+  phone: +34 (913) 669048
+  website: http://www.clubatleticodemadrid.com
+  email: comunicacion@clubatleticodemadrid.com
+  founded: 1903
+  clubcolors: Red / White / Blue
+  venue: Estadio Wanda Metropolitano
+  lastupdated: 2022-02-19T08:20:10Z
+- id: 79
+  area:
+    id: 2224
+    name: Spain
+  name: CA Osasuna
+  shortname: Osasuna
+  tla: OSA
+  cresturl: https://crests.football-data.org/79.svg
+  address: Calle del Sadar, s/n Pamplona 31006
+  phone: +34 (948) 152636
+  website: http://www.osasuna.es
+  email: osasuna@osasuna.es
+  founded: 1920
+  clubcolors: Red / Navy Blue
+  venue: Estadio El Sadar
+  lastupdated: 2021-02-08T10:09:19Z
+- id: 80
+  area:
+    id: 2224
+    name: Spain
+  name: RCD Espanyol de Barcelona
+  shortname: Espanyol
+  tla: ESP
+  cresturl: https://crests.football-data.org/80.svg
+  address: Avenida Baix Llobregat, 100 Cornellà de Llobregat 08940
+  phone: +34 (932) 927700
+  website: http://www.rcdespanyol.com
+  email: info@rcdespanyol
+  founded: 1900
+  clubcolors: Blue / White
+  venue: RCDE Stadium
+  lastupdated: 2022-02-11T14:13:16Z
+- id: 81
+  area:
+    id: 2224
+    name: Spain
+  name: FC Barcelona
+  shortname: Barça
+  tla: BAR
+  cresturl: https://crests.football-data.org/81.svg
+  address: Avenida Arístides Maillol s/n Barcelona 08028
+  phone: +34 (902) 189900
+  website: http://www.fcbarcelona.com
+  email: secretaria@fcbarcelona.com
+  founded: 1899
+  clubcolors: Red / Navy Blue / Orange
+  venue: Camp Nou
+  lastupdated: 2021-09-16T20:17:51Z
+- id: 82
+  area:
+    id: 2224
+    name: Spain
+  name: Getafe CF
+  shortname: Getafe
+  tla: GET
+  cresturl: https://crests.football-data.org/82.png
+  address: Avenida Teresa de Calcuta, s/n Getafe 28903
+  phone: +34 (916) 959643
+  website: http://www.getafecf.com
+  email: fsantos@getafecf.com
+  founded: 1946
+  clubcolors: Blue / White
+  venue: Coliseum Alfonso Pérez
+  lastupdated: 2022-02-25T16:43:35Z
+- id: 83
+  area:
+    id: 2224
+    name: Spain
+  name: Granada CF
+  shortname: Granada
+  tla: GRA
+  cresturl: https://crests.football-data.org/83.svg
+  address: Calle del Pintor Manuel Maldonado, s/n Granada 18007
+  phone: +34 (958) 253300
+  website: http://www.granadacf.es
+  email: secretaria@granadacf.es
+  founded: 1931
+  clubcolors: Red / White
+  venue: Estadio Nuevo Los Cármenes
+  lastupdated: 2021-04-08T22:39:25Z
+- id: 86
+  area:
+    id: 2224
+    name: Spain
+  name: Real Madrid CF
+  shortname: Real Madrid
+  tla: RMA
+  cresturl: https://crests.football-data.org/86.png
+  address: Avenida Concha Espina, 1 Madrid 28036
+  phone: +34 (913) 984300
+  website: http://www.realmadrid.com
+  email: atencionpublico@corp.realmadrid.com
+  founded: 1902
+  clubcolors: White / Purple
+  venue: Estadio Santiago Bernabéu
+  lastupdated: 2022-02-19T08:59:31Z
+- id: 87
+  area:
+    id: 2224
+    name: Spain
+  name: Rayo Vallecano de Madrid
+  shortname: Rayo Vallecano
+  tla: RAY
+  cresturl: https://crests.football-data.org/87.svg
+  address: Calle del Payaso Fofó, s/n Madrid 28018
+  phone: +34 (914) 782253
+  website: http://www.rayovallecano.es
+  email: info@rayovallecano.es
+  founded: 1924
+  clubcolors: White / Red
+  venue: Estadio del Rayo Vallecano
+  lastupdated: 2021-04-14T07:46:05Z
+- id: 88
+  area:
+    id: 2224
+    name: Spain
+  name: Levante UD
+  shortname: Levante
+  tla: LEV
+  cresturl: https://crests.football-data.org/88.svg
+  address: Calle San Vicente de Paúl, 44 Valencia 46019
+  phone: +34 (902) 220304
+  website: http://www.levanteud.com
+  email: admon@levanteud.es
+  founded: 1909
+  clubcolors: Crimson / Blue
+  venue: Estadio Ciudad de Valencia
+  lastupdated: 2021-02-08T10:09:38Z
+- id: 89
+  area:
+    id: 2224
+    name: Spain
+  name: RCD Mallorca
+  shortname: Mallorca
+  tla: MAL
+  cresturl: https://crests.football-data.org/89.png
+  address: Son Moix, Calle Camí dels Reis, s/n Palma de Mallorca 07011
+  phone: +34 (971) 221221
+  website: http://www.rcdmallorca.es
+  email: prensa@rcdmallorca.es
+  founded: 1916
+  clubcolors: Red / Black
+  venue: Iberostar Estadi
+  lastupdated: 2022-02-19T08:44:00Z
+- id: 90
+  area:
+    id: 2224
+    name: Spain
+  name: Real Betis Balompié
+  shortname: Real Betis
+  tla: BET
+  cresturl: https://crests.football-data.org/90.svg
+  address: Avenida de Heliópolis, s/n Sevilla 41012
+  phone: +34 (902) 191907
+  website: http://www.realbetisbalompie.es
+  email: info@realbetisbalompie.es
+  founded: 1907
+  clubcolors: Green / White
+  venue: Estadio Benito Villamarín
+  lastupdated: 2021-02-08T10:09:42Z
+- id: 92
+  area:
+    id: 2224
+    name: Spain
+  name: Real Sociedad de Fútbol
+  shortname: Real Sociedad
+  tla: RSO
+  cresturl: https://crests.football-data.org/92.svg
+  address: Anoeta Pasalekua, 1 San Sebastián 20014
+  phone: +34 (943) 462833
+  website: http://www.realsociedad.com
+  email: realsoc@realsociedad.com
+  founded: 1903
+  clubcolors: Blue / White
+  venue: Estadio Municipal de Anoeta
+  lastupdated: 2021-02-08T10:15:46Z
+- id: 94
+  area:
+    id: 2224
+    name: Spain
+  name: Villarreal CF
+  shortname: Villarreal
+  tla: VIL
+  cresturl: https://crests.football-data.org/94.png
+  address: Camino Miralcamp, s/n Villarreal 12540
+  phone: +34 (964) 500250
+  website: http://www.villarrealcf.es
+  email: villarrealcf@villarrealcf.es
+  founded: 1923
+  clubcolors: Yellow / Blue
+  venue: Estadio de la Cerámica
+  lastupdated: 2022-02-22T18:26:04Z
+- id: 95
+  area:
+    id: 2224
+    name: Spain
+  name: Valencia CF
+  shortname: Valencia
+  tla: VAL
+  cresturl: https://crests.football-data.org/95.svg
+  address: Plaza del Valencia Club de Fútbol, 2 Valencia 46010
+  phone: +34 (902) 011919
+  website: http://www.valenciacf.com
+  email: informacion@valenciacf.es
+  founded: 1919
+  clubcolors: White / Orange / Black
+  venue: Estadio de Mestalla
+  lastupdated: 2021-04-11T18:19:52Z
+- id: 263
+  area:
+    id: 2224
+    name: Spain
+  name: Deportivo Alavés
+  shortname: Alavés
+  tla: ALA
+  cresturl: https://crests.football-data.org/263.png
+  address: Mendizorroza, Paseo Cervantes, s/n Vitoria 01007
+  phone: +34 (945) 131018
+  website: http://www.alaves.com
+  email: deportivoalavessad@alaves.com
+  founded: 1921
+  clubcolors: Blue / White
+  venue: Estadio de Mendizorroza
+  lastupdated: 2022-02-19T08:23:45Z
+- id: 264
+  area:
+    id: 2224
+    name: Spain
+  name: Cádiz CF
+  shortname: Cádiz CF
+  tla: CAD
+  cresturl: https://crests.football-data.org/264.png
+  address: Plaza de Madrid, s/n Cádiz 11010
+  phone: +34 (956) 070165
+  website: http://www.cadizcf.com
+  email: infocadizcf@cadizcf.es
+  founded: 1910
+  clubcolors: Yellow / Blue
+  venue: Estadio Ramón de Carranza
+  lastupdated: 2022-02-19T08:55:59Z
+- id: 285
+  area:
+    id: 2224
+    name: Spain
+  name: Elche CF
+  shortname: Elche
+  tla: ELC
+  cresturl: https://crests.football-data.org/285.png
+  address: Avenida Manuel Martínez Valero, 3 Elche 03208
+  phone: +34 (965) 459714
+  website: http://www.elchecf.es
+  email: info@elchecf.es
+  founded: 1923
+  clubcolors: White / Green
+  venue: Estadio Manuel Martínez Valero
+  lastupdated: 2022-02-24T07:42:28Z
+- id: 558
+  area:
+    id: 2224
+    name: Spain
+  name: RC Celta de Vigo
+  shortname: Celta
+  tla: CEL
+  cresturl: https://crests.football-data.org/558.svg
+  address: Calle del Conde de Gondomar, 1 Vigo 36203
+  phone: +34 (986) 110900
+  website: http://www.celtavigo.net
+  email: comunicacion@celtavigo.net
+  founded: 1923
+  clubcolors: Sky Blue / White
+  venue: Estadio de Balaídos
+  lastupdated: 2021-04-12T13:13:01Z
+- id: 559
+  area:
+    id: 2224
+    name: Spain
+  name: Sevilla FC
+  shortname: Sevilla FC
+  tla: SEV
+  cresturl: https://crests.football-data.org/559.svg
+  address: Calle Sevilla Fútbol Club, s/n Sevilla 41005
+  phone: +34 (902) 510011
+  website: http://www.sevillafc.es
+  email: sevillafc@sevillafc.es
+  founded: 1905
+  clubcolors: White / Red
+  venue: Estadio Ramón Sánchez Pizjuán
+  lastupdated: 2021-04-12T13:09:55Z

@@ -16,7 +16,7 @@ import (
 // Test Fixtures
 func testServerFixture(t *testing.T) (*httptest.Server, *http.ServeMux, func()) {
 	viper.SetConfigName("test_config")
-	viper.AddConfigPath("../test_files/")
+	viper.AddConfigPath("../testdata/")
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %w \n", err))

@@ -10,12 +10,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mitchellh/go-homedir"
 	"github.com/sam-atkins/ftb/writer"
 	"gopkg.in/yaml.v2"
 )
 
-var teamConfigFile = ".config/ftb/teams.yaml"
+var teamConfigFile = "teams.yaml"
 
 type leagueData struct {
 	LeagueCode string
@@ -147,14 +146,13 @@ func CodeNotFound() {
 }
 
 // GetTeamConfigPath returns the path to the teams.yml config file
-func GetTeamConfigPath() string {
-	// Find home directory.
-	home, err := homedir.Dir()
+func GetTeamConfigPath() (string, error) {
+	filepathCfg, err := filepath.Abs(teamConfigFile)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		fmt.Printf("Error getting absolute path for team config file: %v\n", err)
+		return "", err
 	}
-	return filepath.Join(home, teamConfigFile)
+	return filepathCfg, nil
 }
 
 // ResetTeamConfigFile truncates the team config yaml file
@@ -170,8 +168,11 @@ func ResetTeamConfigFile(filename string) error {
 }
 
 func readTeamsCodesFromConfig() (teamConfig, error) {
-	fileName := GetTeamConfigPath()
-	data, fileErr := ioutil.ReadFile(fileName)
+	cfgFile, cfgFileErr := GetTeamConfigPath()
+	if cfgFileErr != nil {
+		return nil, cfgFileErr
+	}
+	data, fileErr := ioutil.ReadFile(cfgFile)
 	if fileErr != nil {
 		return nil, fileErr
 	}

@@ -14,7 +14,7 @@ import (
 
 // test fixtures
 
-func testClient(t *testing.T) (clientAPI, *http.ServeMux, func()) {
+func testClient(t *testing.T) (ClientAPI, *http.ServeMux, func()) {
 	viper.SetConfigName("test_config")
 	viper.AddConfigPath("../test_files/")
 	err := viper.ReadInConfig()
@@ -169,40 +169,31 @@ func Test_client_GetTable_200(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, string(loadTestJson("../test_files/standings-BL1.json")))
 	})
-	wantRes := &ApiLeagueResponse{
-		StatusCode: http.StatusOK,
-		Body: leagueResponse{
-			Standings: []standings{
-				{
-					Stage: "REGULAR_SEASON",
-					Table: []table{
-						{
-							Position: 1,
-							Team:     team{ID: 5, Name: "FC Bayern München"},
-						},
+	wantRes := &LeagueResponse{
+		Standings: []standings{
+			{
+				Stage: "REGULAR_SEASON",
+				Table: []table{
+					{
+						Position: 1,
+						Team:     team{ID: 5, Name: "FC Bayern München"},
 					},
 				},
 			},
 		},
 	}
-
 	got, _ := client.GetTable(endpoint)
-	if statusCode := got.StatusCode; statusCode != wantRes.StatusCode {
-		t.Errorf("client.GetTable() error = %v, wantErr %v", got.StatusCode, wantRes.StatusCode)
-		return
+	if stage := got.Standings[0].Stage; stage != wantRes.Standings[0].Stage {
+		t.Errorf("client.GetTable() stage = %v, want %v", got.Standings[0].Stage, wantRes.Standings[0].Stage)
 	}
-
-	if stage := got.Body.Standings[0].Stage; stage != wantRes.Body.Standings[0].Stage {
-		t.Errorf("client.GetTable() stage = %v, want %v", got.Body.Standings[0].Stage, wantRes.Body.Standings[0].Stage)
+	if position := got.Standings[0].Table[0].Position; position != wantRes.Standings[0].Table[0].Position {
+		t.Errorf("client.GetTable() position = %v, want %v", got.Standings[0].Table[0].Position, wantRes.Standings[0].Table[0].Position)
 	}
-	if position := got.Body.Standings[0].Table[0].Position; position != wantRes.Body.Standings[0].Table[0].Position {
-		t.Errorf("client.GetTable() position = %v, want %v", got.Body.Standings[0].Table[0].Position, wantRes.Body.Standings[0].Table[0].Position)
+	if teamId := got.Standings[0].Table[0].Team.ID; teamId != wantRes.Standings[0].Table[0].Team.ID {
+		t.Errorf("client.GetTable() teamId = %v, want %v", got.Standings[0].Table[0].Team.ID, wantRes.Standings[0].Table[0].Team.ID)
 	}
-	if teamId := got.Body.Standings[0].Table[0].Team.ID; teamId != wantRes.Body.Standings[0].Table[0].Team.ID {
-		t.Errorf("client.GetTable() teamId = %v, want %v", got.Body.Standings[0].Table[0].Team.ID, wantRes.Body.Standings[0].Table[0].Team.ID)
-	}
-	if teamName := got.Body.Standings[0].Table[0].Team.Name; teamName != wantRes.Body.Standings[0].Table[0].Team.Name {
-		t.Errorf("client.GetTable() teamName = %v, want %v", got.Body.Standings[0].Table[0].Team.Name, wantRes.Body.Standings[0].Table[0].Team.Name)
+	if teamName := got.Standings[0].Table[0].Team.Name; teamName != wantRes.Standings[0].Table[0].Team.Name {
+		t.Errorf("client.GetTable() teamName = %v, want %v", got.Standings[0].Table[0].Team.Name, wantRes.Standings[0].Table[0].Team.Name)
 	}
 }
 

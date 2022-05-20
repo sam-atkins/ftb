@@ -9,16 +9,18 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/sam-atkins/httpc"
 	"github.com/spf13/viper"
 )
 
-type clientAPI interface {
+// type ClientAPI interface {
+type ClientAPI interface {
 	// GetMatches returns the competition matches
 	GetMatches(endpoint string) (*ApiMatchesResponse, error)
 	// GetScorers returns the tops scorers in a league
 	GetScorers(endpoint string) (*ApiScorersResponse, error)
 	// GetTable returns the league table
-	GetTable(endpoint string) (*ApiLeagueResponse, error)
+	GetTable(endpoint string) (*LeagueResponse, error)
 	// GetTeams returns all teams in a competition
 	GetTeams(endpoint string) (*apiTeamsResponse, error)
 }
@@ -29,13 +31,13 @@ type client struct {
 }
 
 // NewClient is a factory interface to the clientAPI
-func NewClient(url ...string) clientAPI {
+func NewClient(url ...string) ClientAPI {
 	token := viper.GetString("TOKEN")
 	if token == "" {
 		fmt.Print("API token missing from config")
 		os.Exit(1)
 	}
-	baseUrl := "https://api.football-data.org/v2/"
+	baseUrl := "https://api.football-data.org/v2"
 	if len(url) != 0 {
 		baseUrl = url[0]
 	}
@@ -86,24 +88,14 @@ func (c client) GetScorers(endpoint string) (*ApiScorersResponse, error) {
 	return clientResponse, nil
 }
 
-func (c client) GetTable(endpoint string) (*ApiLeagueResponse, error) {
-	response, responseErr := c.doRequest(endpoint)
-	if responseErr != nil {
-		return nil, responseErr
+func (c client) GetTable(endpoint string) (*LeagueResponse, error) {
+	headers := map[string]string{"X-Auth-Token": c.token}
+	var leagueRes LeagueResponse
+	err := httpc.GetJson(c.baseURL + endpoint).AddHeaders(headers).Load(&leagueRes)
+	if err != nil {
+		return nil, err
 	}
-	defer response.Body.Close()
-	var decodedResponse leagueResponse
-	decodeErr := json.NewDecoder(response.Body).Decode(&decodedResponse)
-	if decodeErr != nil {
-		return nil, decodeErr
-	}
-
-	clientResponse := &ApiLeagueResponse{
-		StatusCode: response.StatusCode,
-		Body:       decodedResponse,
-	}
-
-	return clientResponse, nil
+	return &leagueRes, nil
 }
 
 func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {
@@ -130,16 +122,8 @@ func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {
 
 // doRequest is a helper function which makes a HTTP request
 func (c client) doRequest(endpoint string) (*http.Response, error) {
-	req, err := http.NewRequest(http.MethodGet, c.baseURL+endpoint, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", "application/json;charset=UTF-8")
-	req.Header.Set("X-Auth-Token", c.token)
-
-	var client http.Client
-	response, respErr := client.Do(req)
+	headers := map[string]string{"X-Auth-Token": c.token}
+	response, respErr := httpc.GetJson(c.baseURL + endpoint).AddHeaders(headers).Do()
 	if respErr != nil {
 		return nil, respErr
 	}

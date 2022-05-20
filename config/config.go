@@ -15,8 +15,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var teamConfigFile = ".config/ftb/teams.yaml"
-
 type leagueData struct {
 	LeagueCode string
 	LeagueName string
@@ -148,13 +146,22 @@ func CodeNotFound() {
 
 // GetTeamConfigPath returns the path to the teams.yml config file
 func GetTeamConfigPath() string {
-	// Find home directory.
+	teamConfigFile := ".config/ftb/teams.yaml"
+	testTeamConfigFile := "../testdata/teams.yaml"
+	testTeamConfigPath, _ := filepath.Abs(testTeamConfigFile)
 	home, err := homedir.Dir()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	return filepath.Join(home, teamConfigFile)
+	stage, envVar := os.LookupEnv("STAGE")
+	if !envVar {
+		return filepath.Join(home, teamConfigFile)
+	} else if stage == "TEST" {
+		return testTeamConfigPath
+	} else {
+		return filepath.Join(home, teamConfigFile)
+	}
 }
 
 // ResetTeamConfigFile truncates the team config yaml file
@@ -170,8 +177,8 @@ func ResetTeamConfigFile(filename string) error {
 }
 
 func readTeamsCodesFromConfig() (teamConfig, error) {
-	fileName := GetTeamConfigPath()
-	data, fileErr := ioutil.ReadFile(fileName)
+	cfgFile := GetTeamConfigPath()
+	data, fileErr := ioutil.ReadFile(cfgFile)
 	if fileErr != nil {
 		return nil, fileErr
 	}

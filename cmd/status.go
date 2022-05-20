@@ -23,15 +23,15 @@ ftb status -t fcb
 ftb status -t LIV
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if teamStatus != "" {
-			reporter.ResultsCLI("", teamStatus, true)
-			fmt.Println("")
-			reporter.MatchesCLI("", teamStatus, false)
-			fmt.Println("")
-			reporter.TeamTableCLI(teamStatus)
-			os.Exit(0)
+		if teamStatus == "" {
+			config.CodeNotFound()
 		}
-		config.CodeNotFound()
+		reporter.ResultsCLI("", teamStatus, true)
+		fmt.Println("")
+		reporter.MatchesCLI("", teamStatus, false)
+		fmt.Println("")
+		reporter.TeamTableCLI(teamStatus)
+		os.Exit(0)
 	},
 }
 

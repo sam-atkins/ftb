@@ -149,13 +149,12 @@ func GetTeamConfigPath() string {
 	teamConfigFile := ".config/ftb/teams.yaml"
 	testTeamConfigFile := "../testdata/teams.yaml"
 	testTeamConfigPath, _ := filepath.Abs(testTeamConfigFile)
-	stage, envVar := os.LookupEnv("STAGE")
 	home, err := homedir.Dir()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
+	stage, envVar := os.LookupEnv("STAGE")
 	if !envVar {
 		return filepath.Join(home, teamConfigFile)
 	} else if stage == "TEST" {

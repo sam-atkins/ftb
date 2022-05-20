@@ -25,7 +25,6 @@ func MatchesCLI(league, team string, matchLimit bool) {
 }
 
 type matches struct {
-	// client *api.Client ?
 	endpoint   string
 	header     []string
 	league     string

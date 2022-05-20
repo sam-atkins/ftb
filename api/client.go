@@ -91,7 +91,7 @@ func (c client) GetScorers(endpoint string) (*ApiScorersResponse, error) {
 func (c client) GetTable(endpoint string) (*LeagueResponse, error) {
 	headers := map[string]string{"X-Auth-Token": c.token}
 	var leagueRes LeagueResponse
-	err := httpc.Get(c.baseURL + endpoint).AddHeaders(headers).Load(&leagueRes)
+	err := httpc.GetJson(c.baseURL + endpoint).AddHeaders(headers).Load(&leagueRes)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func (c client) GetTeams(endpoint string) (*apiTeamsResponse, error) {
 // doRequest is a helper function which makes a HTTP request
 func (c client) doRequest(endpoint string) (*http.Response, error) {
 	headers := map[string]string{"X-Auth-Token": c.token}
-	response, respErr := httpc.Get(c.baseURL + endpoint).AddHeaders(headers).Do()
+	response, respErr := httpc.GetJson(c.baseURL + endpoint).AddHeaders(headers).Do()
 	if respErr != nil {
 		return nil, respErr
 	}

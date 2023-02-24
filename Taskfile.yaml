@@ -8,7 +8,7 @@ tasks:
       - task: cov
 
   tidy:
-    cmds:g
+    cmds:
      - go mod tidy
      - go mod vendor
 

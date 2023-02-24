@@ -1,0 +1,26 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: install
+      - task: cov
+
+  tidy:
+    cmds:g
+     - go mod tidy
+     - go mod vendor
+
+  install:
+    cmds:
+      - task: tidy
+      - go install
+
+  test:
+    cmds:
+     - go test ./...
+
+  cov:
+    cmds:
+     - go test ./... --cover

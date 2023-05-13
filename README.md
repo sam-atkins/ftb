@@ -15,7 +15,7 @@ mkdir -p $HOME/.config/ftb && echo "TOKEN: REPLACE_WITH_YOUR_API_TOKEN" > $HOME/
 Run the install command.
 
 ```bash
-make install
+task install
 ```
 
 Confirm the binary is installed and check the help menu for available commands.

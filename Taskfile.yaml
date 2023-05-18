@@ -17,10 +17,18 @@ tasks:
       - task: tidy
       - go install
 
+  ci-test:
+    cmds:
+      - go run ci/main.go
+
+  ci-cov:
+    cmds:
+      - go run ci/main.go --cover
+
   test:
     cmds:
-     - go test ./...
+      - go test ./...
 
   cov:
     cmds:
-     - go test ./... --cover
+      - go test ./... --cover

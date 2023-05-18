@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"dagger.io/dagger"
 )
@@ -27,43 +26,26 @@ func main() {
 func RunTests() {
 	ctx := context.Background()
 
-	// initialize Dagger client
 	client, err := dagger.Connect(ctx, dagger.WithLogOutput(os.Stdout))
 	if err != nil {
 		panic(err)
 	}
 	defer client.Close()
 
-	// create a cache volume
 	goCache := client.CacheVolume("go")
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		panic(err)
-	}
-	cacheDir := filepath.Join(homeDir, "go/pkg/mod")
-
-	// use a golang container
-	// mount the source code directory on the host
-	// at /src in the container
 	source := client.Container().
 		From(GoImageVersion).
 		WithDirectory("/src", client.Host().
 			Directory("."), dagger.ContainerWithDirectoryOpts{
 			Exclude: []string{"vendor/"},
 		}).
-		WithMountedCache(cacheDir, goCache)
+		WithMountedCache("/go", goCache)
 
-	// set the working directory in the container
-	runner := source.WithWorkdir("/src")
-
-	// run application tests
-	var testCmd []string
+	testCmd := []string{"go", "test", "./..."}
 	if cover {
-		testCmd = []string{"go", "test", "./...", "--cover"}
-	} else {
-		testCmd = []string{"go", "test", "./..."}
+		testCmd = append(testCmd, "--cover")
 	}
-	out, err := runner.WithExec(testCmd).Stdout(ctx)
+	out, err := source.WithWorkdir("/src").WithExec(testCmd).Stdout(ctx)
 	if err != nil {
 		panic(err)
 	}
